@@ -1,4 +1,3 @@
-package horsetail.server;
 /*
  * Name : RecvThread.java
  * Author : 이준형
@@ -36,6 +35,8 @@ package horsetail.server;
  * else if(line[0].compareTo(Protocol.SENDMESSAGE) == 0)
  * 을 검색해서 찾아서 보면 된다. (160번째 줄 부근)
  */
+
+package horsetail.server;
 
 import java.io.*;
 import java.net.*;

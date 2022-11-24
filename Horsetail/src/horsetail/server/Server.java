@@ -1,9 +1,10 @@
-package horsetail.server;
 /*
  * Name : Server.java
  * Author : 이준형
  * Description : 서버를 실행하는 메인 클래스
  */
+
+package horsetail.server;
 
 import java.io.*;
 import java.net.*;

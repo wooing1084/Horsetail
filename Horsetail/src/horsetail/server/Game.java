@@ -1,9 +1,10 @@
-package horsetail.server;
 /*
  * Name : Game.java
  * Author : 이준형
  * Description : 서버 레벨에서 게임을 관리하는 클래스
  */
+
+package horsetail.server;
 
 import java.util.*;
 

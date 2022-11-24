@@ -1,9 +1,10 @@
-package horsetail.server;
 /*
  * Name : GameTimer.java
  * Author : 이준형
  * Description : 사용하지 않는 더미, 일단 서버단에서 구현해보려고 했으나 클라이언트에 넣는게 더 좋아보임
  */
+
+package horsetail.server;
 
 import java.util.Timer;
 import java.util.TimerTask;

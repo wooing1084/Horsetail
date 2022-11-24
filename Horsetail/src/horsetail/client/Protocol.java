@@ -4,7 +4,7 @@
  * Description : 서버와 클라이언트의 통신에 사용하는 프로토콜을 정의하는 클래스
  */
 
-package horsetail.server;
+package horsetail.client;
 
 public class Protocol {
 	public static final String REGISTER = "100"; // 회원가입

@@ -1,9 +1,10 @@
-package horsetail.server;
 /*
  * Name : User.java
  * Author : 이준형
  * Description : 유저의 개별 정보를 저장하는 클래스
  */
+
+package horsetail.server;
 
 public class User {
 	
