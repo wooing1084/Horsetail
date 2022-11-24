@@ -1,3 +1,4 @@
+package horsetail.server;
 /*
  * Name : GameTimer.java
  * Author : 이준형

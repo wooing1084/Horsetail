@@ -1,3 +1,4 @@
+package horsetail.server;
 /*
  * Name : Protocol.java
  * Author : 이준형

@@ -1,3 +1,4 @@
+package horsetail.server;
 /*
  * Name : Game.java
  * Author : 이준형
@@ -80,5 +81,6 @@ public class Game {
 	public void resetGame()
 	{
 		words.clear();
+		deadUsers.clear();
 	}
 }

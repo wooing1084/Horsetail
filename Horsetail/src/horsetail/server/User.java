@@ -1,3 +1,4 @@
+package horsetail.server;
 /*
  * Name : User.java
  * Author : 이준형
