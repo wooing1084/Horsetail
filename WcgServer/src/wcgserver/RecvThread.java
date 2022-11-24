@@ -150,7 +150,7 @@ class RecvThread extends Thread {
 						out.flush();
 					}
 					
-					if(game.isNotChain(line[1])) {
+					else if(game.isNotChain(line[1])) {
 						out.println(Protocol.WORDNOTCHAIN + "//" + "MSG");
 						out.flush();
 					}
