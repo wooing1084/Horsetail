@@ -13,22 +13,22 @@ public class TestClient {
 
     static String roomID;
 
-
-    public static void main(String[] args){
+    public TestClient(){
         Socket socket = null;
-
 
         try {
             socket = new Socket();
             socket.connect(new InetSocketAddress(IP, PORT));
 
-            InputStreamReader inputStream = new InputStreamReader(socket.getInputStream());
+
             OutputStreamWriter outputStream = new OutputStreamWriter(socket.getOutputStream());
 
-            BufferedReader reader = new BufferedReader(inputStream);
+
             PrintWriter writer = new PrintWriter(outputStream);
 
             Scanner scanner = new Scanner(System.in);
+            Thread reader = new ClientReader(socket,this);
+            reader.start();
 
             while(true){
                 System.out.println("Enter a request:");
@@ -36,16 +36,6 @@ public class TestClient {
 
                 writer.println(req);
                 writer.flush();
-
-                String res = reader.readLine();
-                System.out.println(res);
-
-                String[] ress = res.split("/");
-
-                if(ress[0].compareTo("151") == 0 || ress[0].compareTo("161") == 0) {
-                    roomID = ress[1];
-                }
-
             }
 
 
@@ -53,6 +43,10 @@ public class TestClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public static void main(String[] args){
+        TestClient t = new TestClient();
     }
 }
+
