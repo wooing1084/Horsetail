@@ -33,8 +33,17 @@ public class RoomManager {
         System.out.println("Room Deleted!");
     }
 
-    public static void JoinRoom(String roomID, RecvThread user){
-        GetRoomList().get(GetRoomIdx(roomID)).EnterRoom(user);
+    //-1 : cannot found
+    //0: full
+    //1: success
+    public static int JoinRoom(String roomID, RecvThread user){
+        GameRoom gr = GetRoomList().get(GetRoomIdx(roomID));
+        if(gr == null)
+            return -1;
+
+        int r = gr.EnterRoom(user);
+
+        return r;
     }
 
     public static List<GameRoom> GetRoomList(){

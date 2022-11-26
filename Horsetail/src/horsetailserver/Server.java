@@ -19,11 +19,15 @@ public class Server {
 	//로그인 유저 정보를 위한 리스트
 	private static ArrayList<User> loginedUsers;
 
-	public static void RemoveUser(RecvThread user){
+	public static int RemoveUser(RecvThread user){
 
-		user.Close();
+		int r = user.Close();
+		if (r == 0)
+			return r;
 		loginedUsers.remove((user.GetUser()));
 		connectionList.remove(user);
+
+		return r;
 	}
 
 	public static void AddUser(User user){

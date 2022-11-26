@@ -25,8 +25,12 @@ public class GameRoom {
 		_userList.add(owner);
 	}
 
-	public void EnterRoom(RecvThread user){
+	//0: full
+	//1: success
+	public int EnterRoom(RecvThread user){
 		_userList.add(user);
+
+		return 1;
 	}
 
 	public void ExitRoom(RecvThread user){

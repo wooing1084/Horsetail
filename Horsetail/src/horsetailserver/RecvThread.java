@@ -42,6 +42,8 @@ import Util.Protocol;
 
 import java.io.*;
 import java.net.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 class RecvThread extends Thread {
 	private Socket _socket;
@@ -80,7 +82,9 @@ class RecvThread extends Thread {
 		writer.flush();
 	}
 
-	public void Close(){
+	//0 : fail
+	//1 : success
+	public int Close(){
 		try {
 			RoomManager.GetRoomList().get(nowRoomIndex).EnterRoom(this);
 			inputStream.close();
@@ -88,7 +92,11 @@ class RecvThread extends Thread {
 			_socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+
+			return 0;
 		}
+
+		return 1;
 
 	}
 
@@ -148,6 +156,25 @@ class RecvThread extends Thread {
 				SendMessage(Protocol.RESIGSTER_NO);
 
 		}
+		//ID중복 요청
+		if(reqs[0].compareTo(Protocol.IDVALIDCHECK) == 0){
+			String q1 = "select id from user where id = \"" + reqs[1] + "\";";
+			ResultSet rs = SQLMethods.ExecuteQuery(q1);
+
+			try {
+				if(rs.next())
+				{
+					if(rs.getString(1).compareTo("") == 0)
+						SendMessage(Protocol.IDVALIDCHECK_OK);
+					else
+						SendMessage(Protocol.IDVALIDCHECK_NO);
+				}
+				else
+					SendMessage(Protocol.IDVALIDCHECK_OK);
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		//로그인
 		else if(reqs[0].compareTo(Protocol.LOGIN) == 0){
 			String[] args = reqs[1].split("%");
@@ -163,20 +190,44 @@ class RecvThread extends Thread {
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
 			GameRoom gr = RoomManager.CreateRoom(this);
+
+			if(gr == null){
+				SendMessage(Protocol.ROOMCREATE_NO);
+			}
 			SendMessage(Protocol.ROOMCREATE_OK + "/" + gr.GetRoomID());
 		}
 
 		//방 참가
 		else if(reqs[0].compareTo(Protocol.JOINROOM) == 0){
-			RoomManager.JoinRoom(reqs[1], this);
-			SendMessage(Protocol.JOINROOM_OK + "/" + reqs[1]);
+			int r = RoomManager.JoinRoom(reqs[1], this);
+
+			if(r == -1)
+				SendMessage(Protocol.ROOMFULL);
+			else if(r == 0)
+				SendMessage(Protocol.JOINROOM_NO);
+			else
+				SendMessage(Protocol.JOINROOM_OK + "/" + reqs[1]);
 		}
+
+		//게임시작 구현
+
+
+		//--------
 
 		//메세지 보내기
 		else if(reqs[0].compareTo(Protocol.SENDMESSAGE) == 0){
 			int idx = RoomManager.GetRoomIdx(reqs[1]);
 
 			RoomManager.GetRoomList().get(idx).BroadCast(reqs[2]);
+		}
+
+		else if(reqs[0].compareTo(Protocol.EXITPROGRAM) == 0){
+			int r =Server.RemoveUser(this);
+
+			if(r == 1)
+				SendMessage(Protocol.EXITPROGRAM_OK);
+			else
+				SendMessage(Protocol.EXITPROGRAM_NO);
 		}
 		else{
 			SendMessage(Protocol.INVALIDTAG);
