@@ -1,13 +1,11 @@
-/*
- * Name : Protocol.java
+package Util;/*
+ * Name : Util.Protocol.java
  * Author : 이준형
  * Description : 서버와 클라이언트의 통신에 사용하는 프로토콜을 정의하는 클래스
  */
 
-package horsetailserver;
-
 public class Protocol {
-	//[Protocol]
+	//[Util.Protocol]
 	//tag/messages (%로 구분)
 	//일반적으로 ACK과 NACK의 경우 tag만 전송
 	//태그 위에 메세지 양식 없는경우 태그만 전송한다.

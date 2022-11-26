@@ -43,6 +43,7 @@ public class Server {
 
 	public Server() {
 		RoomManager.Init();
+		SQLMethods.Init();
 		
 		try {
 			welSoc = new ServerSocket(37101);
