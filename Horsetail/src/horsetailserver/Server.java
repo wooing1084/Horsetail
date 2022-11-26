@@ -14,14 +14,39 @@ public class Server {
 	
 	private ServerSocket welSoc = null;
 	
-	private ArrayList<RecvThread> allUserList;
-	
+	private static ArrayList<RecvThread> allUserList;
+
+	public static void RemoveUser(RecvThread user){
+		user.Close();
+		allUserList.remove(user);
+	}
+
+	private String getServerIp() {
+
+		InetAddress local = null;
+		try {
+			local = InetAddress.getLocalHost();
+		}
+		catch ( UnknownHostException e ) {
+			e.printStackTrace();
+		}
+
+		if( local == null ) {
+			return "";
+		}
+		else {
+			String ip = local.getHostAddress();
+			return ip;
+		}
+
+	}
+
 	public Server() {
-		Game g = new Game();
+		RoomManager.Init();
 		
 		try {
 			welSoc = new ServerSocket(37101);
-			System.out.println("Server is online");
+			System.out.println("Server is online IP:" +getServerIp());
 			
 			allUserList = new ArrayList<RecvThread>();
 			
@@ -29,7 +54,7 @@ public class Server {
 			{
 				Socket conSoc = welSoc.accept();
 				
-				RecvThread thread = new RecvThread(conSoc, allUserList, g);
+				RecvThread thread = new RecvThread(conSoc);
 				thread.start();
 				allUserList.add(thread);
 			}

@@ -9,6 +9,7 @@ package horsetailserver;
 public class User {
 	
 	private String nick;
+	private String id;
 	private String pw;
 	private int rating;
 	private int wins;
@@ -40,6 +41,8 @@ public class User {
 	public void setNick(String n) {
 		this.nick = n;
 	}
+	public String getId(){	return id;	}
+	public void setId(String _id){	id = _id;	}
 	
 	public String getPw() {
 		return pw;
@@ -90,6 +93,7 @@ public class User {
 	}
 	
 	public void initialize() {
+		this.id = "";
 		this.nick = "";
 		this.pw = "";
 		this.rating = 0;

@@ -11,7 +11,7 @@ public class TestClient {
     static String IP = "192.168.131.1";
     static int PORT = 37101;
 
-    static String roomID;
+    static String roomID = "";
 
     public TestClient(){
         Socket socket = null;
@@ -20,9 +20,7 @@ public class TestClient {
             socket = new Socket();
             socket.connect(new InetSocketAddress(IP, PORT));
 
-
             OutputStreamWriter outputStream = new OutputStreamWriter(socket.getOutputStream());
-
 
             PrintWriter writer = new PrintWriter(outputStream);
 

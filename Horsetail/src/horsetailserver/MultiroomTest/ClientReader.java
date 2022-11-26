@@ -24,9 +24,16 @@ public class ClientReader extends Thread {
 
     public void run(){
         while(true){
-            String res = null;
+            String res = "";
             try {
                 res = reader.readLine();
+
+                if(res == null)
+                    continue;
+                if(res.compareTo("") == 0)
+                    continue;
+
+
                 System.out.println(res);
 
                 String[] ress = res.split("/");
