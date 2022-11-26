@@ -45,6 +45,7 @@ import java.util.*;
 class RecvThread extends Thread {
 	private Socket _socket;
 	private User user;
+	private int nowRoomIndex = -1;
 
 	private InputStreamReader inputStream = null;
 	private OutputStreamWriter outputStream = null;

@@ -7,39 +7,49 @@
 package horsetailserver;
 
 public class Protocol {
-	public static final String REGISTER = "100"; // 회원가입
+	//[Protocol]
+	//tag/messages (%로 구분)
+	//일반적으로 ACK과 NACK의 경우 tag만 전송
+	//태그 위에 메세지 양식 없는경우 태그만 전송한다.
 	
+	//100/id%pw%%name
+	public static final String REGISTER = "100"; // 회원가입
+
+	//110/id
 	public static final String IDVALIDCHECK = "110"; // ID중복 REQUEST
 	public static final String IDVALIDCHECK_OK = "111"; // ID중복 사용가능 ACK
 	public static final String IDVALIDCHECK_NO = "112"; // ID중복 사용불가능 NACK
-	
+
+	//120/id%
 	public static final String LOGIN = "120"; // 로그인 REQUEST
 	public static final String LOGIN_OK = "121"; // 로그인 성공 ACK
 	public static final String LOGIN_NO = "122"; // 로그인 실패 NACK
-	
-	public static final String ROOMFULL = "130"; // 싱글룸 정원 초과
-	
+
 	public static final String ROOMCREATE = "150"; // 멀티룸 방 생성
 	public static final String ROOMCREATE_OK = "151"; // 멀티룸 방 생성 성공
 	public static final String ROOMCREATE_NO = "152"; //멀티룸 방 생성 실패
-	
+
+	//160/room_ID
 	public static final String JOINROOM = "160"; //방 참가
 	public static final String JOINROOM_OK = "161";	//방 참가 성공
 	public static final String JOINROOM_NO ="162"; //방 참가 실패
-	
+	public static final String ROOMFULL = "163"; // 정원 초과
+
 	public static final String STARTGAME = "200"; // 게임시작 REQUEST
 	public static final String STARTGAME_OK = "201"; // 게임시작 성공 ACK
 	public static final String STARTGAME_NO = "202"; // 게임시작 실패 NACK
-	
+
 	public static final String TOOSMALLUSER = "210"; // 유저가 부족해 게임시작 실패
-	
+
+	//300/메세지
 	public static final String SENDMESSAGE = "300"; // 메시지 전송 REQUEST
 	public static final String SENDMESSAGE_OK = "301"; // 메시지 전송 성공 ACK
 	public static final String SENDMESSAGE_NO = "302"; // 메시지 전송 실패 NACK
-	
+
 	public static final String STAT = "310"; // 자신 전적 조회
 	public static final String RANKING = "311"; // 랭킹 조회
-	
+
+	//400/단어
 	public static final String SENDWORD = "400"; // 단어전송 REQUEST
 	public static final String SENDWORD_OK = "401"; // 단어전송 성공 ACK
 	public static final String SENDWORD_NO = "402"; // 단어전송 실패 NACK
@@ -49,6 +59,7 @@ public class Protocol {
 	public static final String WORDOVERLAP = "412"; // 단어 중복
 	public static final String WORDNOTEXIST = "413"; // 단어가 존재하지 않음
 	
+	//420/단어/의미
 	public static final String SENDDEF = "420"; // 의미전송 REQUEST
 	public static final String SENDDEF_OK = "421"; // 의미전송 성공 ACK
 	public static final String SENDDEF_NO = "422"; // 의미전송 실패 NACK
