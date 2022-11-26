@@ -19,6 +19,14 @@ public class Protocol {
 	
 	public static final String ROOMFULL = "130"; // 싱글룸 정원 초과
 	
+	public static final String ROOMCREATE = "150"; // 멀티룸 방 생성
+	public static final String ROOMCREATE_OK = "151"; // 멀티룸 방 생성 성공
+	public static final String ROOMCREATE_NO = "152"; //멀티룸 방 생성 실패
+	
+	public static final String JOINROOM = "160"; //방 참가
+	public static final String JOINROOM_OK = "161";	//방 참가 성공
+	public static final String JOINROOM_NO ="162"; //방 참가 실패
+	
 	public static final String STARTGAME = "200"; // 게임시작 REQUEST
 	public static final String STARTGAME_OK = "201"; // 게임시작 성공 ACK
 	public static final String STARTGAME_NO = "202"; // 게임시작 실패 NACK
