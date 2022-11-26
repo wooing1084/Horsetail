@@ -9,17 +9,20 @@ public class Protocol {
 	//tag/messages (%로 구분)
 	//일반적으로 ACK과 NACK의 경우 tag만 전송
 	//태그 위에 메세지 양식 없는경우 태그만 전송한다.
-	
+
 	//100/id%pw%%name
 	public static final String REGISTER = "100"; // 회원가입
+	public static final String REGISTER_OK = "101"; //회원가입 성공
+	public static final String RESIGSTER_NO = "102"; // 회원가입 실패
 
 	//110/id
 	public static final String IDVALIDCHECK = "110"; // ID중복 REQUEST
 	public static final String IDVALIDCHECK_OK = "111"; // ID중복 사용가능 ACK
 	public static final String IDVALIDCHECK_NO = "112"; // ID중복 사용불가능 NACK
 
-	//120/id%
+	//120/id%pw
 	public static final String LOGIN = "120"; // 로그인 REQUEST
+	//121/id%pw%name%rating%wins%loss
 	public static final String LOGIN_OK = "121"; // 로그인 성공 ACK
 	public static final String LOGIN_NO = "122"; // 로그인 실패 NACK
 
@@ -79,4 +82,6 @@ public class Protocol {
 	public static final String EXITPROGRAM = "600"; // 프로그램 종료 REQUEST
 	public static final String EXITPROGRAM_OK = "601"; // 프로그램 종료 성공 ACK
 	public static final String EXITPROGRAM_NO = "602"; // 프로그램 종료 실패 NACK
+
+	public static final String INVALIDTAG = "999";	//잘못된 태그 ACK
 };

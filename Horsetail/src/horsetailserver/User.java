@@ -91,6 +91,10 @@ public class User {
 	public void setLoses(int l) {
 		this.loses = l;
 	}
+
+	public String toString(){
+		return id+"%"+pw+"%"+nick+"%"+rating+"%"+wins+"%"+loses;
+	}
 	
 	public void initialize() {
 		this.id = "";

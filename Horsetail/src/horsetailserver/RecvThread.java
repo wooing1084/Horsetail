@@ -82,6 +82,7 @@ class RecvThread extends Thread {
 
 	public void Close(){
 		try {
+			RoomManager.GetRoomList().get(nowRoomIndex).EnterRoom(this);
 			inputStream.close();
 			outputStream.close();
 			_socket.close();
@@ -137,30 +138,64 @@ class RecvThread extends Thread {
 
 		//회원가입
 		if(reqs[0].compareTo(Protocol.REGISTER) == 0){
+			String[] args = reqs[1].split("%");
+
+			int result = SQLMethods.SignUp(args[0], args[1], args[2]);
+
+			if(result == 1)
+				SendMessage(Protocol.REGISTER_OK);
+			else
+				SendMessage(Protocol.RESIGSTER_NO);
 
 		}
-		
+		//로그인
+		else if(reqs[0].compareTo(Protocol.LOGIN) == 0){
+			String[] args = reqs[1].split("%");
+
+			User user = SQLMethods.LogIn(args[0], args[1]);
+			Server.AddUser(user);
+
+			SendMessage(user.toString());
+		}
 		//방 생성
-		if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
+		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
 			GameRoom gr = RoomManager.CreateRoom(this);
 			SendMessage(Protocol.ROOMCREATE_OK + "/" + gr.GetRoomID());
 		}
 
 		//방 참가
-		if(reqs[0].compareTo(Protocol.JOINROOM) == 0){
+		else if(reqs[0].compareTo(Protocol.JOINROOM) == 0){
 			RoomManager.JoinRoom(reqs[1], this);
 			SendMessage(Protocol.JOINROOM_OK + "/" + reqs[1]);
 		}
 
 		//메세지 보내기
-		if(reqs[0].compareTo(Protocol.SENDMESSAGE) == 0){
+		else if(reqs[0].compareTo(Protocol.SENDMESSAGE) == 0){
 			int idx = RoomManager.GetRoomIdx(reqs[1]);
 
 			RoomManager.GetRoomList().get(idx).BroadCast(reqs[2]);
 		}
+		else{
+			SendMessage(Protocol.INVALIDTAG);
+		}
 
 	}
 
+
+	//getter
+	public User GetUser(){
+		return user;
+	}
+	public int GetRoomIndex(){
+		return nowRoomIndex;
+	}
+	//setter
+	public void SetUser(User _user){
+		user = _user;
+	}
+	public void SetRoomIndex(int idx){
+		nowRoomIndex = idx;
+	}
 	
 //	private static final int MAX_USERS = 4;
 //

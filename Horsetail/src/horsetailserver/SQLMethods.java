@@ -11,7 +11,7 @@ public class SQLMethods {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost/horsetail";
-            String user = "root", passwd = "dong1084@";
+            String user = "root", passwd = "1234";
             connection = DriverManager.getConnection(url, user, passwd);
         }catch (ClassNotFoundException e){
             e.printStackTrace();
@@ -37,8 +37,8 @@ public class SQLMethods {
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
+            return result;
         }
-        return result;
     }
 
     public static int ExecuteUpdate(String q1){
@@ -63,18 +63,18 @@ public class SQLMethods {
     }
 
     public static User LogIn(String id, String pw){
-        String q1 = "search * from user where id = \"" + id + "\" and pw = \"" + pw + "\";";
+        String q1 = "select * from user where id = \"" + id + "\" and pw = \"" + pw + "\";";
         ResultSet rs = ExecuteQuery(q1);
 
         User user = new User();
         try {
             if(rs.next()){
-                user.setId(rs.getString(0));
-                user.setPw(rs.getString(1));
-                user.setNick(rs.getString(2));
-                user.setRating(rs.getInt(3));
-                user.setWins(rs.getInt(4));
-                user.setLoses(rs.getInt(5));
+                user.setId(rs.getString(1));
+                user.setPw(rs.getString(2));
+                user.setNick(rs.getString(3));
+                user.setRating(rs.getInt(4));
+                user.setWins(rs.getInt(5));
+                user.setLoses(rs.getInt(6));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -14,11 +14,20 @@ public class Server {
 	
 	private ServerSocket welSoc = null;
 	
-	private static ArrayList<RecvThread> allUserList;
+	//연결된 클라이언트 리스트(로그인하지 않았을 수도 있는 상태)
+	private static ArrayList<RecvThread> connectionList;
+	//로그인 유저 정보를 위한 리스트
+	private static ArrayList<User> loginedUsers;
 
 	public static void RemoveUser(RecvThread user){
+
 		user.Close();
-		allUserList.remove(user);
+		loginedUsers.remove((user.GetUser()));
+		connectionList.remove(user);
+	}
+
+	public static void AddUser(User user){
+		loginedUsers.add(user);
 	}
 
 	private String getServerIp() {
@@ -49,7 +58,8 @@ public class Server {
 			welSoc = new ServerSocket(37101);
 			System.out.println("Server is online IP:" +getServerIp());
 			
-			allUserList = new ArrayList<RecvThread>();
+			connectionList = new ArrayList<RecvThread>();
+			loginedUsers = new ArrayList<User>();
 			
 			while(true)
 			{
@@ -57,7 +67,7 @@ public class Server {
 				
 				RecvThread thread = new RecvThread(conSoc);
 				thread.start();
-				allUserList.add(thread);
+				connectionList.add(thread);
 			}
 		}
 		catch(IOException e) {
