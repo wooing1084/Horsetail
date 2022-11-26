@@ -155,7 +155,10 @@ class RecvThread extends Thread {
 			User user = SQLMethods.LogIn(args[0], args[1]);
 			Server.AddUser(user);
 
-			SendMessage(user.toString());
+			if(user == null)
+				SendMessage(Protocol.LOGIN_NO);
+			else
+				SendMessage(Protocol.LOGIN_OK + user.toString());
 		}
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
