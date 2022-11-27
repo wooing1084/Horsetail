@@ -32,7 +32,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	Operator o = null;
-
+	//Image background2=null;
+	JLabel horseGif=new JLabel();
 	JPanel postPanel;
 	JPanel ranking;
 	JPanel panel;
@@ -58,7 +59,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		o = _o;
 
 		setTitle("말 꼬투리");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("Image/logo.png")));
 		setBackground(Color.white);
 		setSize(1000, 720);
 		setLocationRelativeTo(null);
@@ -67,11 +68,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		background=new ImageIcon(MainFrame.class.getResource("/Image/grass.jpg")).getImage();
+		background=new ImageIcon(MainFrame.class.getResource("Image/grass.jpg")).getImage();
 
 		contentPane = new JPanel(){
-			public void paint(Graphics g) {//그리는 함수
+			public void paintComponent(Graphics g) {//그리는 함수
 				g.drawImage(background, 0, 0, null);//background를 그려줌		
+				setOpaque(false);// 추가
+				super.paintComponent(g);// 추가
 			}
 		}; // MainFrame에서 바탕이 되는 배경 패널.
 		
@@ -84,7 +87,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		label1.setBackground(Color.WHITE);
 		label1.setHorizontalAlignment(JLabel.CENTER);
 		label1.setFont(new Font("맑은 고딕", Font.BOLD, 28));
-		label1.setBorder(bb);
+		label1.setBorder(null);
 		label1.setBounds(12, 10, 281, 43);
 		contentPane.add(label1);
 
@@ -92,7 +95,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		label2.setBackground(Color.WHITE);
 		label2.setHorizontalAlignment(JLabel.CENTER);
 		label2.setFont(new Font("맑은 고딕", Font.BOLD, 28));
-		label2.setBorder(bb);
+		label2.setBorder(null);
 		label2.setBounds(293, 10, 310, 43);
 		contentPane.add(label2);
 
@@ -114,27 +117,40 @@ public class MainFrame extends JFrame implements ActionListener {
 		ebPanel.add(scrollPane2);
 
 		ArrayList<String> temp2 = new ArrayList();
-		Database tempDB2 = new Database(); // 랭킹 정보를 가져올 임시 클래스
-		temp2 = tempDB2.infoRoom();
+		//Database tempDB2 = new Database(); // 랭킹 정보를 가져올 임시 클래스
+		//temp2 = tempDB2.infoRoom();
+		
+		JLabel test;
 
 		int size = 0;
 		for (int i = 0; i < temp2.size(); i++) {
-			enterButton = new JButton(temp2.get(i)); // 방 정보가 업뎃 된다는게.. 이게 서버랑 연동해봐야 할듯. 데베에서 그냥 insert로 바꾸면 행이 추가되서 제대로
-														// 된 의미로 되는건 아닌듯..
-			enterButton.setBackground(Color.WHITE);
-			enterButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-			enterButton.setBounds(0, size, 576, 70);
+			enterButton = new JButton(); 
+			enterButton.setIcon(new ImageIcon(MainFrame.class.getResource("Image/enter.png")));
+			enterButton.setBorderPainted(false);
+			enterButton.setContentAreaFilled(false);
+			enterButton.setFocusPainted(false);
+			enterButton.setBounds(506, size, 70, 70);
 			enterButton.setBorder(bb);
+			
+			test = new JLabel(temp2.get(i));
+			test.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+			test.setBounds(0, size, 506, 70);
+			test.setBorder(bb);
+//			enterButton.setBorderPainted(false);
+//			enterButton.setContentAreaFilled(false);
+//			enterButton.setFocusPainted(false);
 			roomPanel.setPreferredSize(new Dimension(576, 70 + size));
 			size += 70;
 			roomPanel.add(enterButton);
+			roomPanel.add(test);
+			
 			PostButtonArr[i] = enterButton;
 			PostButtonArr[i].addActionListener(this);
 
 		}
 
 		profile = new JButton("");
-		profile.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/myInfo.png")));
+		profile.setIcon(new ImageIcon(MainFrame.class.getResource("Image/myInfo.png")));
 		profile.setBounds(761, 189, 213, 43);
 		profile.setBackground(Color.WHITE);
 		profile.setBorderPainted(false);
@@ -142,13 +158,14 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		
 		refresh = new JButton();
-		refresh.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/refresh.png")));
+		refresh.setIcon(new ImageIcon(MainFrame.class.getResource("Image/refresh.png")));
 		refresh.setBackground(Color.WHITE);
 		refresh.setBounds(604, 56, 57, 57);
 		refresh.setVisible(true);
 //		refresh.setLayout(null);
-//		refresh.setBorderPainted(false);
-//		refresh.setContentAreaFilled(false);
+		refresh.setBorderPainted(false);
+		refresh.setContentAreaFilled(false);
+		refresh.setFocusPainted(false);
 		contentPane.add(refresh);
 
 		panel = new JPanel(); // 스크롤을 올릴 패널
@@ -172,26 +189,23 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		refresh2 = new JButton();
 		refresh2.setBounds(917, 243, 57, 57);
-		refresh2.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/refresh.png")));
+		refresh2.setIcon(new ImageIcon(MainFrame.class.getResource("Image/refresh.png")));
 		refresh2.setBackground(Color.WHITE);
 		refresh2.setBorderPainted(false);
 		refresh2.setVisible(true);
 		contentPane.add(refresh2);
 
-		JPanel mainMal = new JPanel(){
-			Image background=new ImageIcon(MainFrame.class.getResource("/Image/horseRun.gif")).getImage();
-			public void paint(Graphics g) {//그리는 함수
-				g.drawImage(background, 0, 0, null);//background를 그려줌		
-			}
-		};
-		mainMal.setBounds(761, 10, 214, 174);
-		mainMal.setVisible(true);
-		contentPane.add(mainMal);
 		
+		
+		ImageIcon background3=new ImageIcon(this.getClass().getResource("Image/horseRun.gif"));
+		horseGif.setIcon(background3);
+		horseGif.setOpaque(true);
+		horseGif.setBounds(761, 10, 214, 174);
+		contentPane.add(horseGif);
 
 		ArrayList<String> temp = new ArrayList();
-		Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
-		temp = tempDB.checkScore();
+		//Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
+		//temp = tempDB.checkScore();
 
 		int size2 = 0;
 		for (int i = 0; i < temp.size(); i++) {
@@ -201,7 +215,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/gold.png")));
+				post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/gold.png")));
 				ranking.setPreferredSize(new Dimension(947, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
@@ -211,7 +225,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/silver.png")));
+				post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/silver.png")));
 				ranking.setPreferredSize(new Dimension(947, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
@@ -221,7 +235,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/copper.png")));
+				post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/copper.png")));
 				ranking.setPreferredSize(new Dimension(947, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
@@ -242,11 +256,10 @@ public class MainFrame extends JFrame implements ActionListener {
 		profile.addActionListener(this);
 		refresh.addActionListener(this);
 		refresh2.addActionListener(this);
-		//enterButton.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == enterButton) { // 멀티룸에 어떻게 해야 입장 가능할지..? 한개의 방밖에 안들어 가짐
+		if (e.getSource() == enterButton) { 
 			pf = new PlayFrame(o);
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
@@ -267,8 +280,8 @@ public class MainFrame extends JFrame implements ActionListener {
 			ebPanel.add(scrollPane2);
 
 			ArrayList<String> temp2 = new ArrayList();
-			Database tempDB2 = new Database(); // 랭킹 정보를 가져올 임시 클래스
-			temp2 = tempDB2.infoRoom();
+			//Database tempDB2 = new Database(); // 랭킹 정보를 가져올 임시 클래스
+			//temp2 = tempDB2.infoRoom();
 
 			int size = 0;
 			for (int i = 0; i < temp2.size(); i++) {
@@ -302,8 +315,8 @@ public class MainFrame extends JFrame implements ActionListener {
 			panel.add(scrollPane);
 
 			ArrayList<String> temp = new ArrayList();
-			Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
-			temp = tempDB.checkScore();
+			//Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
+			//temp = tempDB.checkScore();
 
 			int size = 0;
 			for (int i = 0; i < temp.size(); i++) {
@@ -313,7 +326,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/gold.png")));
+					post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/gold.png")));
 					ranking.setPreferredSize(new Dimension(947, 70 + size));
 					size += 70;
 					ranking.add(post);
@@ -323,7 +336,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/silver.png")));
+					post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/silver.png")));
 					ranking.setPreferredSize(new Dimension(947, 70 + size));
 					size += 70;
 					ranking.add(post);
@@ -333,7 +346,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/copper.png")));
+					post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/copper.png")));
 					ranking.setPreferredSize(new Dimension(947, 70 + size));
 					size += 70;
 					ranking.add(post);
@@ -358,7 +371,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		public void mouseEntered(MouseEvent e) {
 			if (e.getSource() == profile) {
 				JButton b = (JButton) e.getSource();
-				b.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/myInfo2.png")));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("Image/myInfo2.png")));
 			} else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
@@ -369,7 +382,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		public void mouseExited(MouseEvent e) {
 			if (e.getSource() == profile) {
 				JButton b = (JButton) e.getSource();
-				b.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/myInfo.png")));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("Image/myInfo.png")));
 			} else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);

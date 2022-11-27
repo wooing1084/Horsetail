@@ -34,7 +34,7 @@ public class LoginFrame extends JFrame {
 		o = _o;
 		
 		setTitle("로그인");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("Image/logo.png")));
 		setBackground(Color.white);
 		
 		/* Panel 크기 작업 */
