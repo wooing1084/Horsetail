@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,7 +36,8 @@ public class ProfileDialog extends JFrame {
 		backG.setPreferredSize(new Dimension(500,200));
 		backG.setBackground(Color.white);
 		
-		lblNewLabel = new JLabel("ID          Password          Score");
+		lblNewLabel = new JLabel("        ID          Password          Score");
+		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myRecord.png")));
 		lblNewLabel.setBounds(0, 0, 344, 50);
 		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
 		lblNewLabel.setBackground(Color.white);

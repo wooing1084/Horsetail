@@ -284,7 +284,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
 		}else if (e.getSource() == newRoom) {
-			MakeRoomDialog mrd = new MakeRoomDialog(); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
+			MakeRoomDialog mrd = new MakeRoomDialog(o, out); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
 		} else if (e.getSource() == refresh) {
 			ebPanel.removeAll();
 			ebPanel.updateUI();
@@ -307,8 +307,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			int size = 0;
 			for (int i = 0; i < temp2.size(); i++) {
-				enterButton = new JButton(temp2.get(i)); // 방 정보가 업뎃 된다는게.. 이게 서버랑 연동해봐야 할듯. 데베에서 그냥 insert로 바꾸면 행이 추가되서
-															// 제대로 된 의미로 되는건 아닌듯..
+				enterButton = new JButton(temp2.get(i)); 
 				enterButton.setBackground(Color.WHITE);
 				enterButton.setBounds(0, size, 591, 70);
 				enterButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -397,7 +396,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			} else if (e.getSource() == newRoom) {
 				JButton b = (JButton) e.getSource();
 				b.setForeground(new Color(204, 153, 0));
-				b.setBackground(Color.WHITE);
+				b.setBackground(new Color(0, 255, 0));
 			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
