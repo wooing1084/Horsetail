@@ -301,19 +301,19 @@ class RecvThread extends Thread {
 		else if (reqs[0].compareTo(Util.Protocol.SENDWORD) == 0) {
 
 			if (gr.isOneChar(reqs[1])) {
-				SendMessage(Protocol.WORDONLYONECHAR + "//" + "MSG");
+				SendMessage(Protocol.WORDONLYONECHAR);
 			}
 
 			else if (gr.isNotChain(reqs[1])) {
-				SendMessage(Protocol.WORDNOTCHAIN + "//" + "MSG");
+				SendMessage(Protocol.WORDNOTCHAIN );
 			}
 
 			else if (gr.isOverlap(reqs[1])) {
-				SendMessage(Protocol.WORDOVERLAP + "//" + "MSG");
+				SendMessage(Protocol.WORDOVERLAP);
 			}
 
 			else if (gr.isNotExist(reqs[1])) {
-				SendMessage(Protocol.WORDNOTEXIST + "//" + "MSG");
+				SendMessage(Protocol.WORDNOTEXIST);
 			}
 
 			else {

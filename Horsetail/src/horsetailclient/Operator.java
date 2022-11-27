@@ -146,7 +146,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_OK) == 0) {
-
+					String wordSender = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_NO) == 0) {
@@ -170,7 +170,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDDEF_OK) == 0) {
-
+					String def = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDDEF_NO) == 0) {
@@ -178,7 +178,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.TIMEOUT_OK) == 0) {
-
+					String timeoutPlayer = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.TIMEOUT_NO) == 0) {
@@ -190,7 +190,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEOUT_OK) == 0) {
-
+					String gameoutPlayer = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEOUT_NO) == 0) {
