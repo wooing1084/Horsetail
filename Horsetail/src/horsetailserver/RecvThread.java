@@ -269,7 +269,15 @@ class RecvThread extends Thread {
 
 			SendMessage(res);
 		}
+		
+		else if(reqs[0].compareTo(Protocol.STAT) == 0) {
 
+		}
+
+		else if(reqs[0].compareTo(Protocol.RANKING) == 0) {
+			String ranking = SQLMethods.getRankingID();
+			SendMessage(Protocol.RANKING_OK + "//" + ranking);
+		}
 		//게임시작 구현
 
 		else if(reqs[0].compareTo(Protocol.STARTGAME) == 0) {

@@ -12,7 +12,7 @@ public class SQLMethods {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost/HorseTail";
 
-            String user = "root", passwd = "dong1084@";
+            String user = "root", passwd = "dltkdtjs01";
 
             connection = DriverManager.getConnection(url, user, passwd);
         }catch (ClassNotFoundException e){
@@ -91,7 +91,7 @@ public class SQLMethods {
     public static String getRankingID() {
     	String ranking = "";
     	
-    	String q1 = "select id from user order by desc";
+    	String q1 = "select id from user order by rating desc";
         ResultSet rs = ExecuteQuery(q1);
         
     	try {

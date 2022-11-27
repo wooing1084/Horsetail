@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Util.Protocol;
 import horsetailclient.LoginFrame.MyMouseListener;
 
 import javax.swing.JButton;
@@ -29,6 +29,7 @@ import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 
 import java.io.*;
+import java.util.*;
 
 public class MainFrame extends JFrame implements ActionListener {
 
@@ -58,7 +59,9 @@ public class MainFrame extends JFrame implements ActionListener {
 	Image background=null;
 	
 	PrintWriter out = null;
-
+	
+	ArrayList<String> rankingList = new ArrayList<String>();
+	
 	public MainFrame(Operator _o, PrintWriter printW) {
 		o = _o;
 		out = printW;
@@ -221,14 +224,17 @@ public class MainFrame extends JFrame implements ActionListener {
 		horseGif.setBounds(761, 10, 214, 174);
 		contentPane.add(horseGif);
 
-		ArrayList<String> temp = new ArrayList();
+		//ArrayList<String> temp = new ArrayList();
 		//Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
 		//temp = tempDB.checkScore();
-
+		
+		out.println(Protocol.RANKING);
+		out.flush();
+		
 		int size2 = 0;
-		for (int i = 0; i < temp.size(); i++) {
+		for (int i = 0; i < rankingList.size(); i++) {
 			if (i == 0) {
-				post = new JLabel(temp.get(i));
+				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 947, 70);
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -238,7 +244,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				size2 += 70;
 				ranking.add(post);
 			} else if (i == 1) {
-				post = new JLabel(temp.get(i));
+				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 947, 70);
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -248,7 +254,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				size2 += 70;
 				ranking.add(post);
 			} else if (i == 2) {
-				post = new JLabel(temp.get(i));
+				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 947, 70);
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -258,7 +264,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				size2 += 70;
 				ranking.add(post);
 			} else {
-				post = new JLabel(temp.get(i));
+				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 947, 70);
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -320,7 +326,9 @@ public class MainFrame extends JFrame implements ActionListener {
 				PostButtonArr[i].addActionListener(this);
 			}
 		} else if (e.getSource() == refresh2) {
-
+			out.println(Protocol.RANKING);
+			out.flush();
+			
 			panel.removeAll(); // 패널을 지운다.(새로고침)
 			panel.updateUI();
 
@@ -336,14 +344,14 @@ public class MainFrame extends JFrame implements ActionListener {
 			scrollPane.setBounds(0, 0, 962, 373);
 			panel.add(scrollPane);
 
-			ArrayList<String> temp = new ArrayList();
+			//ArrayList<String> temp = new ArrayList();
 			//Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
 			//temp = tempDB.checkScore();
-
+			
 			int size = 0;
-			for (int i = 0; i < temp.size(); i++) {
+			for (int i = 0; i < rankingList.size(); i++) {
 				if (i == 0) {
-					post = new JLabel(temp.get(i));
+					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 947, 70);
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -353,7 +361,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					size += 70;
 					ranking.add(post);
 				} else if (i == 1) {
-					post = new JLabel(temp.get(i));
+					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 947, 70);
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -363,7 +371,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					size += 70;
 					ranking.add(post);
 				} else if (i == 2) {
-					post = new JLabel(temp.get(i));
+					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 947, 70);
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -373,7 +381,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					size += 70;
 					ranking.add(post);
 				} else {
-					post = new JLabel(temp.get(i));
+					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 947, 70);
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -385,6 +393,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			}
 		}
+	}
+	
+	public void setRankingList(String[] rawData) {
+		rankingList = new ArrayList<String>(Arrays.asList(rawData));
 	}
 
 	class MyMouseListener implements MouseListener {
