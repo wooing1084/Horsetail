@@ -177,7 +177,7 @@ class RecvThread extends Thread {
 			if(result == 1)
 				SendMessage(Protocol.REGISTER_OK);
 			else
-				SendMessage(Protocol.RESIGSTER_NO);
+				SendMessage(Protocol.REGISTER_NO);
 
 		}
 		//ID중복 요청

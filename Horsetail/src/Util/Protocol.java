@@ -67,7 +67,12 @@ public class Protocol {
 	public static final String SENDMESSAGE_NO = "302"; // 메시지 전송 실패 NACK
 
 	public static final String STAT = "310"; // 자신 전적 조회
-	public static final String RANKING = "311"; // 랭킹 조회
+	public static final String STAT_OK = "311"; // 자신 전적 조회
+	public static final String STAT_NO = "312"; // 자신 전적 조회
+	
+	public static final String RANKING = "320"; // 랭킹 조회
+	public static final String RANKING_OK = "321"; // 랭킹 조회
+	public static final String RANKING_NO = "322"; // 랭킹 조회
 
 	//400//WORD
 	public static final String SENDWORD = "400"; // 단어전송 REQUEST
