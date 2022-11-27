@@ -297,6 +297,61 @@ class RecvThread extends Thread {
 
 			RoomManager.GetRoomList().get(idx).BroadCast(reqs[2]);
 		}
+		
+		else if (reqs[0].compareTo(Util.Protocol.SENDWORD) == 0) {
+
+			if (gr.isOneChar(reqs[1])) {
+				SendMessage(Protocol.WORDONLYONECHAR + "//" + "MSG");
+			}
+
+			else if (gr.isNotChain(reqs[1])) {
+				SendMessage(Protocol.WORDNOTCHAIN + "//" + "MSG");
+			}
+
+			else if (gr.isOverlap(reqs[1])) {
+				SendMessage(Protocol.WORDOVERLAP + "//" + "MSG");
+			}
+
+			else if (gr.isNotExist(reqs[1])) {
+				SendMessage(Protocol.WORDNOTEXIST + "//" + "MSG");
+			}
+
+			else {
+				gr.addWord(reqs[1]);
+				SendMessage(Protocol.SENDWORD_OK + "//" + user.getNick());
+
+				int idx = gr.GetUserList().indexOf((Object) user.getNick());
+				int i = 1;
+				while (gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.getAlive()) {
+					i++;
+				}
+				gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.setTurn(true);
+				this.user.setTurn(false);
+
+				SendMessage(Protocol.YOURTURN + "//" + gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.getNick());
+			}
+		}
+
+		else if (reqs[0].compareTo(Protocol.SENDDEF) == 0) {
+			String def = gr.getDefinition();
+			SendMessage(Protocol.SENDDEF_OK + "//" + def);
+		}
+
+		else if (reqs[0].compareTo(Protocol.TIMEOUT) == 0) {
+			user.setAlive(false);
+			SendMessage(Protocol.TIMEOUT_OK + "//" + user.getNick());
+		}
+
+
+		else if (reqs[0].compareTo(Protocol.GAMEOUT) == 0) { // 남은 기회가 0이 되면 request
+			user.setAlive(false);
+			gr.addDeadUser(user.getNick());
+			SendMessage(Protocol.GAMEOUT_OK + "//" + user.getNick());
+
+			if (gr.GetUserList().size() == gr.getDeadUserNum() - 1) {
+				gr.BroadCast(Protocol.GAMEEND + "//게임이 종료되었습니다.//" + gr.getDeadUserNick());
+			}
+		}
 
 		else if(reqs[0].compareTo(Protocol.EXITPROGRAM) == 0){
 			int r =Server.RemoveUser(this);
