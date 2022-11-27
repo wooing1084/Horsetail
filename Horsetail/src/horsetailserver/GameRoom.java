@@ -5,13 +5,15 @@
  */
 
 package horsetailserver;
+import Util.Protocol;
+
 import java.util.*;
 
 public class GameRoom {
 	private String _roomID;
 	private RecvThread _owner;
 	private String _roomName;
-	private List<RecvThread> _userList;
+	private ArrayList<RecvThread> _userList;
 	private ArrayList<String> words;
 	private ArrayList<String> deadUsers;
 
@@ -30,10 +32,13 @@ public class GameRoom {
 	public int EnterRoom(RecvThread user){
 		_userList.add(user);
 
+		BroadCast(Protocol.JOINED_USER + "//" + user.GetUser().toStringWithoutPassword());
+
 		return 1;
 	}
 
 	public void ExitRoom(RecvThread user){
+		user.SetRoomIndex(-1);
 		_userList.remove(user);
 
 		if(_userList.size() <= 0){
@@ -65,7 +70,7 @@ public class GameRoom {
 	public String GetRoomName(){
 		return _roomName;
 	}
-	public List<RecvThread> GetUserList(){
+	public ArrayList<RecvThread> GetUserList(){
 		return _userList;
 	}
 

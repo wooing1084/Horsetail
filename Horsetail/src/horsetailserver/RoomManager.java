@@ -3,10 +3,9 @@ package horsetailserver;
 import horsetailserver.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RoomManager {
-    static List<GameRoom> roomList;
+    static ArrayList<GameRoom> roomList;
 
     public static void Init(){
         roomList = new ArrayList<GameRoom>();
@@ -46,7 +45,7 @@ public class RoomManager {
         return r;
     }
 
-    public static List<GameRoom> GetRoomList(){
+    public static ArrayList<GameRoom> GetRoomList(){
         return roomList;
     }
 

@@ -28,6 +28,14 @@ public class Protocol {
 	public static final String LOGIN_OK = "121"; // 로그인 성공 ACK
 	public static final String LOGIN_NO = "122"; // 로그인 실패 NACK
 
+
+	public static final String ROOMS = "130"; // 방 목록 요청
+	//131//Room1_id%room1_name//room2_info...//room3....//...
+	public static final String ROOMS_OK = "131"; // 방 목록 요청 ACK
+	public static final String ROOMS_NO = "132"; //방 목록 요청 NACK
+
+
+
 	public static final String ROOMCREATE = "150"; // 멀티룸 방 생성
 	public static final String ROOMCREATE_OK = "151"; // 멀티룸 방 생성 성공
 	public static final String ROOMCREATE_NO = "152"; //멀티룸 방 생성 실패
@@ -37,6 +45,15 @@ public class Protocol {
 	public static final String JOINROOM_OK = "161";	//방 참가 성공
 	public static final String JOINROOM_NO ="162"; //방 참가 실패
 	public static final String ROOMFULL = "163"; // 정원 초과
+	//164//user_id%user_name%user_rating%user_wins%user_loss
+	public static final String JOINED_USER = "164"; // 유저 방에 들어옴
+
+	
+	public static final String ROOMUSERS = "170"; //방의 유저 목록 요청
+	//171//user1_id%user1_name%user1_rating%user1_wins%user1_loss//user2 info....
+	public static final String ROOMUSERS_OK = "171"; //방 유저 목록 요청 ACK
+	public static final String ROOMUSERS_NAK = "172"; //방 유저 목록 요청 NACK
+
 
 	public static final String STARTGAME = "200"; // 게임시작 REQUEST
 	public static final String STARTGAME_OK = "201"; // 게임시작 성공 ACK

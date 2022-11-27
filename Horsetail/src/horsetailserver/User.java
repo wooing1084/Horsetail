@@ -95,6 +95,9 @@ public class User {
 	public String toString(){
 		return id+"%"+pw+"%"+nick+"%"+rating+"%"+wins+"%"+loses;
 	}
+	public String toStringWithoutPassword(){
+		return id+"%"+nick+"%"+rating+"%"+wins+"%"+loses;
+	}
 	
 	public void initialize() {
 		this.id = "";

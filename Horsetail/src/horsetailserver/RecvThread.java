@@ -42,6 +42,7 @@ import Util.Protocol;
 
 import java.io.*;
 import java.net.*;
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -202,13 +203,30 @@ class RecvThread extends Thread {
 		else if(reqs[0].compareTo(Protocol.LOGIN) == 0){
 			String[] args = reqs[1].split("%");
 
-			User user = SQLMethods.LogIn(args[0], args[1]);
+			User u = SQLMethods.LogIn(args[0], args[1]);
+			user = u;
 			Server.AddUser(user);
 
 			if(user == null)
 				SendMessage(Protocol.LOGIN_NO);
 			else
 				SendMessage(Protocol.LOGIN_OK + "//" + user.toString());
+		}
+		//방 정보 요청
+		else if(reqs[0].compareTo(Protocol.ROOMS) == 0){
+			if(RoomManager.GetRoomList().size() == 0)
+				SendMessage(Protocol.ROOMS_NO);
+			else{
+				ArrayList<GameRoom> gameRooms = RoomManager.GetRoomList();
+				String res = Protocol.ROOMS_OK ;
+
+				for(int i =0; i < gameRooms.size();i++){
+					GameRoom gr = gameRooms.get(i);
+					res += "//" + gr.GetRoomID() + "%" + gr.GetRoomName();
+				}
+
+				SendMessage(res);
+			}
 		}
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
@@ -219,7 +237,6 @@ class RecvThread extends Thread {
 			}
 			SendMessage(Protocol.ROOMCREATE_OK + "//" + gr.GetRoomID());
 		}
-
 		//방 참가
 		else if(reqs[0].compareTo(Protocol.JOINROOM) == 0){
 			int r = RoomManager.JoinRoom(reqs[1], this);
@@ -230,6 +247,26 @@ class RecvThread extends Thread {
 				SendMessage(Protocol.JOINROOM_NO);
 			else
 				SendMessage(Protocol.JOINROOM_OK + "//" + reqs[1]);
+		}
+		//방 유저 목록 요청
+		else if(reqs[0].compareTo(Protocol.ROOMUSERS) == 0){
+			if(nowRoomIndex == -1){
+				SendMessage(Protocol.ROOMUSERS_NAK);
+				return;
+			}
+
+			if(RoomManager.GetRoomList().get(nowRoomIndex).GetUserList().size() == 0){
+				SendMessage(Protocol.ROOMUSERS_NAK);
+				return;
+			}
+
+			ArrayList<RecvThread> users = RoomManager.GetRoomList().get(nowRoomIndex).GetUserList();
+			String res = Protocol.ROOMUSERS_OK;
+			for(int i =0;i<users.size();i++){
+				res += "//" + users.get(i).GetUser().toStringWithoutPassword();
+			}
+
+			SendMessage(res);
 		}
 
 		//게임시작 구현
