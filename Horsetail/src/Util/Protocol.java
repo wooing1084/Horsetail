@@ -76,12 +76,17 @@ public class Protocol {
 
 	//400//WORD
 	public static final String SENDWORD = "400"; // 단어전송 REQUEST
+	//401//word
 	public static final String SENDWORD_OK = "401"; // 단어전송 성공 ACK
 	public static final String SENDWORD_NO = "402"; // 단어전송 실패 NACK
-	
+
+	//410//word
 	public static final String WORDONLYONECHAR = "410"; // 단어가 단 한 글자임
+	//411//word
 	public static final String WORDNOTCHAIN = "411"; // 이전 단어의 끝말이 아님
+	//412//word
 	public static final String WORDOVERLAP = "412"; // 단어 중복
+	//413//word
 	public static final String WORDNOTEXIST = "413"; // 단어가 존재하지 않음
 	
 	//420//WORD//DEFINITION
@@ -94,6 +99,8 @@ public class Protocol {
 	public static final String TIMEOUT_NO = "432"; // 시간초과 반영 실패 NACK
 	
 	public static final String YOURTURN = "440"; // 이번 순서라는걸 알림
+	//450//user_id
+	public static final String ANOTHERTURN = "450"; //누군가의 턴임
 	
 	public static final String GAMEOUT = "500"; // 게임탈락 REQUEST
 	public static final String GAMEOUT_OK = "501"; // 게임탈락 성공 ACK

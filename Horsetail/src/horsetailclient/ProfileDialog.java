@@ -24,7 +24,7 @@ public class ProfileDialog extends JFrame {
 		o=_o;
 		
 		setTitle("내 정보");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		setResizable(false);
 		setVisible(true);

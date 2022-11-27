@@ -11,7 +11,9 @@ public class SQLMethods {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost/HorseTail";
-            String user = "root", passwd = "6412";
+
+            String user = "root", passwd = "dong1084@";
+
             connection = DriverManager.getConnection(url, user, passwd);
         }catch (ClassNotFoundException e){
             e.printStackTrace();
@@ -85,5 +87,25 @@ public class SQLMethods {
         }
         return user;
     }
-
+    
+    public static String getRankingID() {
+    	String ranking = "";
+    	
+    	String q1 = "select id from user order by desc";
+        ResultSet rs = ExecuteQuery(q1);
+        
+    	try {
+    		int cnt = 0;
+    		while(rs.next() || cnt > 10) {
+    			String temp = rs.getString(1) + "%";
+    			ranking += temp;
+    			cnt++;
+    		}
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return ranking;
+    }
 }
