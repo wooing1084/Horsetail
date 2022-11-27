@@ -17,8 +17,8 @@ public class Operator implements Runnable {
 	LoginFrame lf = null;
 	MainFrame mf = null;
 	
-	private BufferedReader in = null;
-	private PrintWriter out = null;
+	static BufferedReader in = null;
+	static PrintWriter out = null;
 	
 	public String ID;
 	
@@ -27,8 +27,8 @@ public class Operator implements Runnable {
 		String ip = "127.0.0.1";
 		int port = 37101;
 		
-		BufferedReader in = null;
-		PrintWriter out = null;
+		in = null;
+		out = null;
 		
 		try {
 			conSoc = new Socket(ip, port);
@@ -50,9 +50,9 @@ public class Operator implements Runnable {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		Operator opt = new Operator();
-		Thread thread = new Thread();
+		Thread thread = new Thread(opt);
 		thread.start();
 		//opt.db = new Database();
 		opt.lf = new LoginFrame(opt, out);

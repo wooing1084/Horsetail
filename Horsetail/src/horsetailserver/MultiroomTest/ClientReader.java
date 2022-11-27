@@ -36,7 +36,7 @@ public class ClientReader extends Thread {
 
                 System.out.println(res);
 
-                String[] ress = res.split("/");
+                String[] ress = res.split("//");
 
                 if(ress[0].compareTo("151") == 0 || ress[0].compareTo("161") == 0) {
                     client.roomID = ress[1];
