@@ -28,6 +28,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 
+import java.io.*;
+
 public class MainFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
@@ -54,21 +56,23 @@ public class MainFrame extends JFrame implements ActionListener {
 	
 	Image background=null;
 	
+	PrintWriter out = null;
 
-	public MainFrame(Operator _o) {
+	public MainFrame(Operator _o, PrintWriter printW) {
 		o = _o;
+		out = printW;
 
 		setTitle("말 꼬투리");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		setSize(1000, 720);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		background=new ImageIcon(MainFrame.class.getResource("Image/grass.jpg")).getImage();
+		background=new ImageIcon(MainFrame.class.getResource("./Image/grass.jpg")).getImage();
 
 		contentPane = new JPanel(){
 			public void paintComponent(Graphics g) {//그리는 함수
@@ -125,7 +129,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		int size = 0;
 		for (int i = 0; i < temp2.size(); i++) {
 			enterButton = new JButton(); 
-			enterButton.setIcon(new ImageIcon(MainFrame.class.getResource("Image/enter.png")));
+			enterButton.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
 			enterButton.setBorderPainted(false);
 			enterButton.setContentAreaFilled(false);
 			enterButton.setFocusPainted(false);
@@ -150,7 +154,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 
 		profile = new JButton("");
-		profile.setIcon(new ImageIcon(MainFrame.class.getResource("Image/myInfo.png")));
+		profile.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
 		profile.setBounds(761, 189, 213, 43);
 		profile.setBackground(Color.WHITE);
 		profile.setBorderPainted(false);
@@ -158,7 +162,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		
 		refresh = new JButton();
-		refresh.setIcon(new ImageIcon(MainFrame.class.getResource("Image/refresh.png")));
+		refresh.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/refresh.png")));
 		refresh.setBackground(Color.WHITE);
 		refresh.setBounds(604, 56, 57, 57);
 		refresh.setVisible(true);
@@ -189,7 +193,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		refresh2 = new JButton();
 		refresh2.setBounds(917, 243, 57, 57);
-		refresh2.setIcon(new ImageIcon(MainFrame.class.getResource("Image/refresh.png")));
+		refresh2.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/refresh.png")));
 		refresh2.setBackground(Color.WHITE);
 		refresh2.setBorderPainted(false);
 		refresh2.setVisible(true);
@@ -197,7 +201,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		
 		
-		ImageIcon background3=new ImageIcon(this.getClass().getResource("Image/horseRun.gif"));
+		ImageIcon background3=new ImageIcon(this.getClass().getResource("./Image/horseRun.gif"));
 		horseGif.setIcon(background3);
 		horseGif.setOpaque(true);
 		horseGif.setBounds(761, 10, 214, 174);
@@ -215,7 +219,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/gold.png")));
+				post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/gold.png")));
 				ranking.setPreferredSize(new Dimension(947, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
@@ -225,7 +229,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/silver.png")));
+				post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/silver.png")));
 				ranking.setPreferredSize(new Dimension(947, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
@@ -235,7 +239,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				//post.setHorizontalAlignment(JLabel.CENTER);
 				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/copper.png")));
+				post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/copper.png")));
 				ranking.setPreferredSize(new Dimension(947, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
@@ -260,7 +264,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == enterButton) { 
-			//pf = new PlayFrame(o);
+			o.pf.setVisible(true);
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
 		} else if (e.getSource() == refresh) {
@@ -326,7 +330,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/gold.png")));
+					post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/gold.png")));
 					ranking.setPreferredSize(new Dimension(947, 70 + size));
 					size += 70;
 					ranking.add(post);
@@ -336,7 +340,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/silver.png")));
+					post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/silver.png")));
 					ranking.setPreferredSize(new Dimension(947, 70 + size));
 					size += 70;
 					ranking.add(post);
@@ -346,7 +350,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					//post.setHorizontalAlignment(JLabel.CENTER);
 					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("Image/copper.png")));
+					post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/copper.png")));
 					ranking.setPreferredSize(new Dimension(947, 70 + size));
 					size += 70;
 					ranking.add(post);
@@ -371,7 +375,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		public void mouseEntered(MouseEvent e) {
 			if (e.getSource() == profile) {
 				JButton b = (JButton) e.getSource();
-				b.setIcon(new ImageIcon(MainFrame.class.getResource("Image/myInfo2.png")));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo2.png")));
 			} else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
@@ -382,7 +386,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		public void mouseExited(MouseEvent e) {
 			if (e.getSource() == profile) {
 				JButton b = (JButton) e.getSource();
-				b.setIcon(new ImageIcon(MainFrame.class.getResource("Image/myInfo.png")));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
 			} else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);

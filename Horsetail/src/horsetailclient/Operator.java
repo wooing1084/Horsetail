@@ -59,7 +59,7 @@ public class Operator implements Runnable {
 		thread.start();
 		//opt.db = new Database();
 		opt.lf = new LoginFrame(opt, out);
-		opt.mf = new MainFrame(opt);
+		opt.mf = new MainFrame(opt, out);
 		opt.jf = new JoinFrame(opt, out);
 		opt.pf = new PlayFrame(opt, out);
 		opt.cf = new ChattingFrame(opt, out);
