@@ -54,8 +54,6 @@ class RecvThread extends Thread {
 
 	private InputStreamReader inputStream = null;
 	private OutputStreamWriter outputStream = null;
-	
-	private GameRoom gr;
 
 	public RecvThread(Socket socket){
 		_socket = socket;
@@ -237,10 +235,11 @@ class RecvThread extends Thread {
 		}
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
-			gr = RoomManager.CreateRoom(this);
+			GameRoom gr = RoomManager.CreateRoom(this);
 
 			if(gr == null){
 				SendMessage(Protocol.ROOMCREATE_NO);
+				return;
 			}
 			SendMessage(Protocol.ROOMCREATE_OK + "//" + gr.GetRoomID());
 		}
@@ -279,6 +278,7 @@ class RecvThread extends Thread {
 		//게임시작 구현
 
 		else if(reqs[0].compareTo(Protocol.STARTGAME) == 0) {
+			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			if(gr.isTooSmallUser() == true) {
 				SendMessage(Protocol.TOOSMALLUSER);
 			}
@@ -299,7 +299,7 @@ class RecvThread extends Thread {
 		}
 		
 		else if (reqs[0].compareTo(Util.Protocol.SENDWORD) == 0) {
-
+			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			if (gr.isOneChar(reqs[1])) {
 				SendMessage(Protocol.WORDONLYONECHAR);
 			}
@@ -333,6 +333,7 @@ class RecvThread extends Thread {
 		}
 
 		else if (reqs[0].compareTo(Protocol.SENDDEF) == 0) {
+			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			String def = gr.getDefinition();
 			SendMessage(Protocol.SENDDEF_OK + "//" + def);
 		}
@@ -344,6 +345,7 @@ class RecvThread extends Thread {
 
 
 		else if (reqs[0].compareTo(Protocol.GAMEOUT) == 0) { // 남은 기회가 0이 되면 request
+			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			user.setAlive(false);
 			gr.addDeadUser(user.getNick());
 			SendMessage(Protocol.GAMEOUT_OK + "//" + user.getNick());
