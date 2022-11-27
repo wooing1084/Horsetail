@@ -46,7 +46,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		o=_o;
 		
 		setTitle("말 꼬투리");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
 		setBackground(Color.white);
 		setSize(1000, 720);
 		setLocationRelativeTo(null);
@@ -103,7 +103,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		textField.setColumns(10);
 		
 		sendButton = new JButton();
-		sendButton.setIcon(new ImageIcon(MainFrame.class.getResource("Image/send.png")));
+		sendButton.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/send.png")));
 		sendButton.setBackground(Color.white);
 		sendButton.setBounds(416, 616, 69, 57);
 		contentPane.add(sendButton);

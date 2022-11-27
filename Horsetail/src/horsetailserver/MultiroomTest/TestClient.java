@@ -8,7 +8,7 @@ import java.util.Scanner;
 //클라이언트 I/O를 동시에 진행할 수 있도록 스레드 처리하면 됨
 
 public class TestClient {
-    static String IP = "192.168.0.7";
+    static String IP = "192.168.131.1";
     static int PORT = 37101;
 
     static String roomID = "";
