@@ -12,7 +12,7 @@ public class Protocol {
 	//일반적으로 ACK과 NACK의 경우 tag만 전송
 	//태그 위에 메세지 양식 없는경우 태그만 전송한다.
 	
-	//100//ID%PASSWORD%NICKNAME
+	//100//ID%PASSWORD
 	public static final String REGISTER = "100"; // 회원가입
 	public static final String REGISTER_OK = "101"; //회원가입 성공
 	public static final String REGISTER_NO = "102"; // 회원가입 실패
@@ -67,7 +67,12 @@ public class Protocol {
 	public static final String SENDMESSAGE_NO = "302"; // 메시지 전송 실패 NACK
 
 	public static final String STAT = "310"; // 자신 전적 조회
-	public static final String RANKING = "311"; // 랭킹 조회
+	public static final String STAT_OK = "311"; // 자신 전적 조회
+	public static final String STAT_NO = "312"; // 자신 전적 조회
+	
+	public static final String RANKING = "320"; // 랭킹 조회
+	public static final String RANKING_OK = "321"; // 랭킹 조회
+	public static final String RANKING_NO = "322"; // 랭킹 조회
 
 	//400//WORD
 	public static final String SENDWORD = "400"; // 단어전송 REQUEST

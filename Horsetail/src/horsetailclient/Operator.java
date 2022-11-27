@@ -13,12 +13,15 @@ import Util.Protocol;
 
 public class Operator implements Runnable {
 	
-	Database db = null;
+	//Database db = null;
 	LoginFrame lf = null;
 	MainFrame mf = null;
+	JoinFrame jf = null;
+	PlayFrame pf = null;
+	ChattingFrame cf = null;
 	
-	private BufferedReader in = null;
-	private PrintWriter out = null;
+	static BufferedReader in = null;
+	static PrintWriter out = null;
 	
 	public String ID;
 	
@@ -27,8 +30,8 @@ public class Operator implements Runnable {
 		String ip = "127.0.0.1";
 		int port = 37101;
 		
-		BufferedReader in = null;
-		PrintWriter out = null;
+		in = null;
+		out = null;
 		
 		try {
 			conSoc = new Socket(ip, port);
@@ -50,14 +53,16 @@ public class Operator implements Runnable {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		Operator opt = new Operator();
-		Thread thread = new Thread();
+		Thread thread = new Thread(opt);
 		thread.start();
-		opt.db = new Database();
+		//opt.db = new Database();
 		opt.lf = new LoginFrame(opt, out);
 		opt.mf = new MainFrame(opt);
-		
+		opt.jf = new JoinFrame(opt, out);
+		opt.pf = new PlayFrame(opt, out);
+		opt.cf = new ChattingFrame(opt, out);
 	}
 	
 	@Override
@@ -76,11 +81,14 @@ public class Operator implements Runnable {
 				}
 				
 				else if(line[0].compareTo(Protocol.REGISTER_OK) == 0) {
-					
+					System.out.println("회원가입 성공");
+					jf.showDialog("회원가입에 성공하였습니다");
+					jf.dispose();
 				}
 				
 				else if (line[0].compareTo(Protocol.REGISTER_NO) == 0) {
-
+					System.out.println("회원가입 실패");
+					jf.showDialog("회원가입에 실패하였습니다");
 				}
 
 				else if (line[0].compareTo(Protocol.IDVALIDCHECK_OK) == 0) {
@@ -105,7 +113,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_OK) == 0) {
-
+					pf.setVisible(true);
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_NO) == 0) {
@@ -117,7 +125,10 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_OK) == 0) {
-					String msg = "[" + line[1] + "] : " + line[2] + "\n";
+					String chatSender = line[1];
+					String chat = line[2];
+					// RecvThread부분 SENDWORD 프로토콜 BroadCast로 꼭 수정!!!!
+					cf.textArea.append("["+chatSender+"] "+ chat +"\n");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_NO) == 0) {
@@ -142,7 +153,10 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_OK) == 0) {
-
+					String wordSender = line[1];
+					String word = line[2];
+					// RecvThread부분 SENDWORD 프로토콜 BroadCast로 꼭 수정!!!!
+					pf.gameWindow.append("["+wordSender+"] "+ word +"\n");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_NO) == 0) {
@@ -166,7 +180,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDDEF_OK) == 0) {
-
+					String def = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDDEF_NO) == 0) {
@@ -174,7 +188,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.TIMEOUT_OK) == 0) {
-
+					String timeoutPlayer = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.TIMEOUT_NO) == 0) {
@@ -186,7 +200,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEOUT_OK) == 0) {
-
+					String gameoutPlayer = line[1];
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEOUT_NO) == 0) {

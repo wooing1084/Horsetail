@@ -17,11 +17,14 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Util.Protocol;
 import horsetailclient.MainFrame.MyMouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import java.io.*;
 
 public class PlayFrame extends JFrame implements ActionListener {
 
@@ -41,9 +44,12 @@ public class PlayFrame extends JFrame implements ActionListener {
 	
 	LineBorder bb = new LineBorder(Color.gray, 1, true); //라벨의 테두리 설정값
 	private JTextField textField;
+	
+	PrintWriter out = null;
 
-	public PlayFrame(Operator _o) {
+	public PlayFrame(Operator _o, PrintWriter printW) {
 		o=_o;
+		out = printW;
 		
 		setTitle("말 꼬투리");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
@@ -51,7 +57,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		setSize(1000, 720);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		contentPane = new JPanel(); //MainFrame에서 바탕이 되는 배경 패널.
@@ -135,15 +141,18 @@ public class PlayFrame extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton) {
-			chat = new ChattingFrame(o);
+			o.cf.setVisible(true);
 		}else if (e.getSource() == sendButton) {
 			//메세지 입력없이 전송버튼만 눌렀을 경우
 			if(textField.getText().equals("")){
                    return;
             }                  
-			gameWindow.append("["+o.ID+"] "+ textField.getText()+"\n");
+			//gameWindow.append("["+o.ID+"] "+ textField.getText()+"\n");
 			
 			//서버로 전송하는 부분 있어야함.
+			
+			out.println(Protocol.SENDWORD + "//" + textField.getText());
+			out.flush();
 
 			textField.setText(""); //채팅 치는 곳 초기화
 		}

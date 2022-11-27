@@ -36,11 +36,14 @@ public class RoomManager {
     //0: full
     //1: success
     public static int JoinRoom(String roomID, RecvThread user){
-        GameRoom gr = GetRoomList().get(GetRoomIdx(roomID));
-        if(gr == null)
+        int roomIdx = GetRoomIdx(roomID);
+        if(roomIdx == -1)
             return -1;
+        GameRoom gr = GetRoomList().get(roomIdx);
+
 
         int r = gr.EnterRoom(user);
+        user.SetRoomIndex(roomIdx);
 
         return r;
     }

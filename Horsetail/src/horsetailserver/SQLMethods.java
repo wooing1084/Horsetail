@@ -10,8 +10,8 @@ public class SQLMethods {
         connection =  null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost/horsetail";
-            String user = "root", passwd = "dong1084@";
+            String url = "jdbc:mysql://localhost/HorseTail";
+            String user = "root", passwd = "dltkdtjs01";
             connection = DriverManager.getConnection(url, user, passwd);
         }catch (ClassNotFoundException e){
             e.printStackTrace();
@@ -57,19 +57,23 @@ public class SQLMethods {
     //0: Failed
     //1:Success
     //-1:error
-    public static int SignUp(String id, String pw, String name){
-        String q1 = "insert into user values(\"" + id + "\", \""  + pw + "\", \"" + name+ "\", 1000, 0, 0);";
+    public static int SignUp(String id, String pw){
+        String q1 = "insert into user values(\"" + id + "\", \""  + pw + "\", NULL, 1000, 0, 0);";
         return ExecuteUpdate(q1);
     }
 
     public static User LogIn(String id, String pw){
         String q1 = "select * from user where id = \"" + id + "\" and pw = \"" + pw + "\";";
         ResultSet rs = ExecuteQuery(q1);
-
-        User user = new User();
+        User user = null;
+        
         try {
-            if(rs.next()){
-                user.setId(rs.getString(1));
+            if(!rs.next()){
+            	return null;
+            }
+            else {
+            	user = new User();
+            	user.setId(rs.getString(1));
                 user.setPw(rs.getString(2));
                 user.setNick(rs.getString(3));
                 user.setRating(rs.getInt(4));

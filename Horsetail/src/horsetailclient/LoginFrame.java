@@ -3,7 +3,11 @@ package horsetailclient;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.event.*;
+
+import Util.Protocol;
+
 import java.awt.event.*;
+import java.io.*;
 
 public class LoginFrame extends JFrame {
 	MainFrame mf;
@@ -29,9 +33,11 @@ public class LoginFrame extends JFrame {
 	JButton exitBtn = new JButton("프로그램 종료");
 	
 	Operator o = null;
+	PrintWriter out = null;
 	
-	LoginFrame(Operator _o){
+	LoginFrame(Operator _o, PrintWriter printW){
 		o = _o;
+		out = printW;
 		
 		setTitle("로그인");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
@@ -107,6 +113,10 @@ public class LoginFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	public void showDialog(String msg) {
+		JOptionPane.showMessageDialog(null, msg);
+	}
+	
 	/* Button 이벤트 리스너 */
 	class ButtonListener implements ActionListener{
 		@Override
@@ -128,7 +138,7 @@ public class LoginFrame extends JFrame {
 			
 			/* 회원가입 버튼 이벤트 */
 			else if(b.getText().equals("회원가입")) {
-				jf = new JoinFrame();
+				o.jf.setVisible(true);
 			}
 			
 			/* 로그인 버튼 이벤트 */
@@ -139,16 +149,8 @@ public class LoginFrame extends JFrame {
 				}
 				
 				else if(uid != null && upass != null) {
-					if(o.db.logincheck(uid, upass)) {	//이 부분이 데이터베이스에 접속해 로그인 정보를 확인하는 부분이다.
-						System.out.println("로그인 성공");
-						o.ID=uid;
-						JOptionPane.showMessageDialog(null, "로그인에 성공하였습니다");
-						dispose(); //로그인 성공하면 로그인 창 닫힘
-						mf=new MainFrame(o);
-					} else {
-						System.out.println("로그인 실패 > 로그인 정보 불일치");
-						JOptionPane.showMessageDialog(null, "로그인에 실패하였습니다");
-					}
+					out.println(Protocol.LOGIN + "//" + uid + "%" + upass);
+					out.flush();
 				}
 			}
 			
