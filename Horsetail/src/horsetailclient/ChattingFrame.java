@@ -11,10 +11,14 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Util.Protocol;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.io.*;
 
 public class ChattingFrame extends JFrame implements ActionListener {
 
@@ -25,13 +29,15 @@ public class ChattingFrame extends JFrame implements ActionListener {
 	JButton sendButton;
 	LineBorder bb = new LineBorder(Color.gray, 1, true); //라벨의 테두리 설정값
 	Operator o=null;
+	PrintWriter out = null;
 	
-	public ChattingFrame(Operator _o) {
+	public ChattingFrame(Operator _o, PrintWriter printW) {
 		o=_o;
+		out = printW;
 		
 		setBounds(100, 100, 452, 582);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.white);
@@ -71,9 +77,9 @@ public class ChattingFrame extends JFrame implements ActionListener {
 			if(textField.getText().equals("")){
                    return;
             }                  
-			textArea.append("["+o.ID+"] "+ textField.getText()+"\n");
 			
-			//서버로 전송하는 부분 있어야함.
+			out.println(Protocol.SENDMESSAGE + "//" + textField.getText());
+			out.flush();
 
 			textField.setText(""); //채팅 치는 곳 초기화
 		}else{

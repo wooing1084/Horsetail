@@ -17,6 +17,8 @@ public class Operator implements Runnable {
 	LoginFrame lf = null;
 	MainFrame mf = null;
 	JoinFrame jf = null;
+	PlayFrame pf = null;
+	ChattingFrame cf = null;
 	
 	static BufferedReader in = null;
 	static PrintWriter out = null;
@@ -59,6 +61,8 @@ public class Operator implements Runnable {
 		opt.lf = new LoginFrame(opt, out);
 		opt.mf = new MainFrame(opt);
 		opt.jf = new JoinFrame(opt, out);
+		opt.pf = new PlayFrame(opt, out);
+		opt.cf = new ChattingFrame(opt, out);
 	}
 	
 	@Override
