@@ -63,14 +63,15 @@ public class PlayFrame extends JFrame implements ActionListener {
 		JLabel notationPanel = new JLabel("알림 창");
 		notationPanel.setFont(new Font("굴림", Font.BOLD, 30));
 		notationPanel.setHorizontalAlignment(JLabel.CENTER);
-		notationPanel.setBounds(125, 53, 750, 50);
+		notationPanel.setBorder(bb);
+		notationPanel.setBounds(115, 53, 750, 50);
 		contentPane.add(notationPanel);
 		
 		JLabel timerLabel = new JLabel();
 		timerLabel.setFont(new Font("굴림", Font.BOLD, 30));
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		timerLabel.setBackground(Color.WHITE);
-		timerLabel.setBounds(125, 138, 750, 50);
+		timerLabel.setBounds(460, 138, 70, 50);
 		contentPane.add(timerLabel);
 		
 		int second = 20;
@@ -116,6 +117,14 @@ public class PlayFrame extends JFrame implements ActionListener {
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane2.setBounds(497, 215, 477, 403);
 		contentPane.add(scrollPane2);
+		
+		
+		
+		JLabel lblNewLabel = new JLabel("단어 입력");
+		lblNewLabel.setBounds(51, 168, 162, 45);
+		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		contentPane.add(lblNewLabel);
 		
 		MyMouseListener listener = new MyMouseListener();
 		btnNewButton.addMouseListener(listener);

@@ -11,7 +11,7 @@ class TimerNum extends JLabel implements Runnable {
 
 	public TimerNum(int second) {
 		setOpaque(true);
-		setBounds(0, 0, 750, 50);
+		setBounds(0, 0, 70, 50);
 		setForeground(Color.BLUE);
 		setBackground(Color.WHITE);
 		setText(second + "");

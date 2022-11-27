@@ -114,9 +114,9 @@ public class LoginFrame extends JFrame {
 			JButton b = (JButton)e.getSource();
 			
 			/* TextField에 입력된 아이디와 비밀번호를 변수에 초기화 */
-			String uid = id.getText();
+			String uid = id.getText(); //입력된 ID를 가져와서 uid에 저장
 			String upass = "";
-			for(int i=0; i<pw.getPassword().length; i++) {
+			for(int i=0; i<pw.getPassword().length; i++) { //입력된 패스워드를 가져와서 upass String에 저장
 				upass = upass + pw.getPassword()[i];
 			}
 			

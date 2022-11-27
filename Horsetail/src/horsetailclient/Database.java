@@ -109,7 +109,7 @@ public class Database {
 
 			while (result.next()) {
 				str.add(result.getString(1) + "                                  " + result.getInt(2));
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,11 +126,16 @@ public class Database {
 
 			String query = "SELECT id, score FROM userTable ORDER BY score DESC";
 			ResultSet result = stmt.executeQuery(query);
-			
-			int i=1;
+
+			int i = 1;
 			while (result.next()) {
-				str.add(i+"등:          "+result.getString(1) + "          " + result.getString(2));
-				i++;
+				if (i == 1 || i==2 || i==3) {
+					str.add("                                           "+i + "등:          " + result.getString(1) + "          " + result.getString(2));
+					i++;
+				} else {
+					str.add("                                                 "+i + "등:          " + result.getString(1) + "          " + result.getString(2));
+					i++;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,7 +156,7 @@ public class Database {
 			ResultSet result = stmt.executeQuery(query);
 
 			while (result.next()) {
-				str = (result.getString(1) + "      " + result.getInt(2)+"      "+result.getInt(3));
+				str = (result.getString(1) + "      " + result.getInt(2) + "      " + result.getInt(3));
 
 			}
 		} catch (Exception e) {
@@ -160,4 +165,3 @@ public class Database {
 		return str;
 	}
 }
-
