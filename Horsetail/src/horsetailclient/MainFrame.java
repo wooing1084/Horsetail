@@ -64,7 +64,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		background=new ImageIcon(MainFrame.class.getResource("/Image/grass.jpg")).getImage();

@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 public class Database {
 	Connection con = null;
 	Statement stmt = null;
-	String url = "jdbc:mysql://localhost/dbteamproject?serverTimezone=Asia/Seoul"; // dbstudy 스키마
+	String url = "jdbc:mysql://localhost/HorseTail"; // dbstudy 스키마
 	String user = "root";
-	String passwd = "6412"; // 본인이 설정한 root 계정의 비밀번호를 입력하면 된다.
+	String passwd = "dltkdtjs01"; // 본인이 설정한 root 계정의 비밀번호를 입력하면 된다.
 
 	Database() { // 데이터베이스에 연결한다.
 		try {
@@ -32,8 +32,8 @@ public class Database {
 		String pw = _p;
 
 		try {
-			String use = "USE net;";
-			stmt.execute(use);
+			//String use = "USE net;";
+			//stmt.execute(use);
 
 			String checkingStr = "SELECT password FROM userTable WHERE id='" + id + "'";
 			ResultSet result = stmt.executeQuery(checkingStr);
@@ -67,8 +67,8 @@ public class Database {
 		String pw = _p;
 
 		try {
-			String use = "USE net;";
-			stmt.execute(use);
+			//String use = "USE net;";
+			//stmt.execute(use);
 
 			String checkingStr = "SELECT id FROM userTable WHERE id='" + id + "'";
 			ResultSet result = stmt.executeQuery(checkingStr);
@@ -101,8 +101,8 @@ public class Database {
 		ArrayList<String> str = new ArrayList();
 		int i = 0;
 		try {
-			String use = "USE net;";
-			stmt.execute(use);
+			//String use = "USE net;";
+			//stmt.execute(use);
 
 			String query = "SELECT * FROM room;";
 			ResultSet result = stmt.executeQuery(query);
@@ -121,8 +121,8 @@ public class Database {
 	ArrayList<String> checkScore() {
 		ArrayList<String> str = new ArrayList();
 		try {
-			String use = "USE net;";
-			stmt.execute(use);
+			//String use = "USE net;";
+			//stmt.execute(use);
 
 			String query = "SELECT id, score FROM userTable ORDER BY score DESC";
 			ResultSet result = stmt.executeQuery(query);
@@ -149,8 +149,8 @@ public class Database {
 		String str = new String();
 		int i = 0;
 		try {
-			String use = "USE net;";
-			stmt.execute(use);
+			//String use = "USE net;";
+			//stmt.execute(use);
 
 			String query = "SELECT * FROM userTable WHERE id =\"" + _i + "\"";
 			ResultSet result = stmt.executeQuery(query);

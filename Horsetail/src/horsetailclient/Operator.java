@@ -13,7 +13,7 @@ import Util.Protocol;
 
 public class Operator implements Runnable {
 	
-	Database db = null;
+	//Database db = null;
 	LoginFrame lf = null;
 	MainFrame mf = null;
 	
@@ -54,7 +54,7 @@ public class Operator implements Runnable {
 		Operator opt = new Operator();
 		Thread thread = new Thread();
 		thread.start();
-		opt.db = new Database();
+		//opt.db = new Database();
 		opt.lf = new LoginFrame(opt, out);
 		opt.mf = new MainFrame(opt);
 		

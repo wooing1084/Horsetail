@@ -207,10 +207,14 @@ class RecvThread extends Thread {
 			user = u;
 			Server.AddUser(user);
 
-			if(user == null)
+			if(user == null) {
+				System.out.println(Protocol.LOGIN_NO);
 				SendMessage(Protocol.LOGIN_NO);
-			else
+			}
+			else {
+				System.out.println(Protocol.LOGIN_OK + "//" + user.toString());
 				SendMessage(Protocol.LOGIN_OK + "//" + user.toString());
+			}
 		}
 		//방 정보 요청
 		else if(reqs[0].compareTo(Protocol.ROOMS) == 0){
