@@ -55,8 +55,7 @@ class RecvThread extends Thread {
 	private InputStreamReader inputStream = null;
 	private OutputStreamWriter outputStream = null;
 	
-	int gameRoomNum = -1;
-	//private GameRoom gr;
+	private GameRoom gr;
 
 	public RecvThread(Socket socket){
 		_socket = socket;
@@ -238,13 +237,12 @@ class RecvThread extends Thread {
 		}
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
-			GameRoom gr = RoomManager.CreateRoom(this);
+			gr = RoomManager.CreateRoom(this);
 
 			if(gr == null){
 				SendMessage(Protocol.ROOMCREATE_NO);
 			}
 			SendMessage(Protocol.ROOMCREATE_OK + "//" + gr.GetRoomID());
-			gameRoomNum = Integer.parseInt(gr.GetRoomID());
 		}
 		//방 참가
 		else if(reqs[0].compareTo(Protocol.JOINROOM) == 0){
@@ -254,10 +252,8 @@ class RecvThread extends Thread {
 				SendMessage(Protocol.ROOMFULL);
 			else if(r == 0)
 				SendMessage(Protocol.JOINROOM_NO);
-			else {
+			else
 				SendMessage(Protocol.JOINROOM_OK + "//" + reqs[1]);
-				gameRoomNum = Integer.parseInt(reqs[1]);
-			}
 		}
 		//방 유저 목록 요청
 		else if(reqs[0].compareTo(Protocol.ROOMUSERS) == 0){
@@ -283,13 +279,13 @@ class RecvThread extends Thread {
 		//게임시작 구현
 
 		else if(reqs[0].compareTo(Protocol.STARTGAME) == 0) {
-			if(RoomManager.GetRoomList().get(gameRoomNum).isTooSmallUser() == true) {
+			if(gr.isTooSmallUser() == true) {
 				SendMessage(Protocol.TOOSMALLUSER);
 			}
 			
 			else {
-				RoomManager.GetRoomList().get(gameRoomNum).GetUserList().get(0).user.setTurn(true);
-				RoomManager.GetRoomList().get(gameRoomNum).BroadCast(Protocol.STARTGAME_OK);
+				gr.GetUserList().get(0).user.setTurn(true);
+				gr.BroadCast(Protocol.STARTGAME_OK);
 			}
 		}
 
@@ -304,40 +300,40 @@ class RecvThread extends Thread {
 		
 		else if (reqs[0].compareTo(Util.Protocol.SENDWORD) == 0) {
 
-			if (RoomManager.GetRoomList().get(gameRoomNum).isOneChar(reqs[1])) {
+			if (gr.isOneChar(reqs[1])) {
 				SendMessage(Protocol.WORDONLYONECHAR);
 			}
 
-			else if (RoomManager.GetRoomList().get(gameRoomNum).isNotChain(reqs[1])) {
+			else if (gr.isNotChain(reqs[1])) {
 				SendMessage(Protocol.WORDNOTCHAIN );
 			}
 
-			else if (RoomManager.GetRoomList().get(gameRoomNum).isOverlap(reqs[1])) {
+			else if (gr.isOverlap(reqs[1])) {
 				SendMessage(Protocol.WORDOVERLAP);
 			}
 
-			else if (RoomManager.GetRoomList().get(gameRoomNum).isNotExist(reqs[1])) {
+			else if (gr.isNotExist(reqs[1])) {
 				SendMessage(Protocol.WORDNOTEXIST);
 			}
 
 			else {
-				RoomManager.GetRoomList().get(gameRoomNum).addWord(reqs[1]);
+				gr.addWord(reqs[1]);
 				SendMessage(Protocol.SENDWORD_OK + "//" + user.getNick());
 
-				int idx = RoomManager.GetRoomList().get(gameRoomNum).GetUserList().indexOf((Object) user.getNick());
+				int idx = gr.GetUserList().indexOf((Object) user.getNick());
 				int i = 1;
-				while (RoomManager.GetRoomList().get(gameRoomNum).GetUserList().get((idx + i) % RoomManager.GetRoomList().get(gameRoomNum).GetUserList().size()).user.getAlive()) {
+				while (gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.getAlive()) {
 					i++;
 				}
-				RoomManager.GetRoomList().get(gameRoomNum).GetUserList().get((idx + i) % RoomManager.GetRoomList().get(gameRoomNum).GetUserList().size()).user.setTurn(true);
+				gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.setTurn(true);
 				this.user.setTurn(false);
 
-				SendMessage(Protocol.YOURTURN + "//" + RoomManager.GetRoomList().get(gameRoomNum).GetUserList().get((idx + i) % RoomManager.GetRoomList().get(gameRoomNum).GetUserList().size()).user.getNick());
+				SendMessage(Protocol.YOURTURN + "//" + gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.getNick());
 			}
 		}
 
 		else if (reqs[0].compareTo(Protocol.SENDDEF) == 0) {
-			String def = RoomManager.GetRoomList().get(gameRoomNum).getDefinition();
+			String def = gr.getDefinition();
 			SendMessage(Protocol.SENDDEF_OK + "//" + def);
 		}
 
@@ -349,11 +345,11 @@ class RecvThread extends Thread {
 
 		else if (reqs[0].compareTo(Protocol.GAMEOUT) == 0) { // 남은 기회가 0이 되면 request
 			user.setAlive(false);
-			RoomManager.GetRoomList().get(gameRoomNum).addDeadUser(user.getNick());
+			gr.addDeadUser(user.getNick());
 			SendMessage(Protocol.GAMEOUT_OK + "//" + user.getNick());
 
-			if (RoomManager.GetRoomList().get(gameRoomNum).GetUserList().size() == RoomManager.GetRoomList().get(gameRoomNum).getDeadUserNum() - 1) {
-				RoomManager.GetRoomList().get(gameRoomNum).BroadCast(Protocol.GAMEEND + "//게임이 종료되었습니다.//" + RoomManager.GetRoomList().get(gameRoomNum).getDeadUserNick());
+			if (gr.GetUserList().size() == gr.getDeadUserNum() - 1) {
+				gr.BroadCast(Protocol.GAMEEND + "//게임이 종료되었습니다.//" + gr.getDeadUserNick());
 			}
 		}
 
