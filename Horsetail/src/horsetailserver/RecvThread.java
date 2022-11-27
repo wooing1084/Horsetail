@@ -54,6 +54,8 @@ class RecvThread extends Thread {
 
 	private InputStreamReader inputStream = null;
 	private OutputStreamWriter outputStream = null;
+	
+	private GameRoom gr;
 
 	public RecvThread(Socket socket){
 		_socket = socket;
@@ -234,7 +236,7 @@ class RecvThread extends Thread {
 		}
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
-			GameRoom gr = RoomManager.CreateRoom(this);
+			gr = RoomManager.CreateRoom(this);
 
 			if(gr == null){
 				SendMessage(Protocol.ROOMCREATE_NO);
@@ -275,6 +277,16 @@ class RecvThread extends Thread {
 
 		//게임시작 구현
 
+		else if(reqs[0].compareTo(Protocol.STARTGAME) == 0) {
+			if(gr.isTooSmallUser() == true) {
+				SendMessage(Protocol.TOOSMALLUSER);
+			}
+			
+			else {
+				gr.GetUserList().get(0).user.setTurn(true);
+				gr.BroadCast(Protocol.STARTGAME_OK);
+			}
+		}
 
 		//--------
 

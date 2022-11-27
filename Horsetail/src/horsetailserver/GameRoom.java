@@ -85,6 +85,13 @@ public class GameRoom {
 		_roomName = name;
 	}
 	
+	public boolean isTooSmallUser() {
+		if(_userList.size() <= 1) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean isOneChar(String w) {
 		if(w.length() == 1) {
 			return true;
