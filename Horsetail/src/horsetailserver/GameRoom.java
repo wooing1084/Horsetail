@@ -10,12 +10,12 @@ import Util.Protocol;
 import java.util.*;
 
 public class GameRoom {
-	private String _roomID;
-	private RecvThread _owner;
-	private String _roomName;
+	private String _roomID = null;
+	private RecvThread _owner = null;
+	private String _roomName = null;
 	private ArrayList<RecvThread> _userList;
-	private ArrayList<String> words;
-	private ArrayList<String> deadUsers;
+
+	private Game game;
 
 	public GameRoom(){
 		_userList = new ArrayList<RecvThread>();
@@ -59,6 +59,43 @@ public class GameRoom {
 		}
 	}
 
+	//0 : 시작 실패
+	//1 : 게임 시작
+	//-1: 이미 게임중
+	public int GameStart(RecvThread u){
+		//방장이 아님
+		if(u.GetUser().getId().compareTo(_owner.GetUser().getId()) != 0)
+		{
+			u.SendMessage(Protocol.STARTGAME_NO);
+			return 0;
+		}
+
+		//게임이 이미 진행중임
+		if(game != null)
+			return -1;
+		
+		//방 인원이 너무 적음
+		if(isTooSmallUser() == true) {
+			u.SendMessage(Protocol.TOOSMALLUSER);
+			return 0;
+		}
+
+		//스레드 생성 및 start후 게임시작 알림 broadcast
+		game = new Game(this);
+		Thread thread = game;
+		thread.start();
+		BroadCast(Protocol.STARTGAME_OK);
+
+		return 1;
+	}
+
+	public void EnterWordToGame(String w, RecvThread u){
+		if(game == null)
+			return;
+
+		game.EnterWord(w, u);
+	}
+
 
 	//Getter
 	public String GetRoomID(){
@@ -92,75 +129,9 @@ public class GameRoom {
 		return false;
 	}
 	
-	public boolean isOneChar(String w) {
-		if(w.length() == 1) {
-			return true;
-		}
-		
-		return false;
-	}
+
 	
-	public boolean isNotChain(String w) {
-		int lastIdx = words.size() - 1;
-		String lastWord = words.get(lastIdx);
-		
-		char lastWordChar = lastWord.charAt(lastWord.length() - 1);
-		char newWordChar = w.charAt(w.length() - 1);
-		
-		if(!(lastWordChar == newWordChar)) {
-			return true;
-		}
-		
-		return false;
-	}
+
 	
-	public boolean isOverlap(String w) {
-		if(words.contains(w)) {
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public boolean isNotExist(String w) {
-		// API와 연동해서 단어 체크 코드 추가
-		// 단어가 있으면 false, 없으면 true 리턴
-		
-		return false;
-	}
-	
-	public void addWord(String w) {
-		words.add(w);
-	}
-	
-	public String getDefinition() {
-		String def = null;
-		
-		// API와 연동해서 단어 뜻 가져오는 코드 추가
-		
-		return def;
-	}
-	
-	public void addDeadUser(String nick) {
-		deadUsers.add(nick);
-	}
-	
-	public int getDeadUserNum() {
-		return deadUsers.size();
-	}
-	
-	public String getDeadUserNick() {
-		String dead = "";
-		for(int i = 0; i < deadUsers.size(); i++) {
-			dead += deadUsers.get(i) + "%";
-		}
-		
-		return dead;
-	}
-	
-	public void resetGame()
-	{
-		words.clear();
-		deadUsers.clear();
-	}
+
 }
