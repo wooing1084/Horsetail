@@ -11,7 +11,7 @@ public class SQLMethods {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost/HorseTail";
-            String user = "root", passwd = "dltkdtjs01";
+            String user = "root", passwd = "6412";
             connection = DriverManager.getConnection(url, user, passwd);
         }catch (ClassNotFoundException e){
             e.printStackTrace();

@@ -48,6 +48,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	JButton profile;
 	JButton refresh;
 	JButton refresh2;
+	JButton newRoom;
 	JDialog myInfo;
 	PlayFrame pf;
 	private JButton btnNewButton;
@@ -119,9 +120,18 @@ public class MainFrame extends JFrame implements ActionListener {
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane2.setBounds(0, 0, 591, 234);
 		ebPanel.add(scrollPane2);
+		
+		newRoom = new JButton("방 만들기");
+		newRoom.setFont(new Font("맑은 고딕", Font.BOLD, 10));
+		//newRoom.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
+		newRoom.setBounds(604, 123, 100, 50);
+		newRoom.setForeground(Color.WHITE);
+		newRoom.setBackground(new Color(204, 153, 0));
+		newRoom.setBorderPainted(false);
+		contentPane.add(newRoom);
 
 		ArrayList<String> temp2 = new ArrayList();
-		//Database tempDB2 = new Database(); // 랭킹 정보를 가져올 임시 클래스
+		//Database tempDB2 = new Database();
 		//temp2 = tempDB2.infoRoom();
 		
 		JLabel test;
@@ -158,6 +168,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		profile.setBounds(761, 189, 213, 43);
 		profile.setBackground(Color.WHITE);
 		profile.setBorderPainted(false);
+		profile.setContentAreaFilled(false);
+		profile.setFocusPainted(false);
 		contentPane.add(profile);
 
 		
@@ -196,6 +208,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		refresh2.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/refresh.png")));
 		refresh2.setBackground(Color.WHITE);
 		refresh2.setBorderPainted(false);
+		refresh2.setContentAreaFilled(false);
+		refresh2.setFocusPainted(false);
 		refresh2.setVisible(true);
 		contentPane.add(refresh2);
 
@@ -257,8 +271,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		MyMouseListener listener = new MyMouseListener();
 		profile.addMouseListener(listener);
+		newRoom.addMouseListener(listener);
 		profile.addActionListener(this);
 		refresh.addActionListener(this);
+		newRoom.addActionListener(this);
 		refresh2.addActionListener(this);
 	}
 
@@ -267,6 +283,8 @@ public class MainFrame extends JFrame implements ActionListener {
 			o.pf.setVisible(true);
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
+		}else if (e.getSource() == newRoom) {
+			MakeRoomDialog mrd = new MakeRoomDialog(); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
 		} else if (e.getSource() == refresh) {
 			ebPanel.removeAll();
 			ebPanel.updateUI();
@@ -376,7 +394,11 @@ public class MainFrame extends JFrame implements ActionListener {
 			if (e.getSource() == profile) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo2.png")));
-			} else {
+			} else if (e.getSource() == newRoom) {
+				JButton b = (JButton) e.getSource();
+				b.setForeground(new Color(204, 153, 0));
+				b.setBackground(Color.WHITE);
+			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
 			}
@@ -387,7 +409,11 @@ public class MainFrame extends JFrame implements ActionListener {
 			if (e.getSource() == profile) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
-			} else {
+			} else if (e.getSource() == newRoom) {
+				JButton b = (JButton) e.getSource();
+				b.setBackground(new Color(204, 153, 0));
+				b.setForeground(Color.WHITE);
+			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);
 			}

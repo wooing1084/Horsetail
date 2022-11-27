@@ -58,7 +58,7 @@ public class ChattingFrame extends JFrame implements ActionListener {
 		textField.setColumns(10);
 		
 		sendButton = new JButton();
-		sendButton.setIcon(new ImageIcon(MainFrame.class.getResource("/Image/send.png")));
+		sendButton.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/send.png")));
 		sendButton.setBounds(368, 488, 69, 57);
 		sendButton.setBackground(Color.white);
 		contentPane.add(sendButton);
