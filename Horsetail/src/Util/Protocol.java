@@ -15,7 +15,7 @@ public class Protocol {
 	//100//ID%PASSWORD%NICKNAME
 	public static final String REGISTER = "100"; // 회원가입
 	public static final String REGISTER_OK = "101"; //회원가입 성공
-	public static final String RESIGSTER_NO = "102"; // 회원가입 실패
+	public static final String REGISTER_NO = "102"; // 회원가입 실패
 
 	//110//ID
 	public static final String IDVALIDCHECK = "110"; // ID중복 REQUEST
