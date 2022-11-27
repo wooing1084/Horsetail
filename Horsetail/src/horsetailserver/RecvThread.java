@@ -44,6 +44,7 @@ import java.io.*;
 import java.net.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 class RecvThread extends Thread {
 	private Socket _socket;
@@ -141,8 +142,30 @@ class RecvThread extends Thread {
 		}
 	}
 
+	public static String[] DivideRequest(String req){
+		String[] result = req.split("//");
+
+		return result;
+	}
+
+	public static String MakeResponse(String tag, ArrayList<String> res){
+		String result = tag;
+
+		if(res.size() != 0){
+			result += "//";
+
+			for(int i =0;i<res.size();i++){
+				result += res.get(i);
+				if(i < res.size() - 1)
+					result += "%";
+			}
+		}
+
+		return result;
+	}
+
 	private void MessageExecutes(String req){
-		String[] reqs = req.split("/");
+		String[] reqs = DivideRequest(req);
 
 		//회원가입
 		if(reqs[0].compareTo(Protocol.REGISTER) == 0){
@@ -185,7 +208,7 @@ class RecvThread extends Thread {
 			if(user == null)
 				SendMessage(Protocol.LOGIN_NO);
 			else
-				SendMessage(Protocol.LOGIN_OK + user.toString());
+				SendMessage(Protocol.LOGIN_OK + "//" + user.toString());
 		}
 		//방 생성
 		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
@@ -194,7 +217,7 @@ class RecvThread extends Thread {
 			if(gr == null){
 				SendMessage(Protocol.ROOMCREATE_NO);
 			}
-			SendMessage(Protocol.ROOMCREATE_OK + "/" + gr.GetRoomID());
+			SendMessage(Protocol.ROOMCREATE_OK + "//" + gr.GetRoomID());
 		}
 
 		//방 참가
@@ -206,7 +229,7 @@ class RecvThread extends Thread {
 			else if(r == 0)
 				SendMessage(Protocol.JOINROOM_NO);
 			else
-				SendMessage(Protocol.JOINROOM_OK + "/" + reqs[1]);
+				SendMessage(Protocol.JOINROOM_OK + "//" + reqs[1]);
 		}
 
 		//게임시작 구현
