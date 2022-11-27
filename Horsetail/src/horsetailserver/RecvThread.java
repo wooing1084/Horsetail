@@ -90,7 +90,8 @@ class RecvThread extends Thread {
 	//1 : success
 	public int Close(){
 		try {
-			RoomManager.GetRoomList().get(nowRoomIndex).EnterRoom(this);
+			if(nowRoomIndex != -1)
+				RoomManager.GetRoomList().get(nowRoomIndex).ExitRoom(this);
 			inputStream.close();
 			outputStream.close();
 			_socket.close();
