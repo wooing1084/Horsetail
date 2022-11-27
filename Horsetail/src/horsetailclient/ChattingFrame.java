@@ -24,7 +24,7 @@ public class ChattingFrame extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextArea textArea;
+	public JTextArea textArea;
 	JScrollPane scrollPane;
 	JButton sendButton;
 	LineBorder bb = new LineBorder(Color.gray, 1, true); //라벨의 테두리 설정값

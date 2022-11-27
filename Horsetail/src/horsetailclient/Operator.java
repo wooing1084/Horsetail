@@ -113,7 +113,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_OK) == 0) {
-
+					pf.setVisible(true);
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_NO) == 0) {
@@ -125,7 +125,10 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_OK) == 0) {
-					String msg = "[" + line[1] + "] : " + line[2] + "\n";
+					String chatSender = line[1];
+					String chat = line[2];
+					// RecvThread부분 SENDWORD 프로토콜 BroadCast로 꼭 수정!!!!
+					cf.textArea.append("["+chatSender+"] "+ chat +"\n");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_NO) == 0) {
@@ -151,6 +154,9 @@ public class Operator implements Runnable {
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_OK) == 0) {
 					String wordSender = line[1];
+					String word = line[2];
+					// RecvThread부분 SENDWORD 프로토콜 BroadCast로 꼭 수정!!!!
+					pf.gameWindow.append("["+wordSender+"] "+ word +"\n");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_NO) == 0) {
