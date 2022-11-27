@@ -76,6 +76,7 @@ public class Protocol {
 
 	//400//WORD
 	public static final String SENDWORD = "400"; // 단어전송 REQUEST
+	//401//word
 	public static final String SENDWORD_OK = "401"; // 단어전송 성공 ACK
 	public static final String SENDWORD_NO = "402"; // 단어전송 실패 NACK
 

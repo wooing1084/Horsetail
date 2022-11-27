@@ -93,6 +93,7 @@ public class Game extends Thread{
                 continue;
             }
 
+            gameRoom.BroadCast(Protocol.SENDWORD_OK + "//" + inputWord);
             //모든조건이 걸리지 않았다면 목록에 추가하고 다음턴으로 넘기자!
             addWord(inputWord);
             inputWord = "";
