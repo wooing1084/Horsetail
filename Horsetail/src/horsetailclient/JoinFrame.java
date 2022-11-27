@@ -36,7 +36,7 @@ public class JoinFrame extends JFrame {
 		out = printW;
 
 		setTitle("회원가입");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 
 		/* Label 크기 작업 */

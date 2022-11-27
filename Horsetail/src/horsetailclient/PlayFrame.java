@@ -52,7 +52,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		out = printW;
 		
 		setTitle("말 꼬투리");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/Image/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		setSize(1000, 720);
 		setLocationRelativeTo(null);

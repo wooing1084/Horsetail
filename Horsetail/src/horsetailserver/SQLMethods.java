@@ -85,5 +85,25 @@ public class SQLMethods {
         }
         return user;
     }
-
+    
+    public static String getRankingID() {
+    	String ranking = "";
+    	
+    	String q1 = "select id from user order by desc";
+        ResultSet rs = ExecuteQuery(q1);
+        
+    	try {
+    		int cnt = 0;
+    		while(rs.next() || cnt > 10) {
+    			String temp = rs.getString(1) + "%";
+    			ranking += temp;
+    			cnt++;
+    		}
+    	}
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return ranking;
+    }
 }

@@ -145,7 +145,8 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.RANKING_OK) == 0) {
-					String[] contents = line[1].split("%");
+					String[] id = line[1].split("%");
+					
 				}
 				
 				else if (line[0].compareTo(Protocol.RANKING_NO) == 0) {
