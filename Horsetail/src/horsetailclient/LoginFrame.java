@@ -138,7 +138,7 @@ public class LoginFrame extends JFrame {
 			
 			/* 회원가입 버튼 이벤트 */
 			else if(b.getText().equals("회원가입")) {
-				jf = new JoinFrame();
+				o.jf.setVisible(true);
 			}
 			
 			/* 로그인 버튼 이벤트 */

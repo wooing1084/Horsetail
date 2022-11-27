@@ -174,7 +174,7 @@ class RecvThread extends Thread {
 		if(reqs[0].compareTo(Protocol.REGISTER) == 0){
 			String[] args = reqs[1].split("%");
 
-			int result = SQLMethods.SignUp(args[0], args[1], args[2]);
+			int result = SQLMethods.SignUp(args[0], args[1]);
 
 			if(result == 1)
 				SendMessage(Protocol.REGISTER_OK);

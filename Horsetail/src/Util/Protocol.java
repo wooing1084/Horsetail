@@ -12,7 +12,7 @@ public class Protocol {
 	//일반적으로 ACK과 NACK의 경우 tag만 전송
 	//태그 위에 메세지 양식 없는경우 태그만 전송한다.
 	
-	//100//ID%PASSWORD%NICKNAME
+	//100//ID%PASSWORD
 	public static final String REGISTER = "100"; // 회원가입
 	public static final String REGISTER_OK = "101"; //회원가입 성공
 	public static final String REGISTER_NO = "102"; // 회원가입 실패

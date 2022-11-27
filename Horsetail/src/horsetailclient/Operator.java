@@ -16,6 +16,7 @@ public class Operator implements Runnable {
 	//Database db = null;
 	LoginFrame lf = null;
 	MainFrame mf = null;
+	JoinFrame jf = null;
 	
 	static BufferedReader in = null;
 	static PrintWriter out = null;
@@ -57,7 +58,7 @@ public class Operator implements Runnable {
 		//opt.db = new Database();
 		opt.lf = new LoginFrame(opt, out);
 		opt.mf = new MainFrame(opt);
-		
+		opt.jf = new JoinFrame(opt, out);
 	}
 	
 	@Override
@@ -76,11 +77,14 @@ public class Operator implements Runnable {
 				}
 				
 				else if(line[0].compareTo(Protocol.REGISTER_OK) == 0) {
-					
+					System.out.println("회원가입 성공");
+					jf.showDialog("회원가입에 성공하였습니다");
+					jf.dispose();
 				}
 				
 				else if (line[0].compareTo(Protocol.REGISTER_NO) == 0) {
-
+					System.out.println("회원가입 실패");
+					jf.showDialog("회원가입에 실패하였습니다");
 				}
 
 				else if (line[0].compareTo(Protocol.IDVALIDCHECK_OK) == 0) {

@@ -57,8 +57,8 @@ public class SQLMethods {
     //0: Failed
     //1:Success
     //-1:error
-    public static int SignUp(String id, String pw, String name){
-        String q1 = "insert into user values(\"" + id + "\", \""  + pw + "\", \"" + name+ "\", 1000, 0, 0);";
+    public static int SignUp(String id, String pw){
+        String q1 = "insert into user values(\"" + id + "\", \""  + pw + "\", NULL, 1000, 0, 0);";
         return ExecuteUpdate(q1);
     }
 
