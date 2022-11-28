@@ -129,7 +129,8 @@ public class Operator implements Runnable {
 				
 				else if (line[0].compareTo(Protocol.ROOMS_NO) == 0) {
 					System.out.println("방이 없음");
-					//lf.showDialog("방이 없습니다. 먼저 만들어보세요!");
+					mf.initRoomIdList();
+					mf.initRoomNameList();
 				}
 				
 				else if (line[0].compareTo(Protocol.ROOMCREATE_OK) == 0) {
