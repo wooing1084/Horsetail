@@ -31,7 +31,7 @@ public class OpenDict{
 
             result = Protocol.SENDDEF;
 
-            for (int i =0; i<nl.getLength(); i++) {
+            for (int i =0; i<1; i++) {
                 Node node = nl.item(i);
                 if(node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
