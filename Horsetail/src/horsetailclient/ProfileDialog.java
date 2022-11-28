@@ -31,7 +31,7 @@ public class ProfileDialog extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		setBounds(0, 0, 358, 168);
 		setLocationRelativeTo(null);
 		
@@ -57,7 +57,7 @@ public class ProfileDialog extends JFrame {
 		
 		String temp = new String();
 		Database db = new Database();
-		temp = db.CheckMyInfo(o.ID);
+		//temp = db.CheckMyInfo(o.ID);
 		
 		
 		label = new JLabel(temp);
@@ -71,6 +71,10 @@ public class ProfileDialog extends JFrame {
 		backG.setLayout(null);
 		backG.add(label);
 		backG.add(lblNewLabel);
+	}
+	
+	public void setInfo(String s) {
+		label.setText(s);
 	}
 
 }

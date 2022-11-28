@@ -116,7 +116,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		gameWindow = new JTextArea();
 		gameWindow.setBounds(0, 0, 458, 403);
 		gameWindow.setBorder(bb);
-		gameWindow.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+		gameWindow.setFont(new Font("맑은 고딕", Font.PLAIN, 25));
 		gameWindow.setOpaque(false);
 		gameWindow.setLineWrap(true);
 		contentPane.add(gameWindow);
@@ -125,7 +125,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		dictionaryWindow.setBounds(0, 0, 462, 403);
 		dictionaryWindow.setBorder(bb);
 		dictionaryWindow.setOpaque(false);
-		dictionaryWindow.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		dictionaryWindow.setFont(new Font("맑은 고딕", Font.BOLD, 35));
 		dictionaryWindow.setLineWrap(true);
 		contentPane.add(dictionaryWindow);
 

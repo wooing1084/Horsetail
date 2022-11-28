@@ -67,7 +67,7 @@ public class ChattingFrame extends JFrame implements ActionListener {
 		textArea.setBorder(bb);
 		textArea.setBounds(0, 0, 423, 489);
 		textArea.setOpaque(false);
-		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 25));
 
 		contentPane.add(textArea);
 		

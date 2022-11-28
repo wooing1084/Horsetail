@@ -310,7 +310,9 @@ public class MainFrame extends JFrame implements ActionListener {
 			out.println(Protocol.JOINROOM + "//" + enterButton.getText());
 			out.flush();
 		} else if (e.getSource() == profile) {
-			ProfileDialog pd = new ProfileDialog(o);
+			out.println(Protocol.STAT);
+			out.flush();
+			o.pd.setVisible(true);
 		}else if (e.getSource() == newRoom) {
 			o.mrd.setVisible(true); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
 		} else if (e.getSource() == refresh) { // 이게 방목록 버튼

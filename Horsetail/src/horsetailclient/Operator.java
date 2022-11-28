@@ -20,6 +20,7 @@ public class Operator implements Runnable {
 	PlayFrame pf = null;
 	ChattingFrame cf = null;
 	MakeRoomDialog mrd = null;
+	ProfileDialog pd = null;
 	
 	static BufferedReader in = null;
 	static PrintWriter out = null;
@@ -66,6 +67,7 @@ public class Operator implements Runnable {
 		opt.pf = new PlayFrame(opt, out);
 		opt.cf = new ChattingFrame(opt, out);
 		opt.mrd = new MakeRoomDialog(opt, out);
+		opt.pd = new ProfileDialog(opt);
 	}
 	
 	@Override
@@ -190,6 +192,7 @@ public class Operator implements Runnable {
 					String rating = info[2];
 					String wins = info[3];
 					String loses = info[4];
+					pd.setInfo(id + "  " + rating + "    " + wins + "    " + loses);
 				}
 				
 				else if (line[0].compareTo(Protocol.STAT_NO) == 0) {
