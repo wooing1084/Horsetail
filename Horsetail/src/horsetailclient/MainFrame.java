@@ -45,6 +45,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	JLabel post;
 	JPanel ebPanel;
 	JPanel roomPanel;
+	JLabel roomLabel;
 	JButton enterButton;
 	JButton profile;
 	JButton refresh;
@@ -139,13 +140,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		//Database tempDB2 = new Database();
 		//temp2 = tempDB2.infoRoom();
 		
-		JLabel test;
+		
 		
 		out.println(Protocol.ROOMS);
 		out.flush();
 		
-		ebPanel.removeAll();
-		ebPanel.updateUI();
+//		ebPanel.removeAll();
+//		ebPanel.updateUI();
 		
 		int size = 0;
 		for (int i = 0; i < roomNameList.size(); i++) {
@@ -157,17 +158,17 @@ public class MainFrame extends JFrame implements ActionListener {
 			enterButton.setBounds(506, size, 70, 70);
 			enterButton.setBorder(bb);
 			
-			test = new JLabel(roomNameList.get(i));
-			test.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-			test.setBounds(0, size, 506, 70);
-			test.setBorder(bb);
+			roomLabel = new JLabel(roomNameList.get(i));
+			roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+			roomLabel.setBounds(0, size, 506, 70);
+			roomLabel.setBorder(bb);
 //			enterButton.setBorderPainted(false);
 //			enterButton.setContentAreaFilled(false);
 //			enterButton.setFocusPainted(false);
 			roomPanel.setPreferredSize(new Dimension(576, 70 + size));
 			size += 70;
 			roomPanel.add(enterButton);
-			roomPanel.add(test);
+			roomPanel.add(roomLabel);
 			
 			PostButtonArr[i] = enterButton;
 			PostButtonArr[i].addActionListener(this);
@@ -239,8 +240,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		out.println(Protocol.RANKING);
 		out.flush();
 		
-		panel.removeAll(); // 패널을 지운다.(새로고침)
-		panel.updateUI();
+//		panel.removeAll(); // 패널을 지운다.(새로고침)
+//		panel.updateUI();
 		
 		int size2 = 0;
 		for (int i = 0; i < rankingList.size(); i++) {
@@ -328,14 +329,26 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			int size = 0;
 			for (int i = 0; i < roomNameList.size(); i++) {
-				enterButton = new JButton(roomNameList.get(i)); 
-				enterButton.setBackground(Color.WHITE);
-				enterButton.setBounds(0, size, 591, 70);
-				enterButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				enterButton = new JButton(); 
+				enterButton.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
+				enterButton.setBorderPainted(false);
+				enterButton.setContentAreaFilled(false);
+				enterButton.setFocusPainted(false);
+				enterButton.setBounds(506, size, 70, 70);
 				enterButton.setBorder(bb);
+				
+				roomLabel = new JLabel(roomNameList.get(i));
+				roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				roomLabel.setBounds(0, size, 506, 70);
+				roomLabel.setBorder(bb);
+//				enterButton.setBorderPainted(false);
+//				enterButton.setContentAreaFilled(false);
+//				enterButton.setFocusPainted(false);
 				roomPanel.setPreferredSize(new Dimension(576, 70 + size));
 				size += 70;
 				roomPanel.add(enterButton);
+				roomPanel.add(roomLabel);
+				
 				PostButtonArr[i] = enterButton;
 				PostButtonArr[i].addActionListener(this);
 			}

@@ -128,7 +128,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		
 		
 		JLabel lblNewLabel = new JLabel("단어 입력");
-		lblNewLabel.setBounds(51, 168, 162, 45);
+		lblNewLabel.setBounds(148, 170, 162, 45);
 		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		contentPane.add(lblNewLabel);
