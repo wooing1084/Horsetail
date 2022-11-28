@@ -163,6 +163,12 @@ public class Operator implements Runnable {
 					lf.showDialog("방 입장에 실패하였습니다");
 				}
 				
+				else if (line[0].compareTo(Protocol.JOINED_USER) == 0) {
+					String info[] = line[1].split("%");
+					String chat = "[시스템] : " + info[0] + "님이 입장하셨습니다.\n"+ "(레이팅 : " + info[2] + ", 승 : " + info[3] + ", 패 : " + info[4] + ")\n";
+					cf.textArea.append(chat);
+				}
+				
 				else if (line[0].compareTo(Protocol.STARTGAME_OK) == 0) {
 					pf.setNotation("게임을 시작합니다!");
 				}
@@ -278,10 +284,7 @@ public class Operator implements Runnable {
 				
 				else if (line[0].compareTo(Protocol.GAMEEND) == 0) {
 					lf.showDialog("게임이 종료되었습니다!");
-					pf.setVisible(false);
-					mf.setVisible(true);
 					pf.initPlayFrame();
-					cf.initChat();
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEEND_OK) == 0) {
