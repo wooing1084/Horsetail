@@ -69,7 +69,8 @@ public class Protocol {
 	public static final String STAT = "310"; // 자신 전적 조회
 	public static final String STAT_OK = "311"; // 자신 전적 조회
 	public static final String STAT_NO = "312"; // 자신 전적 조회
-	
+
+	//320//id%name,rating,win,loss
 	public static final String RANKING = "320"; // 랭킹 조회
 	public static final String RANKING_OK = "321"; // 랭킹 조회
 	public static final String RANKING_NO = "322"; // 랭킹 조회
