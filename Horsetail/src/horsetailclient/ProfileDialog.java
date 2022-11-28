@@ -45,7 +45,7 @@ public class ProfileDialog extends JFrame {
 			}
 		};
 		
-		backG.setBounds(0, 0, 500,200);
+		backG.setBounds(0, 0, 358,168);
 		backG.setBackground(Color.white);
 		
 		lblNewLabel = new JLabel("             ID          Password          Score");
@@ -53,7 +53,7 @@ public class ProfileDialog extends JFrame {
 		lblNewLabel.setBounds(0, 0, 344, 50);
 		//lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
 		lblNewLabel.setBackground(Color.white);
-		lblNewLabel.setBorder(new LineBorder(SystemColor.control));
+		lblNewLabel.setBorder(null);
 		
 		String temp = new String();
 		Database db = new Database();
@@ -65,7 +65,7 @@ public class ProfileDialog extends JFrame {
 		label.setFont(new Font("맑은 고딕",Font.BOLD, 20));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setBackground(Color.white);
-		label.setBorder(new LineBorder(SystemColor.control));
+		label.setBorder(null);
 		
 		setContentPane(backG);
 		backG.setLayout(null);
