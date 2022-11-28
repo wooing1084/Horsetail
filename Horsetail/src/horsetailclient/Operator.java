@@ -182,6 +182,10 @@ public class Operator implements Runnable {
 					lf.showDialog("사용자가 너무 적어 게임을 시작할 수 없습니다");
 				}
 				
+				else if (line[0].compareTo(Protocol.GAMEREADY) == 0) {
+					pf.setNotation("게임을 시작합니다!");
+				}
+				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_OK) == 0) {
 					String chatSender = line[1];
 					String chat = line[2];
