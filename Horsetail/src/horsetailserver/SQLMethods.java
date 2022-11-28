@@ -1,5 +1,7 @@
 package horsetailserver;
 
+import Util.Protocol;
+
 import java.sql.*;
 
 public class SQLMethods {
@@ -69,7 +71,7 @@ public class SQLMethods {
         String q1 = "select * from user where id = \"" + id + "\" and pw = \"" + pw + "\";";
         ResultSet rs = ExecuteQuery(q1);
         User user = null;
-        
+
         try {
             if(!rs.next()){
             	return null;
@@ -88,16 +90,18 @@ public class SQLMethods {
         }
         return user;
     }
-    
+
     public static String getRankingID() {
     	String ranking = "";
-    	
+
     	String q1 = "select id from user order by rating desc";
         ResultSet rs = ExecuteQuery(q1);
-        
+
     	try {
     		int cnt = 0;
-    		while(rs.next() || cnt > 10) {
+    		while(rs.next() && cnt < 10) {
+                if(cnt == 0)
+                    ranking = Protocol.RANKING_OK + "//";
     			String temp = rs.getString(1) + "%";
     			ranking += temp;
     			cnt++;
@@ -105,8 +109,32 @@ public class SQLMethods {
     	}
     	catch(SQLException e) {
     		e.printStackTrace();
+            ranking = Protocol.RANKING_NO;
     	}
-    	
+
     	return ranking;
+    }
+
+    public static String GetStat(String u_id){
+        String result = "";
+
+        String q1 = "select id, name, rating, wins, loss from user where id = \"" + u_id + "\";";
+        ResultSet rs = ExecuteQuery(q1);
+
+        try {
+            if(rs.next()){
+                result = Protocol.RANKING_OK + "//" + rs.getString(1) + "%"+ rs.getString(2) +
+                        "%" + rs.getString(3) + "%" + rs.getString(4) + "%" + rs.getString(5);
+            }
+            else{
+                result = Protocol.RANKING_NO;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            result = Protocol.RANKING_NO;
+        }
+
+        return result;
+
     }
 }
