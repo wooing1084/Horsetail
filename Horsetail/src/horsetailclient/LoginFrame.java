@@ -13,11 +13,7 @@ public class LoginFrame extends JFrame {
 	MainFrame mf;
 	JoinFrame jf;
 	/* Panel */
-	JPanel basePanel = new JPanel(new BorderLayout());
-	JPanel centerPanel = new JPanel(new BorderLayout());
-	JPanel westPanel = new JPanel();
-	JPanel eastPanel = new JPanel();
-	JPanel southPanel = new JPanel();
+	JPanel centerPanel = new JPanel();
 	
 	/* Label */
 	JLabel idL = new JLabel("아이디");
@@ -35,6 +31,8 @@ public class LoginFrame extends JFrame {
 	Operator o = null;
 	PrintWriter out = null;
 	
+	Image background;
+	
 	LoginFrame(Operator _o, PrintWriter printW){
 		o = _o;
 		out = printW;
@@ -43,55 +41,51 @@ public class LoginFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		
+		background=new ImageIcon(MainFrame.class.getResource("./Image/loginBackGround.png")).getImage();
+
+		centerPanel = new JPanel(){
+			public void paintComponent(Graphics g) {//그리는 함수
+				g.drawImage(background, 0, 0, null);//background를 그려줌		
+				setOpaque(false);// 추가
+				super.paintComponent(g);// 추가
+			}
+		};
+		
 		/* Panel 크기 작업 */
-		centerPanel.setPreferredSize(new Dimension(260, 80));
-		westPanel.setBackground(Color.WHITE);
-		westPanel.setPreferredSize(new Dimension(210, 75));
-		eastPanel.setBackground(Color.WHITE);
-		eastPanel.setPreferredSize(new Dimension(90, 75));
-		southPanel.setBackground(Color.WHITE);
-		southPanel.setPreferredSize(new Dimension(290, 40));
+		centerPanel.setBounds(0, 0, 1000, 720);
 		
 		/* Label 크기 작업 */
-		idL.setPreferredSize(new Dimension(50, 30));
-		pwL.setPreferredSize(new Dimension(50, 30));
+		idL.setBounds(350, 350, 50, 30);
+		pwL.setBounds(350, 385, 50, 30);
 		
 		/* TextField 크기 작업 */
-		id.setPreferredSize(new Dimension(140, 30));
-		pw.setPreferredSize(new Dimension(140, 30));
+		id.setBounds(412, 350, 140, 30);
+		pw.setBounds(412, 386, 140, 30);
 		
 		/* Button 크기 작업 */
 		loginBtn.setBackground(Color.WHITE);
-		loginBtn.setPreferredSize(new Dimension(75, 63));
+		loginBtn.setBounds(564, 350, 75, 70);
 		joinBtn.setBackground(Color.WHITE);
-		joinBtn.setPreferredSize(new Dimension(135, 25));
+		joinBtn.setBounds(346, 426, 135, 25);
 		exitBtn.setBackground(Color.WHITE);
-		exitBtn.setPreferredSize(new Dimension(135, 25));
+		exitBtn.setBounds(493, 426, 135, 25);
 		
 		/* Panel 추가 작업 */
-		setContentPane(basePanel);	//panel을 기본 컨테이너로 설정
-		
-		basePanel.add(centerPanel, BorderLayout.CENTER);
-		basePanel.add(southPanel, BorderLayout.SOUTH);
-		centerPanel.add(westPanel, BorderLayout.WEST);
-		centerPanel.add(eastPanel, BorderLayout.EAST);
-		
-		westPanel.setLayout(new FlowLayout());
-		eastPanel.setLayout(new FlowLayout());
-		southPanel.setLayout(new FlowLayout());
+		setContentPane(centerPanel);	//panel을 기본 컨테이너로 설정
+		centerPanel.setLayout(null);
 		
 		/* westPanel 컴포넌트 */
-		westPanel.add(idL);
-		westPanel.add(id);
-		westPanel.add(pwL);
-		westPanel.add(pw);
+		centerPanel.add(idL);
+		centerPanel.add(id);
+		centerPanel.add(pwL);
+		centerPanel.add(pw);
 		
 		/* eastPanel 컴포넌트 */
-		eastPanel.add(loginBtn);
+		centerPanel.add(loginBtn);
 		
 		/* southPanel 컴포넌트 */
-		southPanel.add(exitBtn);
-		southPanel.add(joinBtn);
+		centerPanel.add(exitBtn);
+		centerPanel.add(joinBtn);	
 		
 		/* Button 이벤트 리스너 추가 */
 		ButtonListener bl = new ButtonListener();
@@ -105,7 +99,7 @@ public class LoginFrame extends JFrame {
         exitBtn.addMouseListener(listener);
         joinBtn.addMouseListener(listener);
 		
-		setSize(310, 150);
+		setSize(1000, 720);
 		setLocationRelativeTo(null);
 		setBackground(Color.white);
 		setVisible(true);
