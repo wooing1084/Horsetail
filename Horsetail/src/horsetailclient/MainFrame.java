@@ -157,6 +157,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			enterButton.setFocusPainted(false);
 			enterButton.setBounds(506, size, 70, 70);
 			enterButton.setBorder(bb);
+			enterButton.setText(roomIdList.get(i));
 			
 			roomLabel = new JLabel(roomNameList.get(i));
 			roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -298,7 +299,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == enterButton) { 
-			out.println(Protocol.JOINROOM);
+			System.out.println(enterButton.getText());
+			out.println(Protocol.JOINROOM + "//" + enterButton.getText());
 			out.flush();
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
@@ -336,6 +338,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				enterButton.setFocusPainted(false);
 				enterButton.setBounds(506, size, 70, 70);
 				enterButton.setBorder(bb);
+				enterButton.setText(roomIdList.get(i));
 				
 				roomLabel = new JLabel(roomNameList.get(i));
 				roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));

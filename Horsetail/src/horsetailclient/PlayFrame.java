@@ -185,6 +185,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		if (e.getSource() == btnNewButton) {
 			o.cf.setVisible(true);
 		} else if (e.getSource() == gameStart) { // 게임 시작 버튼입니다. 여기 이용하시면 됩니다.
+			
 
 		} else if (e.getSource() == sendButton) {
 			// 메세지 입력없이 전송버튼만 눌렀을 경우
