@@ -54,7 +54,12 @@ public class Protocol {
 	public static final String ROOMUSERS_OK = "171"; //방 유저 목록 요청 ACK
 	public static final String ROOMUSERS_NAK = "172"; //방 유저 목록 요청 NACK
 
-
+	
+	public static final String ROOMEXIT = "180"; //방 나가기
+	public static final String ROOMEXIT_OK = "181"; //방 나가기 ACK
+	public static final String ROOMEXIT_NO = "182"; //방 나가기 NACK
+	
+	
 	public static final String STARTGAME = "200"; // 게임시작 REQUEST
 	public static final String STARTGAME_OK = "201"; // 게임시작 성공 ACK
 	public static final String STARTGAME_NO = "202"; // 게임시작 실패 NACK

@@ -277,6 +277,16 @@ class RecvThread extends Thread {
 
 			SendMessage(res);
 		}
+		//방 나가기
+		else if(reqs[0].compareTo(Protocol.ROOMEXIT) == 0){
+			if(nowRoomIndex == -1) {
+				SendMessage(Protocol.ROOMEXIT_NO);
+				return;
+			}
+
+			RoomManager.GetRoomList().get(nowRoomIndex).ExitRoom(this);
+			SendMessage(Protocol.ROOMEXIT_OK);
+		}
 		
 		else if(reqs[0].compareTo(Protocol.STAT) == 0) {
 			String res = SQLMethods.GetStat(user.getId());
