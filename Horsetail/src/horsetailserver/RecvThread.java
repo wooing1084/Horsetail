@@ -279,12 +279,13 @@ class RecvThread extends Thread {
 		}
 		
 		else if(reqs[0].compareTo(Protocol.STAT) == 0) {
-
+			String res = SQLMethods.GetStat(user.getId());
+			SendMessage(res);
 		}
 
 		else if(reqs[0].compareTo(Protocol.RANKING) == 0) {
 			String ranking = SQLMethods.getRankingID();
-			SendMessage(Protocol.RANKING_OK + "//" + ranking);
+			SendMessage(ranking);
 		}
 		//게임시작 구현
 

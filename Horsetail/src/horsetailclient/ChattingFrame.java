@@ -67,7 +67,8 @@ public class ChattingFrame extends JFrame implements ActionListener {
 		textArea.setBorder(bb);
 		textArea.setBounds(0, 0, 423, 489);
 		textArea.setOpaque(false);
-		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 10));
+		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+
 		contentPane.add(textArea);
 		
 		textField = new JTextField();
@@ -113,6 +114,11 @@ public class ChattingFrame extends JFrame implements ActionListener {
 		}else{
 			this.dispose();
 		}
+	}
+	
+	public void initChat() {
+		textArea.setText("");
+		textField.setText("");
 	}
 	
 	class MyMouseListener implements MouseListener {
