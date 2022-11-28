@@ -238,7 +238,8 @@ public class PlayFrame extends JFrame implements ActionListener {
 			// gaimeWindow창에 뜰 수 있게 해뒀습니다.
 			textField.setText(""); // 채팅 치는 곳 초기화
 		}else if (e.getSource() == outRoom) { //방 뒤로가기 버튼입니다.
-			dispose();
+			out.println(Protocol.ROOMEXIT);
+			out.flush();
 		}
 	}
 	

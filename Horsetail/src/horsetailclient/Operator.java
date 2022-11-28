@@ -295,6 +295,12 @@ public class Operator implements Runnable {
 
 				}
 				
+				else if (line[0].compareTo(Protocol.ROOMEXIT_NO) == 0) {
+					mf.setVisible(true);
+					pf.setVisible(false);
+					pf.initPlayFrame();
+				}
+				
 				else if (line[0].compareTo(Protocol.EXITPROGRAM_OK) == 0) {
 
 				}
