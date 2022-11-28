@@ -56,6 +56,7 @@ public class Game extends Thread{
         timerService.scheduleAtFixedRate(timer, 0, 1, TimeUnit.SECONDS);
 
         System.out.println(gameRoom.GetRoomID() + ": GameStart");
+        gameRoom.BroadCast(Protocol.ANOTHERTURN + "//" + _userList.get(turnUserIdx).GetUser().getId());
 
         while(true){
             if(timer.GetTime() >= timer.timeout){

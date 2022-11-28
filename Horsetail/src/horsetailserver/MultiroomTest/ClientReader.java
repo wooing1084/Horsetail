@@ -44,7 +44,7 @@ public class ClientReader extends Thread {
                     System.out.println(res);
                 else
                 {
-                    if(Integer.parseInt(ress[1]) >= 20)
+                    if(Integer.parseInt(ress[1]) <= 20)
                         System.out.println(res);
                 }
 

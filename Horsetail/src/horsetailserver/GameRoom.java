@@ -8,12 +8,16 @@ package horsetailserver;
 import Util.Protocol;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GameRoom {
 	private String _roomID = null;
 	private RecvThread _owner = null;
 	private String _roomName = null;
 	private ArrayList<RecvThread> _userList;
+	private int startTime;
 
 	private Game game;
 
@@ -79,6 +83,29 @@ public class GameRoom {
 			u.SendMessage(Protocol.TOOSMALLUSER);
 			return 0;
 		}
+
+		startTime = 3;
+		Runnable r = new Runnable() {
+			@Override
+			public void run() {
+				BroadCast(Protocol.NOWTIME + "//" + startTime);
+				startTime--;
+			}
+		};
+
+		ScheduledExecutorService timerService = Executors.newSingleThreadScheduledExecutor();
+		timerService.scheduleAtFixedRate(r, 0, 1, TimeUnit.SECONDS);
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		timerService.shutdown();
+		while(startTime > 1){
+
+		}
+
 
 		//스레드 생성 및 start후 게임시작 알림 broadcast
 		game = new Game(this);
