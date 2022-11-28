@@ -128,8 +128,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		newRoom = new JButton("방 만들기");
 		newRoom.setFont(new Font("맑은 고딕", Font.BOLD, 10));
-		//newRoom.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
-		newRoom.setBounds(604, 123, 100, 50);
+		newRoom.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/roomCreate1.png")));
+		newRoom.setBounds(604, 123, 79, 50);
 		newRoom.setForeground(Color.WHITE);
 		newRoom.setBackground(new Color(204, 153, 0));
 		newRoom.setBorderPainted(false);
@@ -438,8 +438,8 @@ public class MainFrame extends JFrame implements ActionListener {
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo2.png")));
 			} else if (e.getSource() == newRoom) {
 				JButton b = (JButton) e.getSource();
-				b.setForeground(new Color(204, 153, 0));
-				b.setBackground(new Color(0, 255, 0));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/roomCreate2.png")));
+
 			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
@@ -453,8 +453,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
 			} else if (e.getSource() == newRoom) {
 				JButton b = (JButton) e.getSource();
-				b.setBackground(new Color(204, 153, 0));
-				b.setForeground(Color.WHITE);
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/roomCreate1.png")));
 			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);
