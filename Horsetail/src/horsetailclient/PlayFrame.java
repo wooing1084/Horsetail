@@ -187,6 +187,14 @@ public class PlayFrame extends JFrame implements ActionListener {
 	public void setTime(String t) {
 		timerLabel.setText(t);
 	}
+	
+	public void initPlayFrame() {
+		timerLabel.setText("");
+		notationPanel.setText("");
+		textField.setText("");
+		dictionaryWindow.setText("");
+		gameWindow.setText("");
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton) {
