@@ -85,6 +85,7 @@ public class GameRoom {
 		}
 
 		startTime = 3;
+		BroadCast(Protocol.GAMEREADY);
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {

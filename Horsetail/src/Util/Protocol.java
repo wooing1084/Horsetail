@@ -64,6 +64,8 @@ public class Protocol {
 	public static final String STARTGAME_OK = "201"; // 게임시작 성공 ACK
 	public static final String STARTGAME_NO = "202"; // 게임시작 실패 NACK
 
+	public static final String GAMEREADY = "205"; //게임 시작 전 3초 준비시간 메세지
+	
 	public static final String TOOSMALLUSER = "210"; // 유저가 부족해 게임시작 실패
 
 	//300//MESSAGE
