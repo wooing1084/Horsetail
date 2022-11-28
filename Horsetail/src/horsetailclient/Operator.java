@@ -19,11 +19,13 @@ public class Operator implements Runnable {
 	JoinFrame jf = null;
 	PlayFrame pf = null;
 	ChattingFrame cf = null;
+	MakeRoomDialog mrd = null;
 	
 	static BufferedReader in = null;
 	static PrintWriter out = null;
 	
-	public String ID;
+	public static String ID;
+	public static String roomID;
 	
 	public static void main(String[] args) {
 		Socket conSoc = null;
@@ -63,6 +65,7 @@ public class Operator implements Runnable {
 		opt.jf = new JoinFrame(opt, out);
 		opt.pf = new PlayFrame(opt, out);
 		opt.cf = new ChattingFrame(opt, out);
+		opt.mrd = new MakeRoomDialog(opt, out);
 	}
 	
 	@Override
@@ -112,12 +115,25 @@ public class Operator implements Runnable {
 					lf.showDialog("로그인에 실패하였습니다");
 				}
 				
+				else if (line[0].compareTo(Protocol.ROOMCREATE_OK) == 0) {
+					System.out.println("방 생성 성공");
+					lf.showDialog("방 생성에 성공하였습니다");
+					mf.setVisible(false);
+					pf.setVisible(true);
+					roomID = line[1];
+				}
+				
+				else if (line[0].compareTo(Protocol.ROOMCREATE_NO) == 0) {
+					System.out.println("방 생성 성공");
+					lf.showDialog("방 생성에 실패하였습니다");
+				}
+				
 				else if (line[0].compareTo(Protocol.STARTGAME_OK) == 0) {
 					pf.setVisible(true);
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_NO) == 0) {
-
+					lf.showDialog("게임 시작에 실패했습니다");
 				}
 				
 				else if (line[0].compareTo(Protocol.TOOSMALLUSER) == 0) {
@@ -127,7 +143,6 @@ public class Operator implements Runnable {
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_OK) == 0) {
 					String chatSender = line[1];
 					String chat = line[2];
-					// RecvThread부분 SENDWORD 프로토콜 BroadCast로 꼭 수정!!!!
 					cf.textArea.append("["+chatSender+"] "+ chat +"\n");
 				}
 				
@@ -154,10 +169,9 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_OK) == 0) {
-					String wordSender = line[1];
-					String word = line[2];
+					String word = line[1];
 					// RecvThread부분 SENDWORD 프로토콜 BroadCast로 꼭 수정!!!!
-					pf.gameWindow.append("["+wordSender+"] "+ word +"\n");
+					pf.gameWindow.append(word +"\n");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_NO) == 0) {

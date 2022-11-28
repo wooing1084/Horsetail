@@ -290,7 +290,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
 		}else if (e.getSource() == newRoom) {
-			MakeRoomDialog mrd = new MakeRoomDialog(o, out); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
+			o.mrd.setVisible(true); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
 		} else if (e.getSource() == refresh) {
 			ebPanel.removeAll();
 			ebPanel.updateUI();

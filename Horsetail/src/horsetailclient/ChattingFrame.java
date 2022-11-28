@@ -78,7 +78,7 @@ public class ChattingFrame extends JFrame implements ActionListener {
                    return;
             }                  
 			
-			out.println(Protocol.SENDMESSAGE + "//" + textField.getText());
+			out.println(Protocol.SENDMESSAGE + "//" + o.roomID + "//" + textField.getText());
 			out.flush();
 
 			textField.setText(""); //채팅 치는 곳 초기화

@@ -45,7 +45,7 @@ public class MakeRoomDialog extends JFrame implements ActionListener{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		setLayout(null);
 		setBounds(0, 0, 500, 100);
 		setLocationRelativeTo(null);
@@ -92,8 +92,9 @@ public class MakeRoomDialog extends JFrame implements ActionListener{
 				return;
 			}
 
-//			out.println(Protocol.SENDMESSAGE + "//" + roomName.getText()); //준형님 이 부분이 말씀하신 부분인거 같은데 맞는지 모르겠네요. 확인 부탁드려요. 일단 주석해놓겠습니다
-//			out.flush();
+			out.println(Protocol.ROOMCREATE + "//" + roomName.getText()); //준형님 이 부분이 말씀하신 부분인거 같은데 맞는지 모르겠네요. 확인 부탁드려요. 일단 주석해놓겠습니다
+			out.flush();
+			setVisible(false);
 
 			roomName.setText(""); // 방 만드는 곳 초기화
 		} else {

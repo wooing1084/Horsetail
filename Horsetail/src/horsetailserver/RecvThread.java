@@ -291,11 +291,11 @@ class RecvThread extends Thread {
 		//메세지 보내기
 		else if(reqs[0].compareTo(Protocol.SENDMESSAGE) == 0){
 			int idx = RoomManager.GetRoomIdx(reqs[1]);
-
-			RoomManager.GetRoomList().get(idx).BroadCast(reqs[2]);
+			GameRoom gr = RoomManager.GetRoomList().get(idx);
+			gr.BroadCast(Protocol.SENDMESSAGE_OK + "//" + user.getId() + "//" + reqs[2]);
 		}
 		
-		else if (reqs[0].compareTo(Util.Protocol.SENDWORD) == 0) {
+		else if (reqs[0].compareTo(Protocol.SENDWORD) == 0) {
 			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			//GameRoom의 Game에 단어전송함수 호출
 			gr.EnterWordToGame(reqs[1], this);
