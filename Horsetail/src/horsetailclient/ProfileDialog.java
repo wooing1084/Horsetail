@@ -48,7 +48,7 @@ public class ProfileDialog extends JFrame {
 		backG.setBounds(0, 0, 358,168);
 		backG.setBackground(Color.white);
 		
-		lblNewLabel = new JLabel("             ID          Password          Score");
+		lblNewLabel = new JLabel("        ID        Rating        Wins        Loses");
 		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myRecord.png")));
 		lblNewLabel.setBounds(0, 0, 344, 50);
 		//lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
