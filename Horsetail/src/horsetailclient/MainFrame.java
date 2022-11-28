@@ -79,7 +79,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		background=new ImageIcon(MainFrame.class.getResource("./Image/grass.jpg")).getImage();
+		background=new ImageIcon(MainFrame.class.getResource("./Image/grass.png")).getImage();
 
 		contentPane = new JPanel(){
 			public void paintComponent(Graphics g) {//그리는 함수

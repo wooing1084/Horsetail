@@ -95,7 +95,7 @@ public class MakeRoomDialog extends JFrame implements ActionListener{
 			out.println(Protocol.ROOMCREATE + "//" + roomName.getText()); //준형님 이 부분이 말씀하신 부분인거 같은데 맞는지 모르겠네요. 확인 부탁드려요. 일단 주석해놓겠습니다
 			out.flush();
 			setVisible(false);
-
+			
 			roomName.setText(""); // 방 만드는 곳 초기화
 		} else {
 			this.dispose();
