@@ -184,12 +184,16 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.STAT_OK) == 0) {
-					String wins = line[1];
-					String loses = line[2];
+					String info[] = line[1].split("%");
+					String id = info[0];
+					String nick = info[1];
+					String rating = info[2];
+					String wins = info[3];
+					String loses = info[4];
 				}
 				
 				else if (line[0].compareTo(Protocol.STAT_NO) == 0) {
-
+					lf.showDialog("전적을 불러오는 데에 실패했습니다.");
 				}
 				
 				else if (line[0].compareTo(Protocol.RANKING_OK) == 0) {

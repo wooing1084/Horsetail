@@ -123,15 +123,15 @@ public class SQLMethods {
 
         try {
             if(rs.next()){
-                result = Protocol.RANKING_OK + "//" + rs.getString(1) + "%"+ rs.getString(2) +
+                result = Protocol.STAT_OK + "//" + rs.getString(1) + "%"+ rs.getString(2) +
                         "%" + rs.getString(3) + "%" + rs.getString(4) + "%" + rs.getString(5);
             }
             else{
-                result = Protocol.RANKING_NO;
+                result = Protocol.STAT_NO;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            result = Protocol.RANKING_NO;
+            result = Protocol.STAT_NO;
         }
 
         return result;
