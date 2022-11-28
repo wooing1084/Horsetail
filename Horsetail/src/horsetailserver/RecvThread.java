@@ -291,7 +291,6 @@ class RecvThread extends Thread {
 		else if(reqs[0].compareTo(Protocol.STARTGAME) == 0) {
 			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			gr.GameStart(this);
-			gr.BroadCast(Protocol.STARTGAME_OK);
 		}
 
 		//--------

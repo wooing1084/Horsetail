@@ -212,19 +212,19 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.WORDONLYONECHAR) == 0) {
-
+					pf.setNotation("\"" + line[1] + "\"은(는) 한 글자 단어입니다!");
 				}
 				
 				else if (line[0].compareTo(Protocol.WORDNOTCHAIN) == 0) {
-
+					pf.setNotation("\"" + line[1] + "\"은(는) 이전 단어와 이어지지 않습니다!");
 				}
 				
 				else if (line[0].compareTo(Protocol.WORDOVERLAP) == 0) {
-
+					pf.setNotation("\"" + line[1] + "\"은(는) 이미 나온 단어입니다!");
 				}
 				
 				else if (line[0].compareTo(Protocol.WORDNOTEXIST) == 0) {
-
+					pf.setNotation("\"" + line[1] + "\"은(는) 존재하지 않는 단어입니다!");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDDEF_OK) == 0) {
@@ -261,6 +261,12 @@ public class Operator implements Runnable {
 				
 				else if (line[0].compareTo(Protocol.GAMEOUT_NO) == 0) {
 
+				}
+				
+				else if (line[0].compareTo(Protocol.GAMEEND) == 0) {
+					lf.showDialog("게임이 종료되었습니다!");
+					pf.setVisible(false);
+					mf.setVisible(true);
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEEND_OK) == 0) {
