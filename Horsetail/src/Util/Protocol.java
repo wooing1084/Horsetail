@@ -89,7 +89,7 @@ public class Protocol {
 	//413//word
 	public static final String WORDNOTEXIST = "413"; // 단어가 존재하지 않음
 	
-	//420//WORD//DEFINITION
+	//420//WORD//word1_Class%mean//word2_class%word2_mean
 	public static final String SENDDEF = "420"; // 의미전송 REQUEST
 	public static final String SENDDEF_OK = "421"; // 의미전송 성공 ACK
 	public static final String SENDDEF_NO = "422"; // 의미전송 실패 NACK
