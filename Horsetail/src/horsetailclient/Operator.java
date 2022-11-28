@@ -227,8 +227,14 @@ public class Operator implements Runnable {
 					pf.setNotation("\"" + line[1] + "\"은(는) 존재하지 않는 단어입니다!");
 				}
 				
+				else if (line[0].compareTo(Protocol.SENDDEF) == 0) {
+					String words[] = line[1].split("%");
+					String set = "품사 : " +  words[0] + "\n의미 : " + words[1];
+					pf.setDict(set);
+				}
+				
 				else if (line[0].compareTo(Protocol.SENDDEF_OK) == 0) {
-					String def = line[1];
+					
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDDEF_NO) == 0) {
@@ -267,6 +273,8 @@ public class Operator implements Runnable {
 					lf.showDialog("게임이 종료되었습니다!");
 					pf.setVisible(false);
 					mf.setVisible(true);
+					pf.initPlayFrame();
+					cf.initChat();
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEEND_OK) == 0) {
