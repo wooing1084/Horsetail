@@ -266,7 +266,6 @@ public class Operator implements Runnable {
 				else if (line[0].compareTo(Protocol.GAMEEND) == 0) {
 					lf.showDialog("게임이 종료되었습니다!");
 					pf.setVisible(false);
-					pf.initPlayFrame();
 					mf.setVisible(true);
 				}
 				

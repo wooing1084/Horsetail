@@ -112,12 +112,14 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		ebPanel = new JPanel(); // 스크롤을 올릴 패널
 		ebPanel.setBounds(12, 56, 591, 234);
+		ebPanel.setOpaque(false);
 		contentPane.add(ebPanel);
 		ebPanel.setLayout(null);
 
 		roomPanel = new JPanel(); // 스크롤 위에 올라갈 패널
 		roomPanel.setPreferredSize(new Dimension(576, 0));
 		roomPanel.setBackground(Color.white);
+		roomPanel.setOpaque(false);
 		roomPanel.setBorder(new LineBorder(SystemColor.control));
 		getContentPane().add(roomPanel);
 		roomPanel.setLayout(null);
@@ -125,6 +127,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		scrollPane2 = new JScrollPane(roomPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane2.setBounds(0, 0, 591, 234);
+		scrollPane2.setOpaque(false);
+		scrollPane2.getViewport().setOpaque(false);
 		ebPanel.add(scrollPane2);
 		
 		newRoom = new JButton("방 만들기");
@@ -179,7 +183,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		profile = new JButton("");
 		profile.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
 		profile.setBounds(761, 189, 213, 43);
-		profile.setBackground(Color.WHITE);
 		profile.setBorderPainted(false);
 		profile.setContentAreaFilled(false);
 		profile.setFocusPainted(false);
@@ -201,12 +204,14 @@ public class MainFrame extends JFrame implements ActionListener {
 		panel.setBounds(12, 300, 962, 373);
 		panel.setBackground(Color.white);
 		panel.setBorder(new LineBorder(SystemColor.control));
+		panel.setOpaque(false);
 		panel.setLayout(null);
 		contentPane.add(panel);
 
 		ranking = new JPanel(); // 스크롤 위에 올라갈 패널
 		ranking.setPreferredSize(new Dimension(947, 0));
 		ranking.setBackground(Color.white);
+		ranking.setOpaque(false);
 		ranking.setBorder(new LineBorder(SystemColor.control));
 		getContentPane().add(ranking);
 		ranking.setLayout(null);
@@ -214,6 +219,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		scrollPane = new JScrollPane(ranking, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 962, 373);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
 		panel.add(scrollPane);
 
 		refresh2 = new JButton();
@@ -317,12 +324,15 @@ public class MainFrame extends JFrame implements ActionListener {
 			roomPanel.setPreferredSize(new Dimension(576, 0));
 			roomPanel.setBackground(Color.white);
 			roomPanel.setBorder(new LineBorder(SystemColor.control));
+			roomPanel.setOpaque(false);
 			getContentPane().add(roomPanel);
 			roomPanel.setLayout(null);
 
 			scrollPane2 = new JScrollPane(roomPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 					JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane2.setBounds(0, 0, 591, 234);
+			scrollPane2.setOpaque(false);
+			scrollPane2.getViewport().setOpaque(false);
 			ebPanel.add(scrollPane2);
 
 			//ArrayList<String> temp2 = new ArrayList();
@@ -344,6 +354,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 				roomLabel.setBounds(0, size, 506, 70);
 				roomLabel.setBorder(bb);
+				roomLabel.setOpaque(false);
 //				enterButton.setBorderPainted(false);
 //				enterButton.setContentAreaFilled(false);
 //				enterButton.setFocusPainted(false);
@@ -366,12 +377,15 @@ public class MainFrame extends JFrame implements ActionListener {
 			ranking.setPreferredSize(new Dimension(947, 0));
 			ranking.setBackground(Color.white);
 			ranking.setBorder(new LineBorder(SystemColor.control));
+			ranking.setOpaque(false);
 			getContentPane().add(ranking);
 			ranking.setLayout(null);
 
 			scrollPane = new JScrollPane(ranking, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 					JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setBounds(0, 0, 962, 373);
+			scrollPane.setOpaque(false);
+			scrollPane.getViewport().setOpaque(false);
 			panel.add(scrollPane);
 
 			//ArrayList<String> temp = new ArrayList();

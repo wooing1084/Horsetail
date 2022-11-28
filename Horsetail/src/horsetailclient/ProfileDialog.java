@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 
@@ -20,6 +22,7 @@ public class ProfileDialog extends JFrame {
 	Operator o=null;
 	JPanel backG;
 	JLabel lblNewLabel;
+	Image background;
 	
 	public ProfileDialog(Operator _o) {
 		o=_o;
@@ -32,8 +35,17 @@ public class ProfileDialog extends JFrame {
 		setBounds(0, 0, 358, 168);
 		setLocationRelativeTo(null);
 		
-		backG = new JPanel();
-		backG.setPreferredSize(new Dimension(500,200));
+		background=new ImageIcon(ProfileDialog.class.getResource("./Image/blackBoard.png")).getImage();
+
+		backG = new JPanel(){
+			public void paintComponent(Graphics g) {//그리는 함수
+				g.drawImage(background, 0, 0, null);//background를 그려줌		
+				setOpaque(false);// 추가
+				super.paintComponent(g);// 추가
+			}
+		};
+		
+		backG.setBounds(0, 0, 500,200);
 		backG.setBackground(Color.white);
 		
 		lblNewLabel = new JLabel("             ID          Password          Score");
