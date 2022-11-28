@@ -116,14 +116,17 @@ public class PlayFrame extends JFrame implements ActionListener {
 		gameWindow = new JTextArea();
 		gameWindow.setBounds(0, 0, 458, 403);
 		gameWindow.setBorder(bb);
-		gameWindow.setFont(new Font("맑은 고딕", Font.PLAIN, 10));
+		gameWindow.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
 		gameWindow.setOpaque(false);
+		gameWindow.setLineWrap(true);
 		contentPane.add(gameWindow);
 
 		dictionaryWindow = new JTextArea();
 		dictionaryWindow.setBounds(0, 0, 462, 403);
 		dictionaryWindow.setBorder(bb);
 		dictionaryWindow.setOpaque(false);
+		dictionaryWindow.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		dictionaryWindow.setLineWrap(true);
 		contentPane.add(dictionaryWindow);
 
 		btnNewButton = new JButton("채팅");
@@ -226,6 +229,10 @@ public class PlayFrame extends JFrame implements ActionListener {
 	
 	public void setNotation(String s) {
 		notationPanel.setText(s);
+	}
+	
+	public void setDict(String s) {
+		dictionaryWindow.setText(s);
 	}
 
 	class MyMouseListener implements MouseListener {
