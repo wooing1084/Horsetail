@@ -146,7 +146,7 @@ public class Operator implements Runnable {
 				
 				else if (line[0].compareTo(Protocol.RANKING_OK) == 0) {
 					String[] id = line[1].split("%");
-					
+					mf.setRankingList(id);
 				}
 				
 				else if (line[0].compareTo(Protocol.RANKING_NO) == 0) {
@@ -196,7 +196,7 @@ public class Operator implements Runnable {
 
 				}
 				
-				else if (line[0].compareTo(Protocol.YOURTURN) == 0) {
+				else if (line[0].compareTo(Protocol.ANOTHERTURN) == 0) {
 
 				}
 				
