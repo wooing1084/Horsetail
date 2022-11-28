@@ -182,7 +182,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		profile = new JButton("");
 		profile.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myInfo.png")));
-		profile.setBounds(761, 189, 213, 43);
+		profile.setBounds(835, 189, 64, 43);
 		profile.setBorderPainted(false);
 		profile.setContentAreaFilled(false);
 		profile.setFocusPainted(false);
@@ -194,7 +194,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		refresh.setBackground(Color.WHITE);
 		refresh.setBounds(604, 56, 57, 57);
 		refresh.setVisible(true);
-//		refresh.setLayout(null);
+		refresh.setLayout(null);
 		refresh.setBorderPainted(false);
 		refresh.setContentAreaFilled(false);
 		refresh.setFocusPainted(false);

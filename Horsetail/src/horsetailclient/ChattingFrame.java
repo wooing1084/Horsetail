@@ -2,6 +2,8 @@ package horsetailclient;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,47 +37,61 @@ public class ChattingFrame extends JFrame implements ActionListener {
 	LineBorder bb = new LineBorder(Color.gray, 1, true); //라벨의 테두리 설정값
 	Operator o=null;
 	PrintWriter out = null;
+	Image background;
 	
 	public ChattingFrame(Operator _o, PrintWriter printW) {
 		o=_o;
 		out = printW;
 		
+		setTitle("채팅");
 		setBounds(100, 100, 452, 582);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setResizable(false);
 		setVisible(false);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.white);
+		
+		background=new ImageIcon(MainFrame.class.getResource("./Image/chatRoom.png")).getImage();
+
+		contentPane = new JPanel(){
+			public void paintComponent(Graphics g) {//그리는 함수
+				g.drawImage(background, 0, 0, null);//background를 그려줌		
+				setOpaque(false);// 추가
+				super.paintComponent(g);// 추가
+			}
+		};
+		contentPane.setBorder(null);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		textArea = new JTextArea();
-		textArea.setBackground(Color.WHITE);
 		textArea.setBorder(bb);
 		textArea.setBounds(0, 0, 423, 489);
+		textArea.setOpaque(false);
 		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 10));
 		contentPane.add(textArea);
 		
 		textField = new JTextField();
 		textField.setBounds(0, 488, 368, 57);
 		textField.setBorder(bb);
+		textField.setBackground(Color.white);
+		//textField.setOpaque(false);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		sendButton = new JButton();
 		sendButton.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/send.png")));
 		sendButton.setBounds(368, 488, 69, 57);
-		sendButton.setBorderPainted(false);
-		sendButton.setContentAreaFilled(false);
-		sendButton.setFocusPainted(false);
-		sendButton.setBackground(Color.white);
+//		sendButton.setBorderPainted(false);
+//		sendButton.setContentAreaFilled(false);
+//		sendButton.setFocusPainted(false);
+		sendButton.setBackground(Color.yellow);
 		contentPane.add(sendButton);
 		
 		scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 438, 489);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
 		contentPane.add(scrollPane);
 		
 		MyMouseListener listener = new MyMouseListener();
