@@ -3,6 +3,11 @@ package horsetailserver;
 import Util.Protocol;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Game extends Thread{
     private ArrayList<RecvThread> _userList;
@@ -10,17 +15,17 @@ public class Game extends Thread{
     private String inputWord = "";
     private int turnUserIdx = -1;
 
-    private Timer timer;
+    private GameTimer timer;
     private GameRoom gameRoom;
 
 
-    private static final int timeout = 20;
+
 
     public Game(GameRoom gr){
         gameRoom = gr;
         _userList = gr.GetUserList();
         words = new ArrayList<String>();
-        timer = new Timer();
+        timer = new GameTimer(this);
     }
 
     //u 유저가 게임에 w란 단어를 전송했다.
@@ -48,21 +53,28 @@ public class Game extends Thread{
     public void run(){
         turnUserIdx = 0;
 
+        ScheduledExecutorService timerService = Executors.newSingleThreadScheduledExecutor();
+        timerService.scheduleAtFixedRate(timer, 0, 1, TimeUnit.SECONDS);
+
+        System.out.println(gameRoom.GetRoomID() + ": GameStart");
+
         while(true){
-            if(timer.GetTime() >= timeout){
+            if(timer.GetTime() >= timer.timeout){
                 //현재유저 패배 +1
                 //나머지 유저 승리 +1 레이팅은 알아서
                 for(int i =0;i<_userList.size();i++){
                     User u = _userList.get(i).GetUser();
                     String q1;
                     if(i == turnUserIdx){
-                        q1 = "update user set loss = " + u.getLoses() + 1 +
+                        q1 = "update user set loss = " + (u.getLoses() + 1) +
                                 " where id = \"" + u.getId() + "\";";
                     }
                     else{
-                        q1 = "update user set wins = " + u.getWins() + 1 +
+                        q1 = "update user set wins = " + (u.getWins() + 1) +
                                 " where id = \"" + u.getId() + "\";";
                     }
+
+                    SQLMethods.ExecuteUpdate(q1);
                 }
                 break;
             }
@@ -100,48 +112,22 @@ public class Game extends Thread{
 
             NextTurn();
         }
+
+        System.out.println(gameRoom.GetRoomID() + ": GameEnd");
+        gameRoom.BroadCast(Protocol.GAMEEND);
+        timerService.shutdown();
+        gameRoom.EndGame();
     }
-//
-//			else {
-//        gr.addWord(reqs[1]);
-//        SendMessage(Protocol.SENDWORD_OK + "//" + user.getNick());
-//
-//        int idx = gr.GetUserList().indexOf((Object) user.getNick());
-//        int i = 1;
-//        while (gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.getAlive()) {
-//            i++;
-//        }
-//        gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.setTurn(true);
-//        this.user.setTurn(false);
-//
-//        SendMessage(Protocol.YOURTURN + "//" + gr.GetUserList().get((idx + i) % gr.GetUserList().size()).user.getNick());
-//    }
 
-//    		else if (reqs[0].compareTo(Protocol.SENDDEF) == 0) {
-//        GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
-//        String def = gr.getDefinition();
-//        SendMessage(Protocol.SENDDEF_OK + "//" + def);
-//    }
-//
-//		else if (reqs[0].compareTo(Protocol.TIMEOUT) == 0) {
-//        user.setAlive(false);
-//        SendMessage(Protocol.TIMEOUT_OK + "//" + user.getNick());
-//    }
-//
-//
-//		else if (reqs[0].compareTo(Protocol.GAMEOUT) == 0) { // 남은 기회가 0이 되면 request
-//        GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
-//        user.setAlive(false);
-//        gr.addDeadUser(user.getNick());
-//        SendMessage(Protocol.GAMEOUT_OK + "//" + user.getNick());
-//
-//        if (gr.GetUserList().size() == gr.getDeadUserNum() - 1) {
-//            gr.BroadCast(Protocol.GAMEEND + "//게임이 종료되었습니다.//" + gr.getDeadUserNick());
-//        }
-//    }
+    public GameRoom GetGameRoom(){
+        return gameRoom;
+    }
 
+    public void SetGameRoom(GameRoom gr) {
+        gameRoom = gr;
+    }
 
-    //한글자인지
+    //한 글자인지
     public boolean isOneChar(String w) {
         if(w.length() == 1) {
             return true;

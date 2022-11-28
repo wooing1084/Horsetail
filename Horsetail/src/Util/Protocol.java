@@ -98,6 +98,10 @@ public class Protocol {
 	public static final String TIMEOUT_OK = "431"; // 시간초과 반영 성공 ACK
 	public static final String TIMEOUT_NO = "432"; // 시간초과 반영 실패 NACK
 	
+	//435//time
+	public static final String NOWTIME = "435"; //타이머 시간 전송
+	
+	
 	public static final String YOURTURN = "440"; // 이번 순서라는걸 알림
 	//450//user_id
 	public static final String ANOTHERTURN = "450"; //누군가의 턴임

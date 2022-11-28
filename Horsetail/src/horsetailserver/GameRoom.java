@@ -96,6 +96,9 @@ public class GameRoom {
 		game.EnterWord(w, u);
 	}
 
+	public void EndGame(){
+		game = null;
+	}
 
 	//Getter
 	public String GetRoomID(){
