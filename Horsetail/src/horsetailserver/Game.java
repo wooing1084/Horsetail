@@ -20,7 +20,6 @@ public class Game extends Thread{
 
 
 
-
     public Game(GameRoom gr){
         gameRoom = gr;
         _userList = gr.GetUserList();

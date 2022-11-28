@@ -162,7 +162,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_OK) == 0) {
-					pf.setVisible(true);
+					pf.setNotation("게임을 시작합니다!");
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_NO) == 0) {
@@ -170,7 +170,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.TOOSMALLUSER) == 0) {
-
+					lf.showDialog("사용자가 너무 적어 게임을 시작할 수 없습니다");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_OK) == 0) {
@@ -180,7 +180,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDMESSAGE_NO) == 0) {
-
+					lf.showDialog("메시지 전송에 실패했습니다");
 				}
 				
 				else if (line[0].compareTo(Protocol.STAT_OK) == 0) {
@@ -198,7 +198,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.RANKING_NO) == 0) {
-
+					lf.showDialog("랭킹 불러오기에 실패했습니다");
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_OK) == 0) {
@@ -208,7 +208,7 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.SENDWORD_NO) == 0) {
-
+					lf.showDialog("현재 턴이 아닙니다!");
 				}
 				
 				else if (line[0].compareTo(Protocol.WORDONLYONECHAR) == 0) {
@@ -235,6 +235,10 @@ public class Operator implements Runnable {
 
 				}
 				
+				else if (line[0].compareTo(Protocol.NOWTIME) == 0) {
+					pf.setTime(line[1]);
+				}
+				
 				else if (line[0].compareTo(Protocol.TIMEOUT_OK) == 0) {
 					String timeoutPlayer = line[1];
 				}
@@ -243,8 +247,12 @@ public class Operator implements Runnable {
 
 				}
 				
+				else if (line[0].compareTo(Protocol.YOURTURN) == 0) {
+					pf.setNotation("당신 차례입니다!");
+				}
+				
 				else if (line[0].compareTo(Protocol.ANOTHERTURN) == 0) {
-
+					pf.setNotation(line[1] + "님의 차례입니다.");
 				}
 				
 				else if (line[0].compareTo(Protocol.GAMEOUT_OK) == 0) {

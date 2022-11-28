@@ -33,7 +33,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	Operator o = null;
 
-	private TimerNum timerNum;
+	//private TimerNum timerNum;
 	private Thread threadNum;
 
 	JButton btnNewButton;
@@ -45,6 +45,8 @@ public class PlayFrame extends JFrame implements ActionListener {
 	JScrollPane scrollPane;
 	JScrollPane scrollPane2;
 	Image background;
+	JLabel notationPanel = new JLabel();
+	JLabel timerLabel = new JLabel();
 
 	LineBorder bb = new LineBorder(Color.gray, 1, true); // 라벨의 테두리 설정값
 	private JTextField textField;
@@ -78,8 +80,8 @@ public class PlayFrame extends JFrame implements ActionListener {
 		contentPane.setBounds(0, 0, 1000, 720);
 		getContentPane().add(contentPane);
 		contentPane.setLayout(null);
-
-		JLabel notationPanel = new JLabel("알림 창");
+		
+		notationPanel.setText("알림 창");
 		notationPanel.setFont(new Font("굴림", Font.BOLD, 30));
 		notationPanel.setHorizontalAlignment(JLabel.CENTER);
 		notationPanel.setBorder(bb);
@@ -97,18 +99,19 @@ public class PlayFrame extends JFrame implements ActionListener {
 		gameStart.setFocusPainted(false);
 		contentPane.add(gameStart);
 
-		JLabel timerLabel = new JLabel();
 		timerLabel.setFont(new Font("굴림", Font.BOLD, 30));
 		timerLabel.setHorizontalAlignment(JLabel.CENTER);
 		timerLabel.setBackground(Color.WHITE);
 		timerLabel.setBounds(460, 138, 70, 50);
 		contentPane.add(timerLabel);
-
+		
+		/*
 		int second = 20;
 		timerNum = new TimerNum(second);
 		threadNum = new Thread(timerNum);
 		threadNum.start();
 		timerLabel.add(timerNum);
+		*/
 
 		gameWindow = new JTextArea();
 		gameWindow.setBounds(0, 0, 458, 403);
@@ -180,14 +183,22 @@ public class PlayFrame extends JFrame implements ActionListener {
 		gameStart.addActionListener(this);
 
 	}
+	
+	public void setTime(String t) {
+		timerLabel.setText(t);
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnNewButton) {
 			o.cf.setVisible(true);
-		} else if (e.getSource() == gameStart) { // 게임 시작 버튼입니다. 여기 이용하시면 됩니다.
-			
+		}
+		
+		else if (e.getSource() == gameStart) { // 게임 시작 버튼입니다. 여기 이용하시면 됩니다.
+			out.println(Protocol.STARTGAME + "//" + textField.getText());
+			out.flush();
+		}
 
-		} else if (e.getSource() == sendButton) {
+		else if (e.getSource() == sendButton) {
 			// 메세지 입력없이 전송버튼만 눌렀을 경우
 			if (textField.getText().equals("")) {
 				return;
@@ -198,10 +209,15 @@ public class PlayFrame extends JFrame implements ActionListener {
 
 			out.println(Protocol.SENDWORD + "//" + textField.getText());
 			out.flush();
-			
-			gameWindow.setText("["+o.ID+"] "+ textField.getText()); //채팅 자신이 보낸거는 바로 gaimeWindow창에 뜰 수 있게 해뒀습니다.
+
+			// gameWindow.setText("["+o.ID+"] "+ textField.getText()); //채팅 자신이 보낸거는 바로
+			// gaimeWindow창에 뜰 수 있게 해뒀습니다.
 			textField.setText(""); // 채팅 치는 곳 초기화
 		}
+	}
+	
+	public void setNotation(String s) {
+		notationPanel.setText(s);
 	}
 
 	class MyMouseListener implements MouseListener {
