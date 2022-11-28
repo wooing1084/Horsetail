@@ -218,11 +218,18 @@ class RecvThread extends Thread {
 				SendMessage(Protocol.ROOMS_NO);
 			else{
 				ArrayList<GameRoom> gameRooms = RoomManager.GetRoomList();
-				String res = Protocol.ROOMS_OK ;
+				String res = Protocol.ROOMS_OK + "//";
 
 				for(int i =0; i < gameRooms.size();i++){
 					GameRoom gr = gameRooms.get(i);
-					res += "//" + gr.GetRoomID() + "%" + gr.GetRoomName();
+					res += gr.GetRoomID() + "%";
+				}
+				
+				res += "//";
+				
+				for(int i =0; i < gameRooms.size();i++){
+					GameRoom gr = gameRooms.get(i);
+					res += gr.GetRoomName() + "%";
 				}
 
 				SendMessage(res);
@@ -236,6 +243,7 @@ class RecvThread extends Thread {
 				SendMessage(Protocol.ROOMCREATE_NO);
 				return;
 			}
+			gr.SetRoomName(reqs[1]);
 			SendMessage(Protocol.ROOMCREATE_OK + "//" + gr.GetRoomID());
 		}
 		//방 참가

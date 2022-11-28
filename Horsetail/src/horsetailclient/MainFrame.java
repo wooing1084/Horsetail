@@ -61,6 +61,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	PrintWriter out = null;
 	
 	ArrayList<String> rankingList = new ArrayList<String>();
+	ArrayList<String> roomIdList = new ArrayList<String>();
+	ArrayList<String> roomNameList = new ArrayList<String>();
 	
 	public MainFrame(Operator _o, PrintWriter printW) {
 		o = _o;
@@ -133,14 +135,20 @@ public class MainFrame extends JFrame implements ActionListener {
 		newRoom.setBorderPainted(false);
 		contentPane.add(newRoom);
 
-		ArrayList<String> temp2 = new ArrayList();
+		//ArrayList<String> temp2 = new ArrayList();
 		//Database tempDB2 = new Database();
 		//temp2 = tempDB2.infoRoom();
 		
 		JLabel test;
-
+		
+		out.println(Protocol.ROOMS);
+		out.flush();
+		
+		ebPanel.removeAll();
+		ebPanel.updateUI();
+		
 		int size = 0;
-		for (int i = 0; i < temp2.size(); i++) {
+		for (int i = 0; i < roomNameList.size(); i++) {
 			enterButton = new JButton(); 
 			enterButton.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
 			enterButton.setBorderPainted(false);
@@ -149,7 +157,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			enterButton.setBounds(506, size, 70, 70);
 			enterButton.setBorder(bb);
 			
-			test = new JLabel(temp2.get(i));
+			test = new JLabel(roomNameList.get(i));
 			test.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 			test.setBounds(0, size, 506, 70);
 			test.setBorder(bb);
@@ -231,6 +239,9 @@ public class MainFrame extends JFrame implements ActionListener {
 		out.println(Protocol.RANKING);
 		out.flush();
 		
+		panel.removeAll(); // 패널을 지운다.(새로고침)
+		panel.updateUI();
+		
 		int size2 = 0;
 		for (int i = 0; i < rankingList.size(); i++) {
 			if (i == 0) {
@@ -286,12 +297,16 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == enterButton) { 
-			o.pf.setVisible(true);
+			out.println(Protocol.JOINROOM);
+			out.flush();
 		} else if (e.getSource() == profile) {
 			ProfileDialog pd = new ProfileDialog(o);
 		}else if (e.getSource() == newRoom) {
 			o.mrd.setVisible(true); //방만들기 버튼 누르면 방만들기 다이얼로그로 이동
-		} else if (e.getSource() == refresh) {
+		} else if (e.getSource() == refresh) { // 이게 방목록 버튼
+			out.println(Protocol.ROOMS);
+			out.flush();
+			
 			ebPanel.removeAll();
 			ebPanel.updateUI();
 
@@ -307,13 +322,13 @@ public class MainFrame extends JFrame implements ActionListener {
 			scrollPane2.setBounds(0, 0, 591, 234);
 			ebPanel.add(scrollPane2);
 
-			ArrayList<String> temp2 = new ArrayList();
+			//ArrayList<String> temp2 = new ArrayList();
 			//Database tempDB2 = new Database(); // 랭킹 정보를 가져올 임시 클래스
 			//temp2 = tempDB2.infoRoom();
 
 			int size = 0;
-			for (int i = 0; i < temp2.size(); i++) {
-				enterButton = new JButton(temp2.get(i)); 
+			for (int i = 0; i < roomNameList.size(); i++) {
+				enterButton = new JButton(roomNameList.get(i)); 
 				enterButton.setBackground(Color.WHITE);
 				enterButton.setBounds(0, size, 591, 70);
 				enterButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -324,7 +339,7 @@ public class MainFrame extends JFrame implements ActionListener {
 				PostButtonArr[i] = enterButton;
 				PostButtonArr[i].addActionListener(this);
 			}
-		} else if (e.getSource() == refresh2) {
+		} else if (e.getSource() == refresh2) { // 이게 랭킹 버튼
 			out.println(Protocol.RANKING);
 			out.flush();
 			
@@ -396,6 +411,22 @@ public class MainFrame extends JFrame implements ActionListener {
 	
 	public void setRankingList(String[] rawData) {
 		rankingList = new ArrayList<String>(Arrays.asList(rawData));
+	}
+	
+	public void setRoomIdList(String[] rawData) {
+		roomIdList = new ArrayList<String>(Arrays.asList(rawData));
+	}
+	
+	public void initRoomIdList() {
+		roomIdList.clear();
+	}
+	
+	public void setRoomNameList(String[] rawData) {
+		roomNameList = new ArrayList<String>(Arrays.asList(rawData));
+	}
+	
+	public void initRoomNameList() {
+		roomNameList.clear();
 	}
 
 	class MyMouseListener implements MouseListener {

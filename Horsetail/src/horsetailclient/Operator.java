@@ -115,6 +115,21 @@ public class Operator implements Runnable {
 					lf.showDialog("로그인에 실패하였습니다");
 				}
 				
+				else if (line[0].compareTo(Protocol.ROOMS_OK) == 0) {
+					System.out.println("방 목록 로딩 성공");
+					String[] id = line[1].split("%");
+					String[] name = line[1].split("%");
+					mf.initRoomIdList();
+					mf.setRoomIdList(id);
+					mf.initRoomNameList();
+					mf.setRoomNameList(name);
+				}
+				
+				else if (line[0].compareTo(Protocol.ROOMS_NO) == 0) {
+					System.out.println("방이 없음");
+					//lf.showDialog("방이 없습니다. 먼저 만들어보세요!");
+				}
+				
 				else if (line[0].compareTo(Protocol.ROOMCREATE_OK) == 0) {
 					System.out.println("방 생성 성공");
 					lf.showDialog("방 생성에 성공하였습니다");
@@ -126,6 +141,24 @@ public class Operator implements Runnable {
 				else if (line[0].compareTo(Protocol.ROOMCREATE_NO) == 0) {
 					System.out.println("방 생성 성공");
 					lf.showDialog("방 생성에 실패하였습니다");
+				}
+				
+				else if (line[0].compareTo(Protocol.ROOMFULL) == 0) {
+					System.out.println("방 정원 초과");
+					lf.showDialog("방이 꽉 찼습니다");
+				}
+				
+				else if (line[0].compareTo(Protocol.JOINROOM_OK) == 0) {
+					System.out.println("방 입장 성공");
+					lf.showDialog("방 입장에 성공하였습니다");
+					mf.setVisible(false);
+					pf.setVisible(true);
+					roomID = line[1];
+				}
+				
+				else if (line[0].compareTo(Protocol.JOINROOM_NO) == 0) {
+					System.out.println("방 입장 실패");
+					lf.showDialog("방 입장에 실패하였습니다");
 				}
 				
 				else if (line[0].compareTo(Protocol.STARTGAME_OK) == 0) {

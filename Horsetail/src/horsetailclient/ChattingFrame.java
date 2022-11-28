@@ -1,6 +1,7 @@
 package horsetailclient;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,6 +50,7 @@ public class ChattingFrame extends JFrame implements ActionListener {
 		textArea.setBackground(Color.WHITE);
 		textArea.setBorder(bb);
 		textArea.setBounds(0, 0, 423, 489);
+		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 10));
 		contentPane.add(textArea);
 		
 		textField = new JTextField();
