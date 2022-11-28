@@ -56,7 +56,7 @@ public class ProfileDialog extends JFrame {
 		lblNewLabel.setBorder(null);
 		
 		String temp = new String();
-		Database db = new Database();
+		//Database db = new Database();
 		//temp = db.CheckMyInfo(o.ID);
 		
 		

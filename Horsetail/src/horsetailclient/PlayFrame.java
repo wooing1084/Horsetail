@@ -42,6 +42,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 	ChattingFrame chat;
 	JButton sendButton;
 	JButton gameStart;
+	JButton outRoom;
 	JScrollPane scrollPane;
 	JScrollPane scrollPane2;
 	Image background;
@@ -87,6 +88,16 @@ public class PlayFrame extends JFrame implements ActionListener {
 		notationPanel.setBorder(bb);
 		notationPanel.setBounds(115, 53, 750, 50);
 		contentPane.add(notationPanel);
+		
+		outRoom = new JButton();
+		outRoom.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/back.png")));
+		outRoom.setHorizontalAlignment(JLabel.CENTER);
+		outRoom.setBorder(bb);
+		outRoom.setBounds(0, 0, 50, 50);
+		outRoom.setBorderPainted(false);
+		outRoom.setContentAreaFilled(false);
+		outRoom.setFocusPainted(false);
+		contentPane.add(outRoom);
 
 		gameStart = new JButton();
 		gameStart.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/startButton.png")));
@@ -181,6 +192,8 @@ public class PlayFrame extends JFrame implements ActionListener {
 		btnNewButton.addMouseListener(listener);
 		gameStart.addMouseListener(listener);
 		sendButton.addMouseListener(listener);
+		outRoom.addMouseListener(listener);
+		outRoom.addActionListener(this);
 		btnNewButton.addActionListener(this);
 		sendButton.addActionListener(this);
 		gameStart.addActionListener(this);
@@ -224,6 +237,8 @@ public class PlayFrame extends JFrame implements ActionListener {
 			// gameWindow.setText("["+o.ID+"] "+ textField.getText()); //채팅 자신이 보낸거는 바로
 			// gaimeWindow창에 뜰 수 있게 해뒀습니다.
 			textField.setText(""); // 채팅 치는 곳 초기화
+		}else if (e.getSource() == outRoom) { //방 뒤로가기 버튼입니다.
+			dispose();
 		}
 	}
 	
@@ -248,6 +263,9 @@ public class PlayFrame extends JFrame implements ActionListener {
 			}else if (e.getSource() == sendButton) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/send2.png")));
+			}else if (e.getSource() == outRoom) {
+				JButton b = (JButton) e.getSource();
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/back2.png")));
 			}
 		}
 
@@ -262,6 +280,9 @@ public class PlayFrame extends JFrame implements ActionListener {
 			}else if (e.getSource() == sendButton) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/send.png")));
+			}else if (e.getSource() == outRoom) {
+				JButton b = (JButton) e.getSource();
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/back.png")));
 			}
 		}
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class JoinFrame extends JFrame {
-	Database db = new Database();
+	//Database db = new Database();
 	/* Panel */
 	JPanel panel = new JPanel();
 
