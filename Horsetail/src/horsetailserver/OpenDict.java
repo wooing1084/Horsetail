@@ -1,6 +1,7 @@
 package horsetailserver;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -52,5 +53,6 @@ public class OpenDict{
         Node value = (Node) nl.item(0);
         return value.getNodeValue();
     }
-    
+
 }
+

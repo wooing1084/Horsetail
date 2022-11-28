@@ -161,21 +161,21 @@ public class Game extends Thread{
     public boolean isNotExist(String w) {
         // API와 연동해서 단어 체크 코드 추가
         // 단어가 있으면 false, 없으면 true 리턴
+        String result = OpenDict.CheckWord(w);
 
-        return false;
+        gameRoom.BroadCast(result);
+
+        if(result.substring(0,3).compareTo(Protocol.SENDDEF) == 0)
+            return false;
+
+        return true;
     }
 
     public void addWord(String w) {
         words.add(w);
     }
 
-    public String getDefinition() {
-        String def = "";
 
-        // API와 연동해서 단어 뜻 가져오는 코드 추가
-
-        return def;
-    }
 
     public void resetGame()
     {
