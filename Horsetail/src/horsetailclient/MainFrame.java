@@ -104,11 +104,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		label1.setHorizontalAlignment(JLabel.CENTER);
 		label1.setFont(new Font("맑은 고딕", Font.BOLD, 28));
 		label1.setBorder(null);
-		label1.setBounds(212, 386, 165, 43);
+		label1.setBounds(189, 243, 165, 43);
 		contentPane.add(label1);
 
 		ebPanel = new JPanel(); // 스크롤을 올릴 패널
-		ebPanel.setBounds(12, 439, 591, 234);
+		ebPanel.setBounds(12, 300, 591, 373);
 		ebPanel.setOpaque(false);
 		contentPane.add(ebPanel);
 		ebPanel.setLayout(null);
@@ -122,7 +122,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 		scrollPane2 = new JScrollPane(roomPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane2.setBounds(0, 0, 591, 234);
+		scrollPane2.setBounds(0, 0, 591, 373);
 		scrollPane2.setOpaque(false);
 		scrollPane2.getViewport().setOpaque(false);
 		ebPanel.add(scrollPane2);
@@ -130,7 +130,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		newRoom = new JButton("방 만들기");
 		newRoom.setFont(new Font("맑은 고딕", Font.BOLD, 10));
 		newRoom.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/roomCreate1.png")));
-		newRoom.setBounds(513, 379, 79, 50);
+		newRoom.setBounds(513, 247, 79, 50);
 		newRoom.setForeground(Color.WHITE);
 		newRoom.setBackground(new Color(204, 153, 0));
 		newRoom.setBorderPainted(false);
@@ -153,12 +153,13 @@ public class MainFrame extends JFrame implements ActionListener {
 			enterButton.setBorderPainted(false);
 			enterButton.setContentAreaFilled(false);
 			enterButton.setFocusPainted(false);
-			enterButton.setBounds(506, size, 70, 70);
+			enterButton.setBounds(506, size, 74, 70);
 			enterButton.setBorder(bb);
 			enterButton.setText(roomIdList.get(i));
 
 			roomLabel = new JLabel(roomNameList.get(i));
-			roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+			roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+			roomLabel.setHorizontalAlignment(JLabel.CENTER);
 			roomLabel.setBounds(0, size, 506, 70);
 			roomLabel.setBorder(bb);
 //			enterButton.setBorderPainted(false);
@@ -186,7 +187,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		refresh = new JButton();
 		refresh.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/refresh.png")));
 		refresh.setBackground(Color.WHITE);
-		refresh.setBounds(444, 372, 57, 57);
+		refresh.setBounds(444, 243, 57, 57);
 		refresh.setVisible(true);
 		refresh.setLayout(null);
 		refresh.setBorderPainted(false);
@@ -335,7 +336,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			scrollPane2 = new JScrollPane(roomPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 					JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane2.setBounds(0, 0, 591, 234);
+			scrollPane2.setBounds(0, 0, 591, 373);
 			scrollPane2.setOpaque(false);
 			scrollPane2.getViewport().setOpaque(false);
 			ebPanel.add(scrollPane2);
@@ -351,12 +352,13 @@ public class MainFrame extends JFrame implements ActionListener {
 				enterButton.setBorderPainted(false);
 				enterButton.setContentAreaFilled(false);
 				enterButton.setFocusPainted(false);
-				enterButton.setBounds(506, size, 70, 70);
+				enterButton.setBounds(506, size, 74, 70);
 				enterButton.setBorder(bb);
 				enterButton.setText(roomIdList.get(i));
 
 				roomLabel = new JLabel(roomNameList.get(i));
-				roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				roomLabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+				roomLabel.setHorizontalAlignment(JLabel.CENTER);
 				roomLabel.setBounds(0, size, 506, 70);
 				roomLabel.setBorder(bb);
 				roomLabel.setOpaque(false);
