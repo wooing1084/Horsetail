@@ -328,11 +328,13 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == enterButton) {
-			System.out.println(enterButton.getText());
-			out.println(Protocol.JOINROOM + "//" + enterButton.getText());
-			out.flush();
-		} else if (e.getSource() == profile) {
+//		if (e.getSource() == PostButtonArr) {
+//			System.out.println(enterButton.getText());
+//			out.println(Protocol.JOINROOM + "//" + enterButton.getText());
+//			out.flush();
+//		} 
+		
+		if (e.getSource() == profile) {
 			out.println(Protocol.STAT);
 			out.flush();
 			o.pd.setVisible(true);
@@ -481,6 +483,16 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			}
 		}
+		
+		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+				for (int i = 0; i < PostButtonArr.length; i++) {
+					if (e.getSource() == PostButtonArr[i]) {
+						System.out.println(PostButtonArr[i].getText());
+						out.println(Protocol.JOINROOM + "//" + PostButtonArr[i].getText());
+						out.flush();
+					}
+				}		
+				//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	}
 
 	public void setRankingList(String[] rawData) {
@@ -518,13 +530,21 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit2.png")));
 
-			} else if (e.getSource() == enterButton) {
-				JButton b = (JButton) e.getSource();
-				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
-			} else {
+			} //else if (e.getSource() == PostButtonArr) { //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			//	JButton b = (JButton) e.getSource();
+			//	b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
+			//} 
+			else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
 			}
+			//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			for (int i = 0; i < PostButtonArr.length; i++) {
+				if (e.getSource() == PostButtonArr[i]) {
+					JButton b = (JButton) e.getSource();
+					b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
+				}
+			}		
 		}
 
 		@Override
@@ -539,13 +559,21 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit.png")));
 
-			} else if (e.getSource() == enterButton) {
-				JButton b = (JButton) e.getSource();
-				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
-			} else {
+			} //else if (e.getSource() == enterButton) {
+			//	JButton b = (JButton) e.getSource();
+			//	b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
+			//} 
+			else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);
 			}
+			for (int i = 0; i < PostButtonArr.length; i++) {
+				if (e.getSource() == PostButtonArr[i]) {
+					JButton b = (JButton) e.getSource();
+					b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
+				}
+			}
+			
 		}
 
 		@Override
