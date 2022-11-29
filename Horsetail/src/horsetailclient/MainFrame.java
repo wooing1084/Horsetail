@@ -295,6 +295,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		profile.addMouseListener(listener);
 		newRoom.addMouseListener(listener);
 		exit.addMouseListener(listener);
+		enterButton.addMouseListener(listener);
 		exit.addActionListener(this);
 		profile.addActionListener(this);
 		refresh.addActionListener(this);
@@ -475,6 +476,9 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit2.png")));
 
+			}else if (e.getSource() == enterButton) {
+				JButton b = (JButton) e.getSource();
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
 			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
@@ -493,6 +497,9 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit.png")));
 
+			} else if (e.getSource() == enterButton) {
+				JButton b = (JButton) e.getSource();
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
 			}else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);
