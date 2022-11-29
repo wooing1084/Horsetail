@@ -21,7 +21,8 @@ public class Operator implements Runnable {
 	ChattingFrame cf = null;
 	MakeRoomDialog mrd = null;
 	ProfileDialog pd = null;
-	
+
+	static Socket conSoc = null;
 	static BufferedReader in = null;
 	static PrintWriter out = null;
 	
@@ -29,10 +30,10 @@ public class Operator implements Runnable {
 	public static String roomID;
 	
 	public static void main(String[] args) {
-		Socket conSoc = null;
 		String ip = "127.0.0.1";
 		int port = 37101;
 		
+		conSoc = null;
 		in = null;
 		out = null;
 		
@@ -312,11 +313,11 @@ public class Operator implements Runnable {
 				}
 				
 				else if (line[0].compareTo(Protocol.EXITPROGRAM_OK) == 0) {
-
+					System.exit(0);
 				}
 				
 				else if (line[0].compareTo(Protocol.EXITPROGRAM_NO) == 0) {
-
+					lf.showDialog("종료할 수 없습니다.");
 				}
 				
 				else if (line[0].compareTo(Protocol.INVALIDTAG) == 0) {
