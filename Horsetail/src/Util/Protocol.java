@@ -34,7 +34,7 @@ public class Protocol {
 	public static final String ROOMS_OK = "131"; // 방 목록 요청 ACK
 	public static final String ROOMS_NO = "132"; //방 목록 요청 NACK
 
-
+	public static final String OWNERCHANGE = "135"; // 방장 변경됨
 
 	public static final String ROOMCREATE = "150"; // 멀티룸 방 생성
 	public static final String ROOMCREATE_OK = "151"; // 멀티룸 방 생성 성공

@@ -45,15 +45,22 @@ public class GameRoom {
 		user.SetRoomIndex(-1);
 		_userList.remove(user);
 
+		if(_owner.GetUser().getId().compareTo(user.GetUser().getId()) == 0)
+		{
+			ChangeOwner(_userList.get(0));
+		}
+
+
 		if(_userList.size() <= 0){
 			//방 지우기
 			RoomManager.RemoveRoom(this);
 
 		}
-		if(_userList.size() == 1){
-			this._owner = _userList.get(0);
+	}
 
-		}
+	public void ChangeOwner(RecvThread user){
+		_owner = user;
+		_owner.SendMessage(Protocol.OWNERCHANGE);
 	}
 
 	public void BroadCast(String msg){
