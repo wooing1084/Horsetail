@@ -55,7 +55,7 @@ class RecvThread extends Thread {
 	private InputStreamReader inputStream = null;
 	private OutputStreamWriter outputStream = null;
 
-	public RecvThread(Socket socket){
+	public RecvThread(Socket socket) {
 		_socket = socket;
 		user = null;
 
@@ -67,7 +67,7 @@ class RecvThread extends Thread {
 		}
 	}
 
-	public RecvThread(Socket socket, User _user){
+	public RecvThread(Socket socket, User _user) {
 		_socket = socket;
 		user = _user;
 		try {
@@ -78,7 +78,7 @@ class RecvThread extends Thread {
 		}
 	}
 
-	public void SendMessage(String msg){
+	public void SendMessage(String msg) {
 		PrintWriter writer = new PrintWriter(outputStream);
 		writer.println(msg);
 		writer.flush();
@@ -86,35 +86,34 @@ class RecvThread extends Thread {
 
 	//0 : fail
 	//1 : success
-	public int Close(){
+	public int Close() {
 		try {
-			if(nowRoomIndex != -1)
+			if (nowRoomIndex != -1)
 				RoomManager.GetRoomList().get(nowRoomIndex).ExitRoom(this);
+
 			inputStream.close();
 			outputStream.close();
 			_socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-
-			return 0;
 		}
 
 		return 1;
 
 	}
 
-	public void run(){
+	public void run() {
 		BufferedReader reader = new BufferedReader(inputStream);
 
-		while(true){
-			if(_socket.isClosed()){
+		while (true) {
+			if (_socket.isClosed()) {
 				break;
 			}
 
 			try {
 				String req = reader.readLine();
 
-				if(user != null)
+				if (user != null)
 					System.out.println(user.getNick() + ":" + req);
 				else
 					System.out.println("unknown: " + req);
@@ -122,7 +121,7 @@ class RecvThread extends Thread {
 				//메세지 처리함수
 				MessageExecutes(req);
 
-			} catch (SocketException e){
+			} catch (SocketException e) {
 				e.printStackTrace();
 				Server.RemoveUser(this);
 				break;
@@ -139,21 +138,21 @@ class RecvThread extends Thread {
 		}
 	}
 
-	public static String[] DivideRequest(String req){
+	public static String[] DivideRequest(String req) {
 		String[] result = req.split("//");
 
 		return result;
 	}
 
-	public static String MakeResponse(String tag, ArrayList<String> res){
+	public static String MakeResponse(String tag, ArrayList<String> res) {
 		String result = tag;
 
-		if(res.size() != 0){
+		if (res.size() != 0) {
 			result += "//";
 
-			for(int i =0;i<res.size();i++){
+			for (int i = 0; i < res.size(); i++) {
 				result += res.get(i);
-				if(i < res.size() - 1)
+				if (i < res.size() - 1)
 					result += "%";
 			}
 		}
@@ -161,73 +160,70 @@ class RecvThread extends Thread {
 		return result;
 	}
 
-	private void MessageExecutes(String req){
+	private void MessageExecutes(String req) {
 		String[] reqs = DivideRequest(req);
 
 		//회원가입
-		if(reqs[0].compareTo(Protocol.REGISTER) == 0){
+		if (reqs[0].compareTo(Protocol.REGISTER) == 0) {
 			String[] args = reqs[1].split("%");
 
 			int result = SQLMethods.SignUp(args[0], args[1]);
 
-			if(result == 1)
+			if (result == 1)
 				SendMessage(Protocol.REGISTER_OK);
 			else
 				SendMessage(Protocol.REGISTER_NO);
 
 		}
 		//ID중복 요청
-		if(reqs[0].compareTo(Protocol.IDVALIDCHECK) == 0){
+		if (reqs[0].compareTo(Protocol.IDVALIDCHECK) == 0) {
 			String q1 = "select id from user where id = \"" + reqs[1] + "\";";
 			ResultSet rs = SQLMethods.ExecuteQuery(q1);
 
 			try {
-				if(rs.next())
-				{
-					if(rs.getString(1).compareTo("") == 0)
+				if (rs.next()) {
+					if (rs.getString(1).compareTo("") == 0)
 						SendMessage(Protocol.IDVALIDCHECK_OK);
 					else
 						SendMessage(Protocol.IDVALIDCHECK_NO);
-				}
-				else
+				} else
 					SendMessage(Protocol.IDVALIDCHECK_OK);
 			} catch (SQLException e) {
 				throw new RuntimeException(e);
 			}
 		}
 		//로그인
-		else if(reqs[0].compareTo(Protocol.LOGIN) == 0){
+		else if (reqs[0].compareTo(Protocol.LOGIN) == 0) {
 			String[] args = reqs[1].split("%");
 
 			User u = SQLMethods.LogIn(args[0], args[1]);
 			user = u;
 			Server.AddUser(user);
 
-			if(user == null) {
+			if (user == null) {
 				System.out.println(Protocol.LOGIN_NO);
 				SendMessage(Protocol.LOGIN_NO);
-			}
-			else {
+			} else {
 				System.out.println(Protocol.LOGIN_OK + "//" + user.toString());
 				SendMessage(Protocol.LOGIN_OK + "//" + user.toString());
 			}
 		}
 		//방 정보 요청
-		else if(reqs[0].compareTo(Protocol.ROOMS) == 0){
-			if(RoomManager.GetRoomList().size() == 0)
+		else if (reqs[0].compareTo(Protocol.ROOMS) == 0) {
+			if (RoomManager.GetRoomList().size() == 0)
 				SendMessage(Protocol.ROOMS_NO);
-			else{
+			else {
 				ArrayList<GameRoom> gameRooms = RoomManager.GetRoomList();
 				String res = Protocol.ROOMS_OK + "//";
 
-				for(int i =0; i < gameRooms.size();i++){
+				for (int i = 0; i < gameRooms.size(); i++) {
 					GameRoom gr = gameRooms.get(i);
 					res += gr.GetRoomID() + "%";
 				}
-				
+
 				res += "//";
-				
-				for(int i =0; i < gameRooms.size();i++){
+
+				for (int i = 0; i < gameRooms.size(); i++) {
 					GameRoom gr = gameRooms.get(i);
 					res += gr.GetRoomName() + "%";
 				}
@@ -236,10 +232,10 @@ class RecvThread extends Thread {
 			}
 		}
 		//방 생성
-		else if(reqs[0].compareTo(Protocol.ROOMCREATE) == 0){
+		else if (reqs[0].compareTo(Protocol.ROOMCREATE) == 0) {
 			GameRoom gr = RoomManager.CreateRoom(this);
 
-			if(gr == null){
+			if (gr == null) {
 				SendMessage(Protocol.ROOMCREATE_NO);
 				return;
 			}
@@ -247,59 +243,55 @@ class RecvThread extends Thread {
 			SendMessage(Protocol.ROOMCREATE_OK + "//" + gr.GetRoomID());
 		}
 		//방 참가
-		else if(reqs[0].compareTo(Protocol.JOINROOM) == 0){
+		else if (reqs[0].compareTo(Protocol.JOINROOM) == 0) {
 			int r = RoomManager.JoinRoom(reqs[1], this);
 
-			if(r == -1)
+			if (r == -1)
 				SendMessage(Protocol.ROOMFULL);
-			else if(r == 0)
+			else if (r == 0)
 				SendMessage(Protocol.JOINROOM_NO);
 			else
 				SendMessage(Protocol.JOINROOM_OK + "//" + reqs[1]);
 		}
 		//방 유저 목록 요청
-		else if(reqs[0].compareTo(Protocol.ROOMUSERS) == 0){
-			if(nowRoomIndex == -1){
+		else if (reqs[0].compareTo(Protocol.ROOMUSERS) == 0) {
+			if (nowRoomIndex == -1) {
 				SendMessage(Protocol.ROOMUSERS_NAK);
 				return;
 			}
 
-			if(RoomManager.GetRoomList().get(nowRoomIndex).GetUserList().size() == 0){
+			if (RoomManager.GetRoomList().get(nowRoomIndex).GetUserList().size() == 0) {
 				SendMessage(Protocol.ROOMUSERS_NAK);
 				return;
 			}
 
 			ArrayList<RecvThread> users = RoomManager.GetRoomList().get(nowRoomIndex).GetUserList();
 			String res = Protocol.ROOMUSERS_OK;
-			for(int i =0;i<users.size();i++){
+			for (int i = 0; i < users.size(); i++) {
 				res += "//" + users.get(i).GetUser().toStringWithoutPassword();
 			}
 
 			SendMessage(res);
 		}
 		//방 나가기
-		else if(reqs[0].compareTo(Protocol.ROOMEXIT) == 0){
-			if(nowRoomIndex == -1) {
+		else if (reqs[0].compareTo(Protocol.ROOMEXIT) == 0) {
+			if (nowRoomIndex == -1) {
 				SendMessage(Protocol.ROOMEXIT_NO);
 				return;
 			}
 
 			RoomManager.GetRoomList().get(nowRoomIndex).ExitRoom(this);
 			SendMessage(Protocol.ROOMEXIT_OK);
-		}
-		
-		else if(reqs[0].compareTo(Protocol.STAT) == 0) {
+		} else if (reqs[0].compareTo(Protocol.STAT) == 0) {
 			String res = SQLMethods.GetStat(user.getId());
 			SendMessage(res);
-		}
-
-		else if(reqs[0].compareTo(Protocol.RANKING) == 0) {
+		} else if (reqs[0].compareTo(Protocol.RANKING) == 0) {
 			String ranking = SQLMethods.getRankingID();
 			SendMessage(ranking);
 		}
 		//게임시작 구현
 
-		else if(reqs[0].compareTo(Protocol.STARTGAME) == 0) {
+		else if (reqs[0].compareTo(Protocol.STARTGAME) == 0) {
 			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			gr.GameStart(this);
 		}
@@ -307,267 +299,51 @@ class RecvThread extends Thread {
 		//--------
 
 		//메세지 보내기
-		else if(reqs[0].compareTo(Protocol.SENDMESSAGE) == 0){
+		else if (reqs[0].compareTo(Protocol.SENDMESSAGE) == 0) {
 			int idx = RoomManager.GetRoomIdx(reqs[1]);
 			GameRoom gr = RoomManager.GetRoomList().get(idx);
 			gr.BroadCast(Protocol.SENDMESSAGE_OK + "//" + user.getId() + "//" + reqs[2]);
-		}
-		
-		else if (reqs[0].compareTo(Protocol.SENDWORD) == 0) {
+		} else if (reqs[0].compareTo(Protocol.SENDWORD) == 0) {
 			GameRoom gr = RoomManager.GetRoomList().get(nowRoomIndex);
 			//GameRoom의 Game에 단어전송함수 호출
 			gr.EnterWordToGame(reqs[1], this);
 		}
 		//프로그램종료
-		else if(reqs[0].compareTo(Protocol.EXITPROGRAM) == 0){
-			int r =Server.RemoveUser(this);
+		else if (reqs[0].compareTo(Protocol.EXITPROGRAM) == 0) {
+			SendMessage(Protocol.EXITPROGRAM_OK);
 
-			if(r == 1)
-				SendMessage(Protocol.EXITPROGRAM_OK);
-			else
-				SendMessage(Protocol.EXITPROGRAM_NO);
-		}
-		else{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			int r = Server.RemoveUser(this);
+
+
+
+
+		} else {
 			SendMessage(Protocol.INVALIDTAG);
 		}
 
 	}
 
-
 	//getter
-	public User GetUser(){
+	public User GetUser() {
 		return user;
 	}
-	public int GetRoomIndex(){
+
+	public int GetRoomIndex() {
 		return nowRoomIndex;
 	}
+
 	//setter
-	public void SetUser(User _user){
+	public void SetUser(User _user) {
 		user = _user;
 	}
-	public void SetRoomIndex(int idx){
+
+	public void SetRoomIndex(int idx) {
 		nowRoomIndex = idx;
 	}
-	
-//	private static final int MAX_USERS = 4;
-//
-//	private Socket conSoc = null;
-//
-//	private User user = null;
-//	private GameRoom game = null;
-//
-//	private BufferedReader in = null;
-//	private PrintWriter out = null;
-//
-//	private ArrayList<RecvThread> allUserList;
-//
-//	public RecvThread(Socket s, ArrayList<RecvThread> ul, GameRoom g) throws Exception {
-//		this.conSoc = s;
-//		this.allUserList = ul;
-//		this.user = new User();
-//		this.game = g;
-//
-//		in = new BufferedReader(new InputStreamReader(conSoc.getInputStream()));
-//		out = new PrintWriter(new OutputStreamWriter(conSoc.getOutputStream()));
-//	}
-//
-//	public void run() {
-//		try {
-//
-//			String[] line = null;
-//
-//			while(true) {
-//
-//				line = in.readLine().split("//");
-//
-//				if(line == null) {
-//					break;
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.REGISTER) == 0) {
-//					String contents[] = line[1].split("%");
-//
-//					// SQL 회원가입 코드 추가
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.IDVALIDCHECK) == 0) {
-//					// SQL 회원가입 시 닉네임 중복체크 코드 추가
-//
-//					int count = 0;
-//
-//					// count == SQL select 문으로 가져온 개수
-//
-//					if(count == 0) {
-//						out.println(Util.Protocol.IDVALIDCHECK_OK + "//" + "MSG");
-//						out.flush();
-//					}
-//					else {
-//						out.println(Util.Protocol.IDVALIDCHECK_NO + "//" + "MSG");
-//						out.flush();
-//					}
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.LOGIN) == 0) {
-//					String content[] = line[1].split("%");
-//
-//					// SQL 로그인 시 ID 및 닉네임 맞는지 검사하는 코드 추가
-//
-//					int count = 0;
-//
-//					// count == SQL select 문으로 가져온 개수
-//
-//					if(count == 0) { // 로그인 실패
-//						out.println(Util.Protocol.LOGIN_NO + "//" + "MSG");
-//						out.flush();
-//
-//						user.initialize();
-//					}
-//
-//					else if(allUserList.size() >= MAX_USERS) { // 싱글룸 정원 초과
-//						out.println(Util.Protocol.ROOMFULL + "//" + "MSG");
-//						out.flush();
-//					}
-//
-//					else { // 로그인 성공
-//						allUserList.add(this);
-//
-//						String userList = "";
-//						for(int i = 0; i < allUserList.size(); i++) {
-//							userList += allUserList.get(i).user.getNick() + "%";
-//						}
-//
-//						for(int i = 0; i < allUserList.size(); i++) {
-//							allUserList.get(i).out.println(
-//								Util.Protocol.LOGIN_OK + "//" + user.getNick() + "//님이 입장했습니다.//" + userList
-//							);
-//							allUserList.get(i).out.flush();
-//						}
-//					}
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.STARTGAME) == 0) {
-//
-//					if(allUserList.size() <= 1) {
-//						out.println(Util.Protocol.TOOSMALLUSER + "//" + "MSG");
-//						out.flush();
-//					}
-//
-//					else {
-//						allUserList.get(0).user.setTurn(true);
-//						for(int i = 0; i < allUserList.size(); i++) {
-//							allUserList.get(i).out.println(
-//									Util.Protocol.STARTGAME_OK + "//" + "MSG"
-//							);
-//							allUserList.get(i).out.flush();
-//						}
-//					}
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.SENDMESSAGE) == 0) {
-//					for(int i = 0; i < allUserList.size(); i++) {
-//						allUserList.get(i).out.println(
-//							Util.Protocol.SENDMESSAGE_OK + "//" + user.getNick() + "//" + line[1]
-//						);
-//						allUserList.get(i).out.flush();
-//					}
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.STAT) == 0) {
-//
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.RANKING) == 0) {
-//
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.SENDWORD) == 0) {
-//
-//					if(game.isOneChar(line[1])) {
-//						out.println(Util.Protocol.WORDONLYONECHAR + "//" + "MSG");
-//						out.flush();
-//					}
-//
-//					else if(game.isNotChain(line[1])) {
-//						out.println(Util.Protocol.WORDNOTCHAIN + "//" + "MSG");
-//						out.flush();
-//					}
-//
-//					else if(game.isOverlap(line[1])) {
-//						out.println(Util.Protocol.WORDOVERLAP + "//" + "MSG");
-//						out.flush();
-//					}
-//
-//					else if(game.isNotExist(line[1])) {
-//						out.println(Util.Protocol.WORDNOTEXIST + "//" + "MSG");
-//						out.flush();
-//					}
-//
-//					else {
-//						game.addWord(line[1]);
-//						out.println(Util.Protocol.SENDWORD_OK + "//" + user.getNick());
-//						out.flush();
-//
-//						int idx = allUserList.indexOf((Object)user.getNick());
-//						int i = 1;
-//						while(!allUserList.get((idx + i) % allUserList.size()).user.getAlive()) {
-//							i++;
-//						}
-//						allUserList.get((idx + i) % allUserList.size()).user.setTurn(true);
-//						this.user.setTurn(false);
-//
-//						out.println(Util.Protocol.YOURTURN + "//" + allUserList.get((idx + i) % allUserList.size()).user.getNick());
-//						out.flush();
-//					}
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.SENDDEF) == 0) {
-//					String def = game.getDefinition();
-//					out.println(Util.Protocol.SENDDEF_OK + "//" + def);
-//					out.flush();
-//				}
-//
-//				/*
-//				// 아래의 GAMEOUT과 통합할까 고민 중
-//				else if(line[0].compareTo(Util.Protocol.TIMEOUT) == 0) { // 타이머가 0이 되면 request
-//					user.setAlive(false);
-//					out.println(Util.Protocol.TIMEOUT_OK + "//" + user.getNick());
-//					out.flush();
-//				}
-//				*/
-//
-//				else if(line[0].compareTo(Util.Protocol.GAMEOUT) == 0) { // 남은 기회가 0이 되면 request
-//					user.setAlive(false);
-//					game.addDeadUser(user.getNick());
-//					out.println(Util.Protocol.GAMEOUT_OK + "//" + user.getNick());
-//					out.flush();
-//
-//					if(allUserList.size() == game.getDeadUserNum() - 1)
-//					{
-//						for(int i = 0; i < allUserList.size(); i++) {
-//							allUserList.get(i).out.println(
-//									Util.Protocol.GAMEEND + "//게임이 종료되었습니다.//" + game.getDeadUserNick()
-//								);
-//							allUserList.get(i).out.flush();
-//						}
-//					}
-//				}
-//
-//				else if(line[0].compareTo(Util.Protocol.EXITPROGRAM) == 0) {
-//					out.println(Util.Protocol.EXITPROGRAM_OK + "//" + "MSG");
-//					out.flush();
-//					break;
-//				}
-//			}
-//
-//			in.close();
-//			out.close();
-//			conSoc.close();
-//		}
-//		catch(IOException e) {
-//			e.printStackTrace();
-//		}
-//		catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 }

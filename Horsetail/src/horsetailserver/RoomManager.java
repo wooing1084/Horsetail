@@ -18,10 +18,9 @@ public class RoomManager {
         return room;
     }
 
-    //방 아이디 중복될 수 있음 수정 필요!
     public static GameRoom CreateRoom(RecvThread owner){
         GameRoom room = new GameRoom(owner);
-        room.SetRoomID("room_" + roomList.size());
+        room.SetRoomID(owner.GetUser().getId() + "Room_" +  roomList.size());
         room.SetRoomName("Room");
         roomList.add(room);
         owner.SetRoomIndex(GetRoomIdx(room.GetRoomID()));
