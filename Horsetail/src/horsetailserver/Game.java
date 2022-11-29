@@ -17,6 +17,9 @@ public class Game extends Thread{
 
     private GameTimer timer;
     private GameRoom gameRoom;
+    private final int ratingConstant = 2;
+
+    private int turn;
 
 
 
@@ -41,8 +44,12 @@ public class Game extends Thread{
     }
 
     public void NextTurn(){
+
         turnUserIdx++;
         turnUserIdx %= _userList.size();
+
+        if(turnUserIdx == 0)
+            turn++;
 
         gameRoom.BroadCast(Protocol.ANOTHERTURN + "//" + _userList.get(turnUserIdx).GetUser().getId());
         timer.Reset();
@@ -58,6 +65,8 @@ public class Game extends Thread{
         System.out.println(gameRoom.GetRoomID() + ": GameStart");
         gameRoom.BroadCast(Protocol.ANOTHERTURN + "//" + _userList.get(turnUserIdx).GetUser().getId());
 
+        turn = 1;
+
         while(true){
             if(timer.GetTime() >= timer.timeout){
                 //현재유저 패배 +1
@@ -65,16 +74,28 @@ public class Game extends Thread{
                 for(int i =0;i<_userList.size();i++){
                     User u = _userList.get(i).GetUser();
                     String q1;
+                    String q2= "update user set rating = " ;
+                    int rating = u.getRating();
                     if(i == turnUserIdx){
+                        u.setLoses(u.getLoses() + 1);
+                        rating -= turn * ratingConstant;
                         q1 = "update user set loss = " + (u.getLoses() + 1) +
                                 " where id = \"" + u.getId() + "\";";
+
                     }
                     else{
+                        rating += turn * ratingConstant;
+                        u.setWins(u.getWins() + 1);
                         q1 = "update user set wins = " + (u.getWins() + 1) +
                                 " where id = \"" + u.getId() + "\";";
                     }
 
+                    q2 += rating + " where id = \"" + u.getId() + "\";";
+
+                    u.setRating(rating);
+
                     SQLMethods.ExecuteUpdate(q1);
+                    SQLMethods.ExecuteUpdate(q2);
                 }
                 break;
             }
