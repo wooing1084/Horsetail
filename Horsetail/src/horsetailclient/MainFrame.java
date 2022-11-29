@@ -339,8 +339,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		} else if (e.getSource() == newRoom) {
 			o.mrd.setVisible(true); // 방만들기 버튼 누르면 방만들기 다이얼로그로 이동
 		} else if (e.getSource() == exit) { // 종료 버튼입니다.
-			//out.println(Protocol.EXITPROGRAM);
-			//out.flush();
+			out.println(Protocol.EXITPROGRAM);
+			out.flush();
 		} else if (e.getSource() == refresh) { // 이게 방목록 버튼
 			out.println(Protocol.ROOMS);
 			out.flush();
