@@ -65,8 +65,9 @@ public class MainFrame extends JFrame implements ActionListener {
 	ArrayList<String> rankingList = new ArrayList<String>();
 	ArrayList<String> roomIdList = new ArrayList<String>();
 	ArrayList<String> roomNameList = new ArrayList<String>();
-	
+
 	MyMouseListener listener = new MyMouseListener();
+	private JLabel lblNewLabel;
 
 	public MainFrame(Operator _o, PrintWriter printW) {
 		o = _o;
@@ -91,8 +92,6 @@ public class MainFrame extends JFrame implements ActionListener {
 				super.paintComponent(g);// 추가
 			}
 		}; // MainFrame에서 바탕이 되는 배경 패널.
-		
-		
 
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBounds(0, 0, 1000, 720);
@@ -232,7 +231,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		scrollPane.setOpaque(false);
 		scrollPane.getViewport().setOpaque(false);
 		panel.add(scrollPane);
-		
+
 		exit = new JButton();
 		exit.setBounds(12, 10, 50, 50);
 		exit.setBorder(null);
@@ -241,6 +240,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		exit.setFocusPainted(false);
 		exit.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit.png")));
 		contentPane.add(exit);
+
+		lblNewLabel = new JLabel("랭킹");
+		lblNewLabel.setBounds(714, 243, 142, 43);
+		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 28));
+		lblNewLabel.setBorder(null);
+		contentPane.add(lblNewLabel);
 
 		// ArrayList<String> temp = new ArrayList();
 		// Database tempDB = new Database(); // 랭킹 정보를 가져올 임시 클래스
@@ -257,38 +263,53 @@ public class MainFrame extends JFrame implements ActionListener {
 			if (i == 0) {
 				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 355, 70);
-				//post.setHorizontalAlignment(JLabel.CENTER);
-				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				post.setHorizontalAlignment(JLabel.CENTER);
+				post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/gold.png")));
+				JLabel medal = new JLabel();
+				medal.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/gold.png")));
+				medal.setBounds(0, 0, 42, 70);
+				medal.setOpaque(false);
+				medal.setLayout(null);
+				post.add(medal);
 				ranking.setPreferredSize(new Dimension(355, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
 			} else if (i == 1) {
 				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 355, 70);
-				// post.setHorizontalAlignment(JLabel.CENTER);
-				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				post.setHorizontalAlignment(JLabel.CENTER);
+				post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/silver.png")));
+				JLabel medal = new JLabel();
+				medal.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/silver.png")));
+				medal.setBounds(0, 0, 42, 70);
+				medal.setOpaque(false);
+				medal.setLayout(null);
+				post.add(medal);
 				ranking.setPreferredSize(new Dimension(355, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
 			} else if (i == 2) {
 				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 355, 70);
-				// post.setHorizontalAlignment(JLabel.CENTER);
-				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				post.setHorizontalAlignment(JLabel.CENTER);
+				post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 				post.setBorder(bb);
-				post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/copper.png")));
+				JLabel medal = new JLabel();
+				medal.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/copper.png")));
+				medal.setBounds(0, 0, 42, 70);
+				medal.setOpaque(false);
+				medal.setLayout(null);
+				post.add(medal);
 				ranking.setPreferredSize(new Dimension(355, 70 + size2));
 				size2 += 70;
 				ranking.add(post);
 			} else {
 				post = new JLabel(rankingList.get(i));
 				post.setBounds(0, size2, 355, 70);
-				// post.setHorizontalAlignment(JLabel.CENTER);
-				post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+				post.setHorizontalAlignment(JLabel.CENTER);
+				post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 				post.setBorder(bb);
 				ranking.setPreferredSize(new Dimension(355, 70 + size2));
 				size2 += 70;
@@ -296,7 +317,6 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 		}
 
-		
 		profile.addMouseListener(listener);
 		newRoom.addMouseListener(listener);
 		exit.addMouseListener(listener);
@@ -318,9 +338,9 @@ public class MainFrame extends JFrame implements ActionListener {
 			o.pd.setVisible(true);
 		} else if (e.getSource() == newRoom) {
 			o.mrd.setVisible(true); // 방만들기 버튼 누르면 방만들기 다이얼로그로 이동
-		} else if (e.getSource() == exit) { //종료 버튼입니다.
-			
-		}else if (e.getSource() == refresh) { // 이게 방목록 버튼
+		} else if (e.getSource() == exit) { // 종료 버튼입니다.
+
+		} else if (e.getSource() == refresh) { // 이게 방목록 버튼
 			out.println(Protocol.ROOMS);
 			out.flush();
 
@@ -405,38 +425,53 @@ public class MainFrame extends JFrame implements ActionListener {
 				if (i == 0) {
 					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 355, 70);
-					// post.setHorizontalAlignment(JLabel.CENTER);
-					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+					post.setHorizontalAlignment(JLabel.CENTER);
+					post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/gold.png")));
+					JLabel medal = new JLabel();
+					medal.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/gold.png")));
+					medal.setBounds(0, 0, 42, 70);
+					medal.setOpaque(false);
+					medal.setLayout(null);
+					post.add(medal);
 					ranking.setPreferredSize(new Dimension(355, 70 + size));
 					size += 70;
 					ranking.add(post);
 				} else if (i == 1) {
 					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 355, 70);
-					// post.setHorizontalAlignment(JLabel.CENTER);
-					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+					post.setHorizontalAlignment(JLabel.CENTER);
+					post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/silver.png")));
+					JLabel medal = new JLabel();
+					medal.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/silver.png")));
+					medal.setBounds(0, 0, 42, 70);
+					medal.setOpaque(false);
+					medal.setLayout(null);
+					post.add(medal);
 					ranking.setPreferredSize(new Dimension(355, 70 + size));
 					size += 70;
 					ranking.add(post);
 				} else if (i == 2) {
 					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 355, 70);
-					// post.setHorizontalAlignment(JLabel.CENTER);
-					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+					post.setHorizontalAlignment(JLabel.CENTER);
+					post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 					post.setBorder(bb);
-					post.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/copper.png")));
+					JLabel medal = new JLabel();
+					medal.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/copper.png")));
+					medal.setBounds(0, 0, 42, 70);
+					medal.setOpaque(false);
+					medal.setLayout(null);
+					post.add(medal);
 					ranking.setPreferredSize(new Dimension(355, 70 + size));
 					size += 70;
 					ranking.add(post);
 				} else {
 					post = new JLabel(rankingList.get(i));
 					post.setBounds(0, size, 355, 70);
-					// post.setHorizontalAlignment(JLabel.CENTER);
-					post.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+					post.setHorizontalAlignment(JLabel.CENTER);
+					post.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 					post.setBorder(bb);
 					ranking.setPreferredSize(new Dimension(355, 70 + size));
 					size += 70;
@@ -482,10 +517,10 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit2.png")));
 
-			}else if (e.getSource() == enterButton) {
+			} else if (e.getSource() == enterButton) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
-			}else {
+			} else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
 			}
@@ -506,7 +541,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			} else if (e.getSource() == enterButton) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
-			}else {
+			} else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);
 			}
