@@ -133,6 +133,11 @@ public class Operator implements Runnable {
 					mf.initRoomNameList();
 				}
 				
+				else if (line[0].compareTo(Protocol.OWNERCHANGE) == 0) {
+					System.out.println("방장 변경됨");
+					lf.showDialog("당신이 새로운 방장입니다");
+				}
+				
 				else if (line[0].compareTo(Protocol.ROOMCREATE_OK) == 0) {
 					System.out.println("방 생성 성공");
 					lf.showDialog("방 생성에 성공하였습니다");

@@ -45,7 +45,7 @@ public class GameRoom {
 		user.SetRoomIndex(-1);
 		_userList.remove(user);
 
-		if(_owner.GetUser().getId().compareTo(user.GetUser().getId()) == 0)
+		if(_owner.GetUser().getId().compareTo(user.GetUser().getId()) == 0 && _userList.size() - 1 > 1)
 		{
 			ChangeOwner(_userList.get(0));
 		}
