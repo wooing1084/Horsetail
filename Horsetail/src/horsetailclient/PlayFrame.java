@@ -151,6 +151,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 
 		textField = new JTextField();
 		textField.setBounds(12, 616, 405, 57);
+		textField.setFont(new Font("맑은 고딕", Font.BOLD, 35));
 		textField.setOpaque(false);
 		contentPane.add(textField);
 		textField.setColumns(10);
