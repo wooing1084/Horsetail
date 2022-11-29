@@ -48,12 +48,13 @@ public class ProfileDialog extends JFrame {
 		backG.setBounds(0, 0, 358,168);
 		backG.setBackground(Color.white);
 		
-		lblNewLabel = new JLabel("        ID        Rating        Wins        Loses");
-		lblNewLabel.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/myRecord.png")));
+		lblNewLabel = new JLabel("                           ID        Rating        Wins        Loses");
 		lblNewLabel.setBounds(0, 0, 344, 50);
 		//lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
-		lblNewLabel.setBackground(Color.white);
 		lblNewLabel.setBorder(null);
+		
+		
+		
 		
 		String temp = new String();
 		//Database db = new Database();
@@ -71,10 +72,15 @@ public class ProfileDialog extends JFrame {
 		backG.setLayout(null);
 		backG.add(label);
 		backG.add(lblNewLabel);
+		
+		JLabel icon=new JLabel();
+		icon.setIcon(new ImageIcon(ProfileDialog.class.getResource("./Image/myRecord.png")));
+		icon.setBounds(12, 10, 50, 50);
+		icon.setBorder(null);
+		lblNewLabel.add(icon);
 	}
 	
 	public void setInfo(String s) {
 		label.setText(s);
 	}
-
 }
