@@ -140,11 +140,13 @@ public class PlayFrame extends JFrame implements ActionListener {
 		dictionaryWindow.setLineWrap(true);
 		contentPane.add(dictionaryWindow);
 
-		btnNewButton = new JButton("채팅");
-		btnNewButton.setFont(new Font("굴림", Font.BOLD, 30));
+		btnNewButton = new JButton();
+		btnNewButton.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/chat.png")));
 		btnNewButton.setHorizontalAlignment(JLabel.CENTER);
-		btnNewButton.setBackground(new Color(051, 204, 051));
-		btnNewButton.setBounds(497, 628, 328, 45);
+		btnNewButton.setBounds(764, 628, 61, 45);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setFocusPainted(false);
 		contentPane.add(btnNewButton);
 
 		textField = new JTextField();
@@ -257,7 +259,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		public void mouseEntered(MouseEvent e) {
 			if (e.getSource() == btnNewButton) {
 				JButton b = (JButton) e.getSource();
-				b.setBackground(new Color(204, 153, 0));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/chat2.png")));
 			}else if (e.getSource() == gameStart) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/startButton2.png")));
@@ -274,7 +276,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 		public void mouseExited(MouseEvent e) {
 			if (e.getSource() == btnNewButton) {
 				JButton b = (JButton) e.getSource();
-				b.setBackground(new Color(051, 204, 051));
+				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/chat.png")));
 			}else if (e.getSource() == gameStart) {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/startButton.png")));
