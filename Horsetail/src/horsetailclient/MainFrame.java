@@ -65,6 +65,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	ArrayList<String> rankingList = new ArrayList<String>();
 	ArrayList<String> roomIdList = new ArrayList<String>();
 	ArrayList<String> roomNameList = new ArrayList<String>();
+	
+	MyMouseListener listener = new MyMouseListener();
 
 	public MainFrame(Operator _o, PrintWriter printW) {
 		o = _o;
@@ -89,6 +91,8 @@ public class MainFrame extends JFrame implements ActionListener {
 				super.paintComponent(g);// 추가
 			}
 		}; // MainFrame에서 바탕이 되는 배경 패널.
+		
+		
 
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBounds(0, 0, 1000, 720);
@@ -167,6 +171,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			PostButtonArr[i] = enterButton;
 			PostButtonArr[i].addActionListener(this);
+			PostButtonArr[i].addMouseListener(listener);
 
 		}
 
@@ -218,7 +223,6 @@ public class MainFrame extends JFrame implements ActionListener {
 		ranking.setBackground(Color.white);
 		ranking.setOpaque(false);
 		ranking.setBorder(new LineBorder(SystemColor.control));
-		getContentPane().add(ranking);
 		ranking.setLayout(null);
 
 		scrollPane = new JScrollPane(ranking, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -291,11 +295,10 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 		}
 
-		MyMouseListener listener = new MyMouseListener();
+		
 		profile.addMouseListener(listener);
 		newRoom.addMouseListener(listener);
 		exit.addMouseListener(listener);
-		enterButton.addMouseListener(listener);
 		exit.addActionListener(this);
 		profile.addActionListener(this);
 		refresh.addActionListener(this);
@@ -367,6 +370,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 				PostButtonArr[i] = enterButton;
 				PostButtonArr[i].addActionListener(this);
+				PostButtonArr[i].addMouseListener(listener);
 			}
 		} else if (e.getSource() == refresh2) { // 이게 랭킹 버튼
 			out.println(Protocol.RANKING);
