@@ -145,10 +145,11 @@ public class Operator implements Runnable {
 					mf.setVisible(false);
 					pf.setVisible(true);
 					roomID = line[1];
+					
 				}
 				
 				else if (line[0].compareTo(Protocol.ROOMCREATE_NO) == 0) {
-					System.out.println("방 생성 성공");
+					System.out.println("방 생성 실패");
 					lf.showDialog("방 생성에 실패하였습니다");
 				}
 				

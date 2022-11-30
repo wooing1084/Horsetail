@@ -27,7 +27,7 @@ import Util.Protocol;
 import horsetailclient.MainFrame.MyMouseListener;
 
 public class MakeRoomDialog extends JFrame implements ActionListener{
-
+	
 	private JPanel contentPane;
 	Image background;
 	JTextField roomName;
@@ -91,8 +91,8 @@ public class MakeRoomDialog extends JFrame implements ActionListener{
 			if (roomName.getText().equals("")) { // 방제목 입력없이 방 만들기만 눌렀을 경우
 				return;
 			}
-
-			out.println(Protocol.ROOMCREATE + "//" + roomName.getText()); //준형님 이 부분이 말씀하신 부분인거 같은데 맞는지 모르겠네요. 확인 부탁드려요. 일단 주석해놓겠습니다
+			
+			out.println(Protocol.ROOMCREATE + "//" + roomName.getText());
 			out.flush();
 			setVisible(false);
 			

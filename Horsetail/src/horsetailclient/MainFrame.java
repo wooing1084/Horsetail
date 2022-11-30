@@ -32,7 +32,7 @@ import java.io.*;
 import java.util.*;
 
 public class MainFrame extends JFrame implements ActionListener {
-
+	
 	private JPanel contentPane;
 	Operator o = null;
 	// Image background2=null;
@@ -333,7 +333,7 @@ public class MainFrame extends JFrame implements ActionListener {
 //			out.println(Protocol.JOINROOM + "//" + enterButton.getText());
 //			out.flush();
 //		} 
-		
+
 		if (e.getSource() == profile) {
 			out.println(Protocol.STAT);
 			out.flush();
@@ -483,16 +483,16 @@ public class MainFrame extends JFrame implements ActionListener {
 
 			}
 		}
-		
-		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-				for (int i = 0; i < PostButtonArr.length; i++) {
-					if (e.getSource() == PostButtonArr[i]) {
-						System.out.println(PostButtonArr[i].getText());
-						out.println(Protocol.JOINROOM + "//" + PostButtonArr[i].getText());
-						out.flush();
-					}
-				}		
-				//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+		for (int i = 0; i < PostButtonArr.length; i++) {
+			if (e.getSource() == PostButtonArr[i]) {
+				System.out.println(PostButtonArr[i].getText());
+				out.println(Protocol.JOINROOM + "//" + PostButtonArr[i].getText());
+				out.flush();
+			}
+		}
+		// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	}
 
 	public void setRankingList(String[] rawData) {
@@ -530,21 +530,21 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit2.png")));
 
-			} //else if (e.getSource() == PostButtonArr) { //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-			//	JButton b = (JButton) e.getSource();
-			//	b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
-			//} 
+			} // else if (e.getSource() == PostButtonArr) { //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+				// JButton b = (JButton) e.getSource();
+				// b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
+				// }
 			else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(new Color(204, 153, 0));
 			}
-			//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+			// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 			for (int i = 0; i < PostButtonArr.length; i++) {
 				if (e.getSource() == PostButtonArr[i]) {
 					JButton b = (JButton) e.getSource();
 					b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter2.png")));
 				}
-			}		
+			}
 		}
 
 		@Override
@@ -559,10 +559,10 @@ public class MainFrame extends JFrame implements ActionListener {
 				JButton b = (JButton) e.getSource();
 				b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/exit.png")));
 
-			} //else if (e.getSource() == enterButton) {
-			//	JButton b = (JButton) e.getSource();
-			//	b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
-			//} 
+			} // else if (e.getSource() == enterButton) {
+				// JButton b = (JButton) e.getSource();
+				// b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
+				// }
 			else {
 				JButton b = (JButton) e.getSource();
 				b.setBackground(Color.WHITE);
@@ -573,7 +573,7 @@ public class MainFrame extends JFrame implements ActionListener {
 					b.setIcon(new ImageIcon(MainFrame.class.getResource("./Image/enter.png")));
 				}
 			}
-			
+
 		}
 
 		@Override

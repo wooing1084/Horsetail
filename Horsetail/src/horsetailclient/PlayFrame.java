@@ -48,6 +48,7 @@ public class PlayFrame extends JFrame implements ActionListener {
 	Image background;
 	JLabel notationPanel = new JLabel();
 	JLabel timerLabel = new JLabel();
+	public static String roomNameTest;
 
 	LineBorder bb = new LineBorder(Color.gray, 1, true); // 라벨의 테두리 설정값
 	private JTextField textField;
@@ -57,8 +58,9 @@ public class PlayFrame extends JFrame implements ActionListener {
 	public PlayFrame(Operator _o, PrintWriter printW) {
 		o = _o;
 		out = printW;
-
+		
 		setTitle("말 꼬투리");
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("./Image/logo.png")));
 		setBackground(Color.white);
 		setSize(1000, 720);
